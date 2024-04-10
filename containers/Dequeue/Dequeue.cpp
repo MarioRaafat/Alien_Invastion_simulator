@@ -1,5 +1,4 @@
 #include "Dequeue.h"
-//Test memory leaks using valgrind
 int main() {
     Dequeue<int> dq;
     int data;
@@ -29,7 +28,7 @@ int main() {
     }
     std::cout << "Size: " << dq.size() << std::endl;
 
-    //Testing the copy move constructor and assigments operators
+    //Testing the copy move constructor and assignments operators
     Dequeue<int> dq1;
     dq1.push_back(1);
     dq1.push_back(2);

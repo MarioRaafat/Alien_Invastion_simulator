@@ -9,7 +9,8 @@
  * it has constructor using initializer list
  * u can use the copy and move constructor and assignment operators
  * default capacity is 15 and it will be resized when by double capacity when it is full
- * @tparam T
+ * @param T
+ *
  * available operations:
  * @see empty()
  * @see size()
@@ -50,7 +51,7 @@ class PriorityQueue {
         size_t length;
     /**
      * utility functions
-     * to resizie the array when it is full
+     * to resize the array when it is full
      * checking if the priority queue is full
      * to get the index of the parent, left child and right child of a node
      * to check if a node has a parent, left child and right child
@@ -85,9 +86,9 @@ PriorityQueue<T>::PriorityQueue(PriorityQueue<T> &&other) noexcept {
     data = other.data;
     capacity_ = other.capacity_;
     length = other.length;
-    other.data = nullptr;
-    other.capacity_ = 0;
-    other.length = 0;
+    other.data = {};
+    other.capacity_ = {};
+    other.length = {};
 }
 
 template<typename T>
@@ -105,7 +106,7 @@ PriorityQueue<T> &PriorityQueue<T>::operator=(const PriorityQueue<T> &other) {
 }
 
 template<typename T>
-PriorityQueue<T>::PriorityQueue(const PriorityQueue<T> &other) :data(new T[other.capacity_]),
+PriorityQueue<T>::PriorityQueue(const PriorityQueue<T> &other) :data(new T[other.capacity_]{}),
     capacity_(other.capacity_), length(other.length) {
     std::copy(other.data, other.data + length, data);
 }
@@ -118,7 +119,7 @@ size_t PriorityQueue<T>::nearest_power_of_2(size_t n) const {
     if (n < 15) {
         return 15;
     }
-    //if is n is a power of 2, increament it by 1 to get the next power of 2 to be the capacity
+    //if is n is a power of 2, increment it by 1 to get the next power of 2 to be the capacity
     //bcs the tree is a complete binary tree so wee need to have the next power of 2
     if ((n & (n - 1)) == 0) {
         ++n;
@@ -134,12 +135,12 @@ template<typename T>
  * @brief Priority Queue constructor using initializer list
  * @tparam T
  * @param list
- * Description: Build the Heap O(n) starting from the first non-leaf nodeap
+ * Description: Build the Heap O(n) starting from the first non-leaf node
  */
 PriorityQueue<T>::PriorityQueue(const std::initializer_list<T> &list) {
     length = list.size();
     capacity_ = nearest_power_of_2(length);
-    data = new T[capacity_];
+    data = new T[capacity_]{};
     std::copy(list.begin(), list.end(), data);
 
     //Build heap O(n) starting from the first non-leaf node
@@ -178,12 +179,12 @@ bool PriorityQueue<T>::is_empty() const {
 template<typename T>
 bool PriorityQueue<T>::pop(T &value) {
     if (empty()) {
-        return false;
+        return (false);
     }
     value = data[0];
     data[0] = data[--length];
     heapify_down(0);
-    return true;
+    return (true);
 }
 
 template<typename T>
@@ -227,7 +228,7 @@ template<typename T>
 void PriorityQueue<T>::heapify_down(int index) {
     //if u have no left child, then you are a leaf no need to heapify down
     while (has_left_child(index)) {
-        //we need to find the largest child to swap with the parent so checke the left and the right if exists
+        //we need to find the largest child to swap with the parent so check the left and the right if exists
         int largest_idx = get_left_child_idx(index);
         if (has_right_child(index) && data[get_right_child_idx(index)] > data[get_left_child_idx(index)]) {
             largest_idx = get_right_child_idx(index);
@@ -265,29 +266,29 @@ bool PriorityQueue<T>::has_parent(int index) const {
 
 template<typename T>
 int PriorityQueue<T>::get_right_child_idx(int index) const {
-   return 2 * index + 2;
+   return ((index << 1) + 2);
 }
 
 template<typename T>
 int PriorityQueue<T>::get_left_child_idx(int index) const {
-    return 2 * index + 1;
+    return ((index << 1) + 1);
 }
 
 template<typename T>
 bool PriorityQueue<T>::has_right_child(int index) const {
-    return get_right_child_idx(index) < static_cast<int>(length);
+    return (get_right_child_idx(index) < static_cast<int>(length));
 }
 
 template<typename T>
 bool PriorityQueue<T>::has_left_child(int index) const {
-    return get_left_child_idx(index) < static_cast<int>(length);
+    return (get_left_child_idx(index) < static_cast<int>(length));
 }
 
 template<typename T>
 void PriorityQueue<T>::ensure_extra_capacity() {
     if (is_full()) {
         capacity_ = (capacity_ << 1) + 1;
-        T *temp = new T[capacity_];
+        T *temp = new T[capacity_]{};
         std::copy(data, data + length, temp);
         delete[] data;
         data = temp;
@@ -296,7 +297,7 @@ void PriorityQueue<T>::ensure_extra_capacity() {
 
 template<typename T>
 bool PriorityQueue<T>::is_full() const {
-    return length == capacity_;
+    return (length == capacity_);
 }
 
 template<typename T>
@@ -305,6 +306,6 @@ template<typename T>
  * @tparam T
  * Description: default capacity is 15 2^4 - 1 complete binary tree
  */
-PriorityQueue<T>::PriorityQueue() :data(new T[15]), capacity_(15), length(0) {}
+PriorityQueue<T>::PriorityQueue() :data(new T[15]{}), capacity_(15), length(0) {}
 
 #endif //ALIEN_INVASTION_SIMULATOR_PRIORITYQUEUE_H

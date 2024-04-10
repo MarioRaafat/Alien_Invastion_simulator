@@ -3,6 +3,7 @@
 #include <initializer_list>
 #include <iostream>
 #include <bits/stdc++.h>
+//how to check for memory leaks
 
 /**
  * Dequeue class
@@ -57,7 +58,7 @@ class Dequeue {
             T data;
             Node* next;
             Node* prev;
-            explicit Node(T data) : data(data), next(nullptr), prev(nullptr) {}
+            explicit Node(T data) : data(data), next{}, prev{} {}
             Node(T data, Node* next, Node* prev) : data(data), next(next), prev(prev) {}
         };
 
@@ -77,7 +78,7 @@ class Dequeue {
 
 template<typename T>
 bool Dequeue<T>::is_moved() const {
-    return head == nullptr && tail == nullptr;
+    return (head == nullptr && tail == nullptr);
 }
 
 template<typename T>
@@ -88,7 +89,7 @@ Dequeue<T> &Dequeue<T>::operator=(const Dequeue<T> &other) {
         this->~Dequeue();
         *this = std::move(temp);
     }
-    return *this;
+    return (*this);
 }
 
 template<typename T>
@@ -101,9 +102,9 @@ Dequeue<T>::Dequeue(const Dequeue<T> &other) {
         iterator = iterator->next;
     }
 
-    head = nullptr;
-    tail = nullptr;
-    length = 0;
+    head = {};
+    tail = {};
+    length = {};
     *this = std::move(temp);
 }
 
@@ -125,9 +126,9 @@ Dequeue<T>::Dequeue(Dequeue<T> &&other) noexcept {
     tail = other.tail;
     length = other.length;
 
-    other.head = nullptr;
-    other.tail = nullptr;
-    other.length = 0;
+    other.head = {};
+    other.tail = {};
+    other.length = {};
 }
 
 template<typename T>
@@ -138,29 +139,29 @@ Dequeue<T>::Dequeue(const std::initializer_list<T> &list) {
         temp.push_back(data);
     }
 
-    head = nullptr;
-    tail = nullptr;
-    length = 0;
+    head = {};
+    tail = {};
+    length = {};
     *this = std::move(temp);
 }
 
 template<typename T>
 Dequeue<T>::~Dequeue() {
-    if (!is_moved()) {
+    if (is_moved()) {
         return;
     }
     clear();
     delete head;
     delete tail;
 
-    head = nullptr;
-    tail = nullptr;
-    length = 0;
+    head = {};
+    tail = {};
+    length = {};
 }
 
 template<typename T>
 size_t Dequeue<T>::size() const {
-    return length;
+    return (length);
 }
 
 template<typename T>
@@ -194,25 +195,25 @@ void Dequeue<T>::clear() {
 template<typename T>
 bool Dequeue<T>::peek_back(T &data) {
    if (is_moved() || is_empty()) {
-       return false;
+       return (false);
    }
     data = tail->prev->data;
-     return true;
+     return (true);
 }
 
 template<typename T>
 bool Dequeue<T>::peek_front(T &data) {
    if (is_moved() || is_empty()) {
-       return false;
+       return (false);
    }
    data = head->next->data;
-    return true;
+    return (true);
 }
 
 template<typename T>
 bool Dequeue<T>::pop_back(T &data) {
     if (is_moved() || is_empty()) {
-        return false;
+        return (false);
     }
     Node *to_del = tail->prev;
 
@@ -221,7 +222,7 @@ bool Dequeue<T>::pop_back(T &data) {
     tail->prev->next = tail;
 
     delete to_del;
-    to_del = nullptr;
+    to_del = {};
 
     --length;
     return (true);
@@ -230,12 +231,12 @@ bool Dequeue<T>::pop_back(T &data) {
 template<typename T>
 bool Dequeue<T>::pop_front(T &data) {
     if (is_moved()) {
-        return false;
+        return (false);
     }
     Node *to_del = head->next;
 
     if (is_empty()) {
-        return false;
+        return (false);
     }
 
     data = to_del->data;
@@ -243,7 +244,7 @@ bool Dequeue<T>::pop_front(T &data) {
     head->next->prev = head;
 
     delete to_del;
-    to_del = nullptr;
+    to_del = {};
 
     --length;
     return (true);
@@ -279,7 +280,7 @@ bool Dequeue<T>::is_empty() const {
     if (is_moved()) {
         return true;
     }
-    return head->next == tail && tail->prev == head;
+    return (head->next == tail && tail->prev == head);
 }
 
 

@@ -7,4 +7,6 @@ include_directories(containers)
 
 add_executable(Alien_Invastion_simulator
         containers/PriorityQueue/PriorityQueue.h
-        containers/PriorityQueue/PriorityQueue.cpp)
+        containers/PriorityQueue/PriorityQueue.cpp
+#        //containers/Dequeue/Dequeue.cpp)
+)

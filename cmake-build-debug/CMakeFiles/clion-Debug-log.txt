@@ -1,4 +1,4 @@
-C:\Windows\system32\wsl.exe --distribution Ubuntu-22.04 --exec /bin/bash -c "export CMAKE_COLOR_DIAGNOSTICS=ON && export CLION_IDE=TRUE && export JETBRAINS_IDE=TRUE && cd /mnt/c/Users/mohse/CLionProjects/Alien_Invastion_simulator/cmake-build-debug && /usr/local/bin/cmake -DCMAKE_BUILD_TYPE=Debug -G 'CodeBlocks - Unix Makefiles' -S /mnt/c/Users/mohse/CLionProjects/Alien_Invastion_simulator -B /mnt/c/Users/mohse/CLionProjects/Alien_Invastion_simulator/cmake-build-debug"
+C:\Windows\system32\wsl.exe --distribution Ubuntu-22.04 --exec "/mnt/c/Program Files/JetBrains/CLion 2023.3.4/bin/ttyfix" /bin/bash -c "export CLION_IDE=TRUE && export CMAKE_COLOR_DIAGNOSTICS=ON && export JETBRAINS_IDE=TRUE && cd /mnt/c/Users/mohse/CLionProjects/Alien_Invastion_simulator/cmake-build-debug && /usr/local/bin/cmake -DCMAKE_BUILD_TYPE=Debug -G 'CodeBlocks - Unix Makefiles' -S /mnt/c/Users/mohse/CLionProjects/Alien_Invastion_simulator -B /mnt/c/Users/mohse/CLionProjects/Alien_Invastion_simulator/cmake-build-debug"
 CMake Deprecation Warning:
   Support for "Extra Generators" like
 
@@ -8,6 +8,6 @@ CMake Deprecation Warning:
   use the cmake-file-api(7) to view CMake-generated project build trees.
 
 
--- Configuring done (0.2s)
+-- Configuring done (0.1s)
 -- Generating done (0.1s)
 -- Build files have been written to: /mnt/c/Users/mohse/CLionProjects/Alien_Invastion_simulator/cmake-build-debug
