@@ -129,29 +129,29 @@ Alien_Invastion_simulator/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Alien_Invastion_simulator.dir/build.make CMakeFiles/Alien_Invastion_simulator.dir/build
 .PHONY : Alien_Invastion_simulator/fast
 
-containers/Dequeue.o: containers/Dequeue.cpp.o
-.PHONY : containers/Dequeue.o
+containers/PriorityQueue/PriorityQueue.o: containers/PriorityQueue/PriorityQueue.cpp.o
+.PHONY : containers/PriorityQueue/PriorityQueue.o
 
 # target to build an object file
-containers/Dequeue.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Alien_Invastion_simulator.dir/build.make CMakeFiles/Alien_Invastion_simulator.dir/containers/Dequeue.cpp.o
-.PHONY : containers/Dequeue.cpp.o
+containers/PriorityQueue/PriorityQueue.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Alien_Invastion_simulator.dir/build.make CMakeFiles/Alien_Invastion_simulator.dir/containers/PriorityQueue/PriorityQueue.cpp.o
+.PHONY : containers/PriorityQueue/PriorityQueue.cpp.o
 
-containers/Dequeue.i: containers/Dequeue.cpp.i
-.PHONY : containers/Dequeue.i
+containers/PriorityQueue/PriorityQueue.i: containers/PriorityQueue/PriorityQueue.cpp.i
+.PHONY : containers/PriorityQueue/PriorityQueue.i
 
 # target to preprocess a source file
-containers/Dequeue.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Alien_Invastion_simulator.dir/build.make CMakeFiles/Alien_Invastion_simulator.dir/containers/Dequeue.cpp.i
-.PHONY : containers/Dequeue.cpp.i
+containers/PriorityQueue/PriorityQueue.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Alien_Invastion_simulator.dir/build.make CMakeFiles/Alien_Invastion_simulator.dir/containers/PriorityQueue/PriorityQueue.cpp.i
+.PHONY : containers/PriorityQueue/PriorityQueue.cpp.i
 
-containers/Dequeue.s: containers/Dequeue.cpp.s
-.PHONY : containers/Dequeue.s
+containers/PriorityQueue/PriorityQueue.s: containers/PriorityQueue/PriorityQueue.cpp.s
+.PHONY : containers/PriorityQueue/PriorityQueue.s
 
 # target to generate assembly for a file
-containers/Dequeue.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Alien_Invastion_simulator.dir/build.make CMakeFiles/Alien_Invastion_simulator.dir/containers/Dequeue.cpp.s
-.PHONY : containers/Dequeue.cpp.s
+containers/PriorityQueue/PriorityQueue.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Alien_Invastion_simulator.dir/build.make CMakeFiles/Alien_Invastion_simulator.dir/containers/PriorityQueue/PriorityQueue.cpp.s
+.PHONY : containers/PriorityQueue/PriorityQueue.cpp.s
 
 # Help Target
 help:
@@ -162,9 +162,9 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... Alien_Invastion_simulator"
-	@echo "... containers/Dequeue.o"
-	@echo "... containers/Dequeue.i"
-	@echo "... containers/Dequeue.s"
+	@echo "... containers/PriorityQueue/PriorityQueue.o"
+	@echo "... containers/PriorityQueue/PriorityQueue.i"
+	@echo "... containers/PriorityQueue/PriorityQueue.s"
 .PHONY : help
 
 

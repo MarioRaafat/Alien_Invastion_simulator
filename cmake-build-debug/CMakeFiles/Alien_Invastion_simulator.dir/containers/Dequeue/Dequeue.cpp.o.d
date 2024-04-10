@@ -1,7 +1,7 @@
-CMakeFiles/Alien_Invastion_simulator.dir/containers/Dequeue.cpp.o: \
- /mnt/c/Users/mohse/CLionProjects/Alien_Invastion_simulator/containers/Dequeue.cpp \
+CMakeFiles/Alien_Invastion_simulator.dir/containers/Dequeue/Dequeue.cpp.o: \
+ /mnt/c/Users/mohse/CLionProjects/Alien_Invastion_simulator/containers/Dequeue/Dequeue.cpp \
  /usr/include/stdc-predef.h \
- /mnt/c/Users/mohse/CLionProjects/Alien_Invastion_simulator/containers/Dequeue.h \
+ /mnt/c/Users/mohse/CLionProjects/Alien_Invastion_simulator/containers/Dequeue/Dequeue.h \
  /usr/include/c++/11/initializer_list \
  /usr/include/x86_64-linux-gnu/c++/11/bits/c++config.h \
  /usr/include/x86_64-linux-gnu/c++/11/bits/os_defines.h \
