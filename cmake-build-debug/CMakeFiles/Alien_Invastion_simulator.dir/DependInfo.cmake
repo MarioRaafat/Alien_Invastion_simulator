@@ -8,7 +8,10 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
-  "/mnt/c/Users/mohse/CLionProjects/Alien_Invastion_simulator/containers/PriorityQueue/PriorityQueue.cpp" "CMakeFiles/Alien_Invastion_simulator.dir/containers/PriorityQueue/PriorityQueue.cpp.o" "gcc" "CMakeFiles/Alien_Invastion_simulator.dir/containers/PriorityQueue/PriorityQueue.cpp.o.d"
+  "/mnt/c/Users/mohse/CLionProjects/Alien_Invastion_simulator/ArmyUnit.cpp" "CMakeFiles/Alien_Invastion_simulator.dir/ArmyUnit.cpp.o" "gcc" "CMakeFiles/Alien_Invastion_simulator.dir/ArmyUnit.cpp.o.d"
+  "/mnt/c/Users/mohse/CLionProjects/Alien_Invastion_simulator/EarthSoldier.cpp" "CMakeFiles/Alien_Invastion_simulator.dir/EarthSoldier.cpp.o" "gcc" "CMakeFiles/Alien_Invastion_simulator.dir/EarthSoldier.cpp.o.d"
+  "/mnt/c/Users/mohse/CLionProjects/Alien_Invastion_simulator/Game.cpp" "CMakeFiles/Alien_Invastion_simulator.dir/Game.cpp.o" "gcc" "CMakeFiles/Alien_Invastion_simulator.dir/Game.cpp.o.d"
+  "/mnt/c/Users/mohse/CLionProjects/Alien_Invastion_simulator/containers/ArrayStack/ArrayStack.cpp" "CMakeFiles/Alien_Invastion_simulator.dir/containers/ArrayStack/ArrayStack.cpp.o" "gcc" "CMakeFiles/Alien_Invastion_simulator.dir/containers/ArrayStack/ArrayStack.cpp.o.d"
   )
 
 # Targets to which this target links which contain Fortran sources.

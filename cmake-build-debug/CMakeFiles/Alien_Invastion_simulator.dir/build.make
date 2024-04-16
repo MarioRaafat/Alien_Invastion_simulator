@@ -69,31 +69,79 @@ include CMakeFiles/Alien_Invastion_simulator.dir/progress.make
 # Include the compile flags for this target's objects.
 include CMakeFiles/Alien_Invastion_simulator.dir/flags.make
 
-CMakeFiles/Alien_Invastion_simulator.dir/containers/PriorityQueue/PriorityQueue.cpp.o: CMakeFiles/Alien_Invastion_simulator.dir/flags.make
-CMakeFiles/Alien_Invastion_simulator.dir/containers/PriorityQueue/PriorityQueue.cpp.o: /mnt/c/Users/mohse/CLionProjects/Alien_Invastion_simulator/containers/PriorityQueue/PriorityQueue.cpp
-CMakeFiles/Alien_Invastion_simulator.dir/containers/PriorityQueue/PriorityQueue.cpp.o: CMakeFiles/Alien_Invastion_simulator.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/mnt/c/Users/mohse/CLionProjects/Alien_Invastion_simulator/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/Alien_Invastion_simulator.dir/containers/PriorityQueue/PriorityQueue.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/Alien_Invastion_simulator.dir/containers/PriorityQueue/PriorityQueue.cpp.o -MF CMakeFiles/Alien_Invastion_simulator.dir/containers/PriorityQueue/PriorityQueue.cpp.o.d -o CMakeFiles/Alien_Invastion_simulator.dir/containers/PriorityQueue/PriorityQueue.cpp.o -c /mnt/c/Users/mohse/CLionProjects/Alien_Invastion_simulator/containers/PriorityQueue/PriorityQueue.cpp
+CMakeFiles/Alien_Invastion_simulator.dir/containers/ArrayStack/ArrayStack.cpp.o: CMakeFiles/Alien_Invastion_simulator.dir/flags.make
+CMakeFiles/Alien_Invastion_simulator.dir/containers/ArrayStack/ArrayStack.cpp.o: /mnt/c/Users/mohse/CLionProjects/Alien_Invastion_simulator/containers/ArrayStack/ArrayStack.cpp
+CMakeFiles/Alien_Invastion_simulator.dir/containers/ArrayStack/ArrayStack.cpp.o: CMakeFiles/Alien_Invastion_simulator.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/mnt/c/Users/mohse/CLionProjects/Alien_Invastion_simulator/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/Alien_Invastion_simulator.dir/containers/ArrayStack/ArrayStack.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/Alien_Invastion_simulator.dir/containers/ArrayStack/ArrayStack.cpp.o -MF CMakeFiles/Alien_Invastion_simulator.dir/containers/ArrayStack/ArrayStack.cpp.o.d -o CMakeFiles/Alien_Invastion_simulator.dir/containers/ArrayStack/ArrayStack.cpp.o -c /mnt/c/Users/mohse/CLionProjects/Alien_Invastion_simulator/containers/ArrayStack/ArrayStack.cpp
 
-CMakeFiles/Alien_Invastion_simulator.dir/containers/PriorityQueue/PriorityQueue.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/Alien_Invastion_simulator.dir/containers/PriorityQueue/PriorityQueue.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /mnt/c/Users/mohse/CLionProjects/Alien_Invastion_simulator/containers/PriorityQueue/PriorityQueue.cpp > CMakeFiles/Alien_Invastion_simulator.dir/containers/PriorityQueue/PriorityQueue.cpp.i
+CMakeFiles/Alien_Invastion_simulator.dir/containers/ArrayStack/ArrayStack.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/Alien_Invastion_simulator.dir/containers/ArrayStack/ArrayStack.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /mnt/c/Users/mohse/CLionProjects/Alien_Invastion_simulator/containers/ArrayStack/ArrayStack.cpp > CMakeFiles/Alien_Invastion_simulator.dir/containers/ArrayStack/ArrayStack.cpp.i
 
-CMakeFiles/Alien_Invastion_simulator.dir/containers/PriorityQueue/PriorityQueue.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/Alien_Invastion_simulator.dir/containers/PriorityQueue/PriorityQueue.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /mnt/c/Users/mohse/CLionProjects/Alien_Invastion_simulator/containers/PriorityQueue/PriorityQueue.cpp -o CMakeFiles/Alien_Invastion_simulator.dir/containers/PriorityQueue/PriorityQueue.cpp.s
+CMakeFiles/Alien_Invastion_simulator.dir/containers/ArrayStack/ArrayStack.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/Alien_Invastion_simulator.dir/containers/ArrayStack/ArrayStack.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /mnt/c/Users/mohse/CLionProjects/Alien_Invastion_simulator/containers/ArrayStack/ArrayStack.cpp -o CMakeFiles/Alien_Invastion_simulator.dir/containers/ArrayStack/ArrayStack.cpp.s
+
+CMakeFiles/Alien_Invastion_simulator.dir/ArmyUnit.cpp.o: CMakeFiles/Alien_Invastion_simulator.dir/flags.make
+CMakeFiles/Alien_Invastion_simulator.dir/ArmyUnit.cpp.o: /mnt/c/Users/mohse/CLionProjects/Alien_Invastion_simulator/ArmyUnit.cpp
+CMakeFiles/Alien_Invastion_simulator.dir/ArmyUnit.cpp.o: CMakeFiles/Alien_Invastion_simulator.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/mnt/c/Users/mohse/CLionProjects/Alien_Invastion_simulator/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/Alien_Invastion_simulator.dir/ArmyUnit.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/Alien_Invastion_simulator.dir/ArmyUnit.cpp.o -MF CMakeFiles/Alien_Invastion_simulator.dir/ArmyUnit.cpp.o.d -o CMakeFiles/Alien_Invastion_simulator.dir/ArmyUnit.cpp.o -c /mnt/c/Users/mohse/CLionProjects/Alien_Invastion_simulator/ArmyUnit.cpp
+
+CMakeFiles/Alien_Invastion_simulator.dir/ArmyUnit.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/Alien_Invastion_simulator.dir/ArmyUnit.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /mnt/c/Users/mohse/CLionProjects/Alien_Invastion_simulator/ArmyUnit.cpp > CMakeFiles/Alien_Invastion_simulator.dir/ArmyUnit.cpp.i
+
+CMakeFiles/Alien_Invastion_simulator.dir/ArmyUnit.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/Alien_Invastion_simulator.dir/ArmyUnit.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /mnt/c/Users/mohse/CLionProjects/Alien_Invastion_simulator/ArmyUnit.cpp -o CMakeFiles/Alien_Invastion_simulator.dir/ArmyUnit.cpp.s
+
+CMakeFiles/Alien_Invastion_simulator.dir/EarthSoldier.cpp.o: CMakeFiles/Alien_Invastion_simulator.dir/flags.make
+CMakeFiles/Alien_Invastion_simulator.dir/EarthSoldier.cpp.o: /mnt/c/Users/mohse/CLionProjects/Alien_Invastion_simulator/EarthSoldier.cpp
+CMakeFiles/Alien_Invastion_simulator.dir/EarthSoldier.cpp.o: CMakeFiles/Alien_Invastion_simulator.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/mnt/c/Users/mohse/CLionProjects/Alien_Invastion_simulator/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/Alien_Invastion_simulator.dir/EarthSoldier.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/Alien_Invastion_simulator.dir/EarthSoldier.cpp.o -MF CMakeFiles/Alien_Invastion_simulator.dir/EarthSoldier.cpp.o.d -o CMakeFiles/Alien_Invastion_simulator.dir/EarthSoldier.cpp.o -c /mnt/c/Users/mohse/CLionProjects/Alien_Invastion_simulator/EarthSoldier.cpp
+
+CMakeFiles/Alien_Invastion_simulator.dir/EarthSoldier.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/Alien_Invastion_simulator.dir/EarthSoldier.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /mnt/c/Users/mohse/CLionProjects/Alien_Invastion_simulator/EarthSoldier.cpp > CMakeFiles/Alien_Invastion_simulator.dir/EarthSoldier.cpp.i
+
+CMakeFiles/Alien_Invastion_simulator.dir/EarthSoldier.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/Alien_Invastion_simulator.dir/EarthSoldier.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /mnt/c/Users/mohse/CLionProjects/Alien_Invastion_simulator/EarthSoldier.cpp -o CMakeFiles/Alien_Invastion_simulator.dir/EarthSoldier.cpp.s
+
+CMakeFiles/Alien_Invastion_simulator.dir/Game.cpp.o: CMakeFiles/Alien_Invastion_simulator.dir/flags.make
+CMakeFiles/Alien_Invastion_simulator.dir/Game.cpp.o: /mnt/c/Users/mohse/CLionProjects/Alien_Invastion_simulator/Game.cpp
+CMakeFiles/Alien_Invastion_simulator.dir/Game.cpp.o: CMakeFiles/Alien_Invastion_simulator.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/mnt/c/Users/mohse/CLionProjects/Alien_Invastion_simulator/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/Alien_Invastion_simulator.dir/Game.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/Alien_Invastion_simulator.dir/Game.cpp.o -MF CMakeFiles/Alien_Invastion_simulator.dir/Game.cpp.o.d -o CMakeFiles/Alien_Invastion_simulator.dir/Game.cpp.o -c /mnt/c/Users/mohse/CLionProjects/Alien_Invastion_simulator/Game.cpp
+
+CMakeFiles/Alien_Invastion_simulator.dir/Game.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/Alien_Invastion_simulator.dir/Game.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /mnt/c/Users/mohse/CLionProjects/Alien_Invastion_simulator/Game.cpp > CMakeFiles/Alien_Invastion_simulator.dir/Game.cpp.i
+
+CMakeFiles/Alien_Invastion_simulator.dir/Game.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/Alien_Invastion_simulator.dir/Game.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /mnt/c/Users/mohse/CLionProjects/Alien_Invastion_simulator/Game.cpp -o CMakeFiles/Alien_Invastion_simulator.dir/Game.cpp.s
 
 # Object files for target Alien_Invastion_simulator
 Alien_Invastion_simulator_OBJECTS = \
-"CMakeFiles/Alien_Invastion_simulator.dir/containers/PriorityQueue/PriorityQueue.cpp.o"
+"CMakeFiles/Alien_Invastion_simulator.dir/containers/ArrayStack/ArrayStack.cpp.o" \
+"CMakeFiles/Alien_Invastion_simulator.dir/ArmyUnit.cpp.o" \
+"CMakeFiles/Alien_Invastion_simulator.dir/EarthSoldier.cpp.o" \
+"CMakeFiles/Alien_Invastion_simulator.dir/Game.cpp.o"
 
 # External object files for target Alien_Invastion_simulator
 Alien_Invastion_simulator_EXTERNAL_OBJECTS =
 
-Alien_Invastion_simulator: CMakeFiles/Alien_Invastion_simulator.dir/containers/PriorityQueue/PriorityQueue.cpp.o
+Alien_Invastion_simulator: CMakeFiles/Alien_Invastion_simulator.dir/containers/ArrayStack/ArrayStack.cpp.o
+Alien_Invastion_simulator: CMakeFiles/Alien_Invastion_simulator.dir/ArmyUnit.cpp.o
+Alien_Invastion_simulator: CMakeFiles/Alien_Invastion_simulator.dir/EarthSoldier.cpp.o
+Alien_Invastion_simulator: CMakeFiles/Alien_Invastion_simulator.dir/Game.cpp.o
 Alien_Invastion_simulator: CMakeFiles/Alien_Invastion_simulator.dir/build.make
 Alien_Invastion_simulator: CMakeFiles/Alien_Invastion_simulator.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/mnt/c/Users/mohse/CLionProjects/Alien_Invastion_simulator/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable Alien_Invastion_simulator"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/mnt/c/Users/mohse/CLionProjects/Alien_Invastion_simulator/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Linking CXX executable Alien_Invastion_simulator"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/Alien_Invastion_simulator.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

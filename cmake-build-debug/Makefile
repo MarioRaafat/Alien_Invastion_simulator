@@ -129,29 +129,101 @@ Alien_Invastion_simulator/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Alien_Invastion_simulator.dir/build.make CMakeFiles/Alien_Invastion_simulator.dir/build
 .PHONY : Alien_Invastion_simulator/fast
 
-containers/PriorityQueue/PriorityQueue.o: containers/PriorityQueue/PriorityQueue.cpp.o
-.PHONY : containers/PriorityQueue/PriorityQueue.o
+ArmyUnit.o: ArmyUnit.cpp.o
+.PHONY : ArmyUnit.o
 
 # target to build an object file
-containers/PriorityQueue/PriorityQueue.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Alien_Invastion_simulator.dir/build.make CMakeFiles/Alien_Invastion_simulator.dir/containers/PriorityQueue/PriorityQueue.cpp.o
-.PHONY : containers/PriorityQueue/PriorityQueue.cpp.o
+ArmyUnit.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Alien_Invastion_simulator.dir/build.make CMakeFiles/Alien_Invastion_simulator.dir/ArmyUnit.cpp.o
+.PHONY : ArmyUnit.cpp.o
 
-containers/PriorityQueue/PriorityQueue.i: containers/PriorityQueue/PriorityQueue.cpp.i
-.PHONY : containers/PriorityQueue/PriorityQueue.i
+ArmyUnit.i: ArmyUnit.cpp.i
+.PHONY : ArmyUnit.i
 
 # target to preprocess a source file
-containers/PriorityQueue/PriorityQueue.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Alien_Invastion_simulator.dir/build.make CMakeFiles/Alien_Invastion_simulator.dir/containers/PriorityQueue/PriorityQueue.cpp.i
-.PHONY : containers/PriorityQueue/PriorityQueue.cpp.i
+ArmyUnit.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Alien_Invastion_simulator.dir/build.make CMakeFiles/Alien_Invastion_simulator.dir/ArmyUnit.cpp.i
+.PHONY : ArmyUnit.cpp.i
 
-containers/PriorityQueue/PriorityQueue.s: containers/PriorityQueue/PriorityQueue.cpp.s
-.PHONY : containers/PriorityQueue/PriorityQueue.s
+ArmyUnit.s: ArmyUnit.cpp.s
+.PHONY : ArmyUnit.s
 
 # target to generate assembly for a file
-containers/PriorityQueue/PriorityQueue.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Alien_Invastion_simulator.dir/build.make CMakeFiles/Alien_Invastion_simulator.dir/containers/PriorityQueue/PriorityQueue.cpp.s
-.PHONY : containers/PriorityQueue/PriorityQueue.cpp.s
+ArmyUnit.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Alien_Invastion_simulator.dir/build.make CMakeFiles/Alien_Invastion_simulator.dir/ArmyUnit.cpp.s
+.PHONY : ArmyUnit.cpp.s
+
+EarthSoldier.o: EarthSoldier.cpp.o
+.PHONY : EarthSoldier.o
+
+# target to build an object file
+EarthSoldier.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Alien_Invastion_simulator.dir/build.make CMakeFiles/Alien_Invastion_simulator.dir/EarthSoldier.cpp.o
+.PHONY : EarthSoldier.cpp.o
+
+EarthSoldier.i: EarthSoldier.cpp.i
+.PHONY : EarthSoldier.i
+
+# target to preprocess a source file
+EarthSoldier.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Alien_Invastion_simulator.dir/build.make CMakeFiles/Alien_Invastion_simulator.dir/EarthSoldier.cpp.i
+.PHONY : EarthSoldier.cpp.i
+
+EarthSoldier.s: EarthSoldier.cpp.s
+.PHONY : EarthSoldier.s
+
+# target to generate assembly for a file
+EarthSoldier.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Alien_Invastion_simulator.dir/build.make CMakeFiles/Alien_Invastion_simulator.dir/EarthSoldier.cpp.s
+.PHONY : EarthSoldier.cpp.s
+
+Game.o: Game.cpp.o
+.PHONY : Game.o
+
+# target to build an object file
+Game.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Alien_Invastion_simulator.dir/build.make CMakeFiles/Alien_Invastion_simulator.dir/Game.cpp.o
+.PHONY : Game.cpp.o
+
+Game.i: Game.cpp.i
+.PHONY : Game.i
+
+# target to preprocess a source file
+Game.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Alien_Invastion_simulator.dir/build.make CMakeFiles/Alien_Invastion_simulator.dir/Game.cpp.i
+.PHONY : Game.cpp.i
+
+Game.s: Game.cpp.s
+.PHONY : Game.s
+
+# target to generate assembly for a file
+Game.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Alien_Invastion_simulator.dir/build.make CMakeFiles/Alien_Invastion_simulator.dir/Game.cpp.s
+.PHONY : Game.cpp.s
+
+containers/ArrayStack/ArrayStack.o: containers/ArrayStack/ArrayStack.cpp.o
+.PHONY : containers/ArrayStack/ArrayStack.o
+
+# target to build an object file
+containers/ArrayStack/ArrayStack.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Alien_Invastion_simulator.dir/build.make CMakeFiles/Alien_Invastion_simulator.dir/containers/ArrayStack/ArrayStack.cpp.o
+.PHONY : containers/ArrayStack/ArrayStack.cpp.o
+
+containers/ArrayStack/ArrayStack.i: containers/ArrayStack/ArrayStack.cpp.i
+.PHONY : containers/ArrayStack/ArrayStack.i
+
+# target to preprocess a source file
+containers/ArrayStack/ArrayStack.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Alien_Invastion_simulator.dir/build.make CMakeFiles/Alien_Invastion_simulator.dir/containers/ArrayStack/ArrayStack.cpp.i
+.PHONY : containers/ArrayStack/ArrayStack.cpp.i
+
+containers/ArrayStack/ArrayStack.s: containers/ArrayStack/ArrayStack.cpp.s
+.PHONY : containers/ArrayStack/ArrayStack.s
+
+# target to generate assembly for a file
+containers/ArrayStack/ArrayStack.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Alien_Invastion_simulator.dir/build.make CMakeFiles/Alien_Invastion_simulator.dir/containers/ArrayStack/ArrayStack.cpp.s
+.PHONY : containers/ArrayStack/ArrayStack.cpp.s
 
 # Help Target
 help:
@@ -162,9 +234,18 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... Alien_Invastion_simulator"
-	@echo "... containers/PriorityQueue/PriorityQueue.o"
-	@echo "... containers/PriorityQueue/PriorityQueue.i"
-	@echo "... containers/PriorityQueue/PriorityQueue.s"
+	@echo "... ArmyUnit.o"
+	@echo "... ArmyUnit.i"
+	@echo "... ArmyUnit.s"
+	@echo "... EarthSoldier.o"
+	@echo "... EarthSoldier.i"
+	@echo "... EarthSoldier.s"
+	@echo "... Game.o"
+	@echo "... Game.i"
+	@echo "... Game.s"
+	@echo "... containers/ArrayStack/ArrayStack.o"
+	@echo "... containers/ArrayStack/ArrayStack.i"
+	@echo "... containers/ArrayStack/ArrayStack.s"
 .PHONY : help
 
 

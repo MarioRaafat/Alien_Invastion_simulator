@@ -84,10 +84,31 @@
 				</MakeCommands>
 			</Target>
 		</Build>
-		<Unit filename="/mnt/c/Users/mohse/CLionProjects/Alien_Invastion_simulator/containers/PriorityQueue/PriorityQueue.cpp">
+		<Unit filename="/mnt/c/Users/mohse/CLionProjects/Alien_Invastion_simulator/AlienSoldier.h">
 			<Option target="Alien_Invastion_simulator"/>
 		</Unit>
-		<Unit filename="/mnt/c/Users/mohse/CLionProjects/Alien_Invastion_simulator/containers/PriorityQueue/PriorityQueue.h">
+		<Unit filename="/mnt/c/Users/mohse/CLionProjects/Alien_Invastion_simulator/ArmyUnit.cpp">
+			<Option target="Alien_Invastion_simulator"/>
+		</Unit>
+		<Unit filename="/mnt/c/Users/mohse/CLionProjects/Alien_Invastion_simulator/ArmyUnit.h">
+			<Option target="Alien_Invastion_simulator"/>
+		</Unit>
+		<Unit filename="/mnt/c/Users/mohse/CLionProjects/Alien_Invastion_simulator/EarthSoldier.cpp">
+			<Option target="Alien_Invastion_simulator"/>
+		</Unit>
+		<Unit filename="/mnt/c/Users/mohse/CLionProjects/Alien_Invastion_simulator/EarthSoldier.h">
+			<Option target="Alien_Invastion_simulator"/>
+		</Unit>
+		<Unit filename="/mnt/c/Users/mohse/CLionProjects/Alien_Invastion_simulator/Game.cpp">
+			<Option target="Alien_Invastion_simulator"/>
+		</Unit>
+		<Unit filename="/mnt/c/Users/mohse/CLionProjects/Alien_Invastion_simulator/Game.h">
+			<Option target="Alien_Invastion_simulator"/>
+		</Unit>
+		<Unit filename="/mnt/c/Users/mohse/CLionProjects/Alien_Invastion_simulator/containers/ArrayStack/ArrayStack.cpp">
+			<Option target="Alien_Invastion_simulator"/>
+		</Unit>
+		<Unit filename="/mnt/c/Users/mohse/CLionProjects/Alien_Invastion_simulator/containers/ArrayStack/ArrayStack.h">
 			<Option target="Alien_Invastion_simulator"/>
 		</Unit>
 		<Unit filename="/mnt/c/Users/mohse/CLionProjects/Alien_Invastion_simulator/CMakeLists.txt">
