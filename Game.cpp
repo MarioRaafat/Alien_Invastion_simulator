@@ -57,7 +57,7 @@ int Game::random_range(int min, int max) {
     return rand() % (max - min + 1) + min;
 }
 
-void Game::load_file(int n, int es, int et, int eg, int as, int am, int ad, int prop) {
+void Game::load_file(int &n, int &es, int &et, int &eg, int &as, int &am, int &ad, int &prop) {
     std::ifstream file("input.txt");
 
     if (!file.is_open()) {

@@ -43,7 +43,7 @@ private:
 
     int random_range(int min, int max) ;
 
-    void load_file(int n, int es, int et, int eg, int as, int am, int ad, int prop);
+    void load_file(int &n, int &es, int &et, int &eg, int &as, int &am, int &ad, int &prop);
 };
 
 
