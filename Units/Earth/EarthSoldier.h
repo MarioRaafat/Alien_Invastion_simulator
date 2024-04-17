@@ -1,8 +1,8 @@
 #ifndef EARTHSOLIDER_H
 #define EARTHSOLIDER_H
 
-#include "ArmyUnit.h"
-#include "AlienSoldier.h"
+#include "../ArmyUnit.h"
+#include "../Alien/AlienSoldier.h"
 
 
 class EarthSoldier : public ArmyUnit {
