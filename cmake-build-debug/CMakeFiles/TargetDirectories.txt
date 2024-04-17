@@ -1,3 +1,0 @@
-/mnt/c/Users/mohse/CLionProjects/Alien_Invastion_simulator/cmake-build-debug/CMakeFiles/Alien_Invastion_simulator.dir
-/mnt/c/Users/mohse/CLionProjects/Alien_Invastion_simulator/cmake-build-debug/CMakeFiles/edit_cache.dir
-/mnt/c/Users/mohse/CLionProjects/Alien_Invastion_simulator/cmake-build-debug/CMakeFiles/rebuild_cache.dir
