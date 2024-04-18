@@ -25,17 +25,29 @@ void Generator::Eunits_generator(int n, int es, int et, int eg, int prop) {
                     random_range(min_Epower, max_Epower),
                     random_range(min_Ehealth, max_Ehealth),
                     random_range(min_Ecapacity, max_Ecapacity));
-
+    
                 Eq.enqueue(earth_soldier);
             }
             else if (B <= es + et) {
-                // same for tank
+                EarthTank* earth_tank = new EarthTank(Ecount++, current_time,
+                    random_range(min_Epower, max_Epower),
+                    random_range(min_Ehealth, max_Ehealth),
+                    random_range(min_Ecapacity, max_Ecapacity));
+    
+                Eq.enqueue(earth_tank);
             }
             else {
-                // same for gunnery
+                EarthGunnery* earth_gunnery = new EarthGunnery(Ecount++, current_time,
+                    random_range(min_Epower, max_Epower),
+                    random_range(min_Ehealth, max_Ehealth),
+                    random_range(min_Ecapacity, max_Ecapacity));
+    
+                Eq.enqueue(earth_gunnery);
             }
         }
+        return Eq;
     }
+    return NULL;
 }
 void Generator::Aunits_generator(int n, int as, int am, int ad, int prop) {
     int A = random_range(1, 100);
