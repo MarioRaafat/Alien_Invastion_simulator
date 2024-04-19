@@ -169,6 +169,7 @@ void Dequeue<T>::print() const {
     if (is_moved()) {
         return;
     }
+    std::cout << "Dequeue: content: ";
     Node *current = head->next;
     if (is_empty()) {
         std::cout << "Dequeue is empty" << std::endl;

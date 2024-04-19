@@ -1,15 +1,13 @@
-#ifndef ALIENSOLIDER_H
-#define ALIENSOLIDER_H
+#ifndef ALIEN_SOLIDER_H
+#define ALIEN_SOLIDER_H
+
 
 #include "ArmyUnit.h"
-#include "EarthSoldier.h"
 
-
-class AlienSoldier :public ArmyUnit {
-    public:
-        AlienSoldier(int id, int t, int pw, int hl, int attc);
-        void attack(ArmyUnit* soldier) override;
+class AlienSoldier : public ArmyUnit {
+public:
+    AlienSoldier(Game *game, int id, int t, int pw, int hl, int attc);
+    void attack(ArmyUnit* soldier) override;
 };
 
-
-#endif //ALIENSOLIDER_H
+#endif //ALIEN_SOLIDER_H

@@ -43,6 +43,7 @@ Single Node Case:
 
 #include "Node.h"
 #include "QueueADT.h"
+#include <iostream>
 using namespace std;
 
 
@@ -60,10 +61,23 @@ public :
     bool dequeue(T& frntEntry);
     bool peek(T& frntEntry)  const;
     ~LinkedQueue();
+    void print() const;
 
     //copy constructor
     LinkedQueue(const LinkedQueue<T> & LQ);
 };
+
+
+template<typename T>
+void LinkedQueue<T>::print() const {
+    std::cout << "Queue: content:";
+    Node<T> *current = frontPtr;
+    while (current) {
+        std::cout << current->getItem() << " ";
+        current = current->getNext();
+    }
+    std::cout << std::endl;
+}
 /////////////////////////////////////////////////////////////////////////////////////////
 
 /*

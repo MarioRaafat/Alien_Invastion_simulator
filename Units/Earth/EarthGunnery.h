@@ -1,15 +1,14 @@
 #ifndef EARTHGUNNERY_H
 #define EARTHGUNNERY_H
 
-#include "../ArmyUnit.h"
-#include "../Alien/AlienDrone.h"
-#include "../Alien/AlienMonster.h"
 
+#include "ArmyUnit.h"
 
 class EarthGunnery : public ArmyUnit {
 public:
-    EarthGunnery(int id, int t, int pw, int hl, int attc);
+    EarthGunnery(Game *game, int id, int t, int pw, int hl, int attc);
     void attack(ArmyUnit* solider) override;
+    bool operator>(const EarthGunnery &other) const;
 };
 
 

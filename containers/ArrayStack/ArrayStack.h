@@ -7,6 +7,7 @@
 
 #ifndef ARRAY_STACK_
 #define ARRAY_STACK_
+#include <iostream>
 
 #include "StackADT.h"
 
@@ -14,12 +15,19 @@
 template<typename T>
 class ArrayStack : public StackADT<T>
 {
-    enum { MAX_SIZE = 100 };
+    enum { MAX_SIZE = 1000 };
 private:
     T items[MAX_SIZE];		// Array of stack items
     int top;                   // Index to top of stack
 
 public:
+    void print() const {
+        std::cout << "Stack: content:";
+        for (int i = top; i >= 0; i--) {
+            std::cout << items[i] << " ";
+        }
+        std::cout << std::endl;
+    }
 
     ArrayStack()
     {
