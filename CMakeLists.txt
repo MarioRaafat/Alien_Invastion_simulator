@@ -1,8 +1,11 @@
-cmake_minimum_required(VERSION 3.29)
+cmake_minimum_required(VERSION 3.28.1)
 project(Alien_Invastion_simulator)
 
 set(CMAKE_CXX_STANDARD 14)
 
+include_directories(Armies/AlienArmy)
+include_directories(Armies/EarthArmy)
+include_directories(containers/Array)
 include_directories(containers/ArrayStack)
 include_directories(containers/Dequeue)
 include_directories(containers/LinkedQueue)
@@ -14,6 +17,12 @@ include_directories(Units/ArmyUnit)
 include_directories(Units/Earth)
 
 add_executable(Alien_Invastion_simulator
+        Armies/AlienArmy/AlienArmy.cpp
+        Armies/AlienArmy/AlienArmy.h
+        Armies/EarthArmy/EarthArmy.cpp
+        Armies/EarthArmy/EarthArmy.h
+        containers/Array/Array.cpp
+        containers/Array/Array.h
         containers/ArrayStack/ArrayStack.cpp
         containers/ArrayStack/ArrayStack.h
         containers/ArrayStack/StackAdt.h
@@ -44,12 +53,4 @@ add_executable(Alien_Invastion_simulator
         Units/Earth/EarthSoldier.h
         Units/Earth/EarthTank.cpp
         Units/Earth/EarthTank.h
-        main.cpp
-        Armies/EarthArmy/EarthArmy.h
-        Armies/EarthArmy/EarthArmy.cpp
-        Armies/AlienArmy/AlienArmy.cpp
-        Armies/AlienArmy/AlienArmy.h
-        containers/Array/Array.h
-        containers/Array/Array.h
-        containers/Array/Array.cpp
-)
+        main.cpp)
