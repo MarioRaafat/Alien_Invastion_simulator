@@ -32,15 +32,15 @@ void Generator::Eunits_generator(Game *game, int n, int es, int et, int eg, int 
 
             if (B <= es) {
                 auto Esoldier = new EarthSoldier(game, Ecount++, current_time, power, health, capacity);
-                game->getEarthArmy().addUnit(Esoldier, earth_solider);
+                game->add_Eunit(Esoldier, earth_solider);
             }
             else if (B <= es + et) {
                 auto Etank = new EarthTank(game,Ecount++, current_time, power, health, capacity);
-                game->getEarthArmy().addUnit(Etank, earth_tank);
+                game->add_Eunit(Etank, earth_tank);
             }
             else {
                 auto Egunnery = new EarthGunnery(game, Ecount++, current_time, power, health, capacity);
-                game->getEarthArmy().addUnit(Egunnery, earth_gunnery);
+                game->add_Eunit(Egunnery, earth_gunnery);
             }
         }
     }
@@ -57,15 +57,15 @@ void Generator::Aunits_generator(Game *game, int n, int as, int am, int ad, int 
             if (B <= as) {
 
                 auto Asoldier = new AlienSoldier(game, 2000 + Acount++, current_time, power, health, capacity);
-                game->getAlienArmy().addUnit(Asoldier, alien_solider);
+                game->add_Aunit(Asoldier, alien_solider);
             }
             else if (B <= as + am) {
                 auto Amonster = new AlienMonster(game, 2000 + Acount++, current_time, power, health, capacity);
-                game->getAlienArmy().addUnit(Amonster, alien_monster);
+                game->add_Aunit(Amonster, alien_monster);
             }
             else {
                 auto Adrone = new AlienDrone(game, 2000 + Acount++, current_time, power, health, capacity);
-                game->getAlienArmy().addUnit(Adrone, alien_drone);
+                game->add_Aunit(Adrone, alien_drone);
             }
         }
     }

@@ -26,11 +26,12 @@ private:
 public:
     Game();
     ~Game();
+
     void randGen();
     void load_file();
+    void add_Aunit(ArmyUnit* unit, unit_type type);
+    void add_Eunit(ArmyUnit* unit, unit_type type);
 
     void phase1Test();
-    EarthArmy &getEarthArmy();
-    AlienArmy& getAlienArmy();
 };
 #endif //GAME_H

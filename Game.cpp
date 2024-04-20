@@ -35,6 +35,14 @@ void Game::load_file() {
     file.close();
 }
 
+void Game::add_Aunit(ArmyUnit *unit, unit_type type) {
+    Aarmy.addUnit(unit, type);
+}
+
+void Game::add_Eunit(ArmyUnit *unit, unit_type type) {
+    Earmy.addUnit(unit, type);
+}
+
 Game::~Game() {
     ArmyUnit *unit = nullptr;
 
@@ -45,14 +53,6 @@ Game::~Game() {
         killed_list.dequeue(unit);
         delete unit;
     }
-}
-
-AlienArmy &Game::getAlienArmy()   {
-    return Aarmy;
-}
-
-EarthArmy &Game::getEarthArmy()  {
-    return Earmy;
 }
 
 void Game::phase1Test() {
