@@ -20,6 +20,7 @@ private:
     T items[MAX_SIZE];		// Array of stack items
     int top;                   // Index to top of stack
 
+
 public:
     void print() const {
         for (int i = top; i >= 0; i--) {
@@ -31,6 +32,10 @@ public:
             }
         }
         std::cout << std::endl;
+    }
+
+    int getTop() const {
+        return top + 1;
     }
 
     ArrayStack()

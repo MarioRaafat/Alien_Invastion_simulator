@@ -39,24 +39,7 @@ void ArmyUnit::damage(ArmyUnit* enemy) {
 }
 
 void ArmyUnit::print() const {
-    std::string actualType;
-
-    if (typeIdentifier == earth_solider) {
-        actualType = "Earth Soldier";
-    } else if (typeIdentifier == earth_tank) {
-        actualType = "Earth Tank";
-    } else if (typeIdentifier == earth_gunnery) {
-        actualType = "Earth Gunnery";
-    } else if (typeIdentifier == alien_solider) {
-        actualType = "Alien Soldier";
-    } else if (typeIdentifier == alien_monster) {
-        actualType = "Alien Monster";
-    } else if (typeIdentifier == alien_drone) {
-        actualType = "Alien Drone";
-    }
-    std::cout << "ID: " << ID << ", Type: " << actualType << ", Time: " << Tj;
-    std::cout << ", Power: " << power << ", Health: " << health << ", Attack Capacity: ";
-    std::cout << attackCapacity << std::endl;
+    std::cout << getID() << ",";
 }
 
 bool ArmyUnit::isDead() const {

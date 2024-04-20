@@ -60,8 +60,12 @@ ArmyUnit *AlienArmy::pickUnit(unit_type type, bool droneFront) {
 }
 
 void AlienArmy::print() const {
+
+    std::cout << Asoldiers.size() << " AS ";
     Asoldiers.print();
+    std::cout << monsters.size() << " AM \n";
     monsters.print();
+    std::cout << drones.size() << " AD ";
     drones.print();
 }
 

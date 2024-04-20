@@ -60,27 +60,20 @@ Game::~Game() {
 }
 
 void Game::phase1Test() {
-    cout << "Phase 1 Test" << endl;
-    cout << "----------------" << endl;
-    cout << "----------------" << endl;
-    cout << "Content Before Test" << endl;
-    cout << "Earth Army: Content " << endl;
-    Earmy.print();
-    cout << "==============================================================================================" << endl;
-    cout << "Alien Army: Content " << endl;
-    Aarmy.print();
-    cout << "==============================================================================================" << endl;
-    cout << "Killed List: Content " << endl;
-    killed_list.print();
-    cout << "==============================================================================================" << endl;
-    cout << "Temp List: Content " << endl;
-    temp_list.print();
-    cout << "==============================================================================================" << endl;
-    cout << "Start Test" << endl;
-
     int loopCount  = 50;
 
     while (loopCount--) {
+        std::cout << "========================Cuurent TimeStep " << 50 - loopCount << "============================" << std::endl;
+        std::cout << "===================================Earth Army Alive Units:======================================\n";
+        Earmy.print();
+        std::cout << endl;
+        std::cout << "===================================Alien Army Alive Units:======================================\n";
+        Aarmy.print();
+        std::cout << endl;
+        std::cout << "===================================Killed Units:======================================\n";
+        killed_list.print();
+        std::cout << endl;
+
         int X = generator->random_range(1, 60);
         ArmyUnit *unit = nullptr;
 
@@ -88,19 +81,16 @@ void Game::phase1Test() {
             unit = Earmy.pickUnit(earth_solider);
             if (unit != nullptr) {
                 Earmy.addUnit(unit, earth_solider);
-                unit->print();
             }
         } else if (10 < X && X < 20) {
             unit = Earmy.pickUnit(earth_tank);
             if (unit != nullptr) {
-                unit->print();
                 killed_list.enqueue(unit);
             }
         } else if (20 < X && X < 30) {
             unit = Earmy.pickUnit(earth_gunnery);
             if (unit != nullptr) {
                 unit->setHealth(unit->getHealth() / 2);
-                unit->print();
                 Earmy.addUnit(unit, earth_gunnery);
             }
         } else if (30 < X && X < 40) {
@@ -112,9 +102,6 @@ void Game::phase1Test() {
                 }
             }
 
-            cout << "Temp List Content: ======================" << endl;
-            temp_list.print();
-            cout << "==========================================" << endl;
             while (!temp_list.isEmpty()) {
                 temp_list.dequeue(unit);
                 Aarmy.addUnit(unit, alien_solider);
@@ -125,7 +112,6 @@ void Game::phase1Test() {
                 unit = Aarmy.pickUnit(alien_monster);
                 if (unit != nullptr) {
                     Aarmy.addUnit(unit, alien_monster);
-                    unit->print();
                 }
             }
         } else if (50 < X && X < 60) {
@@ -134,21 +120,10 @@ void Game::phase1Test() {
                 unit = Aarmy.pickUnit(alien_drone, front);
                 if (unit != nullptr) {
                     killed_list.enqueue(unit);
-                    unit->print();
                 }
                 front = !front;
             }
         }
         randGen();
     }
-    cout << "Killed List: Content " << endl;
-    killed_list.print();
-    cout << "==============================================================================================" << endl;
-
-    cout << "Earth Army: Content " << endl;
-    Earmy.print();
-    cout << "==============================================================================================" << endl;
-
-    cout << "Alien Army: Content " << endl;
-    Aarmy.print();
 }
