@@ -6,7 +6,7 @@ Game::Game() {
 }
 
 void Game::randGen() {
-    generator->Eunits_generator(this,n, es, et, eg, prop);
+    generator->generate(this);
 }
 
 void Game::load_file() {
@@ -17,10 +17,11 @@ void Game::load_file() {
         exit(3);//SIGQUIT number 3
     }
 
+    int n, es, eg, et, as, am, ad, prob;
     file >> n;
     file >> es >> et >> eg;
     file >> as >> am >> ad;
-    file >> prop;
+    file >> prob;
 
     if (file.fail()) {
         cout << "Error in reading file" << endl;
@@ -33,8 +34,9 @@ void Game::load_file() {
     file >> min_Epower >> max_Epower >> min_Ehealth >> max_Ehealth >> min_Ecapacity >> max_Ecapacity;
     file >> min_Apower >> max_Apower >> min_Ahealth >> max_Ahealth >> min_Acapacity >> max_Acapacity;
 
-    generator = new Generator(min_Epower, max_Epower, min_Ehealth, max_Ehealth, min_Ecapacity, max_Ecapacity,
-                              min_Apower, max_Apower, min_Ahealth, max_Ahealth, min_Acapacity, max_Acapacity);
+    generator = new Generator(n, es, et, eg, as, am, ad, prob,
+        min_Epower, max_Epower, min_Ehealth, max_Ehealth, min_Ecapacity, max_Ecapacity,
+        min_Apower, max_Apower, min_Ahealth, max_Ahealth, min_Acapacity, max_Acapacity);
 
     file.close();
 }

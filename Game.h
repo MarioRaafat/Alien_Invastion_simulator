@@ -18,11 +18,6 @@ private:
     LinkedQueue<ArmyUnit *> temp_list;
     LinkedQueue<ArmyUnit *> killed_list;
 
-
-//    EarthUnits Eunits;
-//    AlienUnits Aunits;
-    int n, es, et, eg, as, am, ad, prop;
-
 public:
     Game();
     ~Game();

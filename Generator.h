@@ -8,6 +8,7 @@ class Generator {
     static int Ecount, Acount;  // earth and aliens units number
     static int current_time;
 
+    int N, ES, ET, EG, AS, AM, AD, probability;
     // from input file
     int min_Epower,
             max_Epower,
@@ -25,15 +26,15 @@ class Generator {
 
 public:
     // sorry
-    Generator(int min_Epw, int max_Epw,
-              int	min_Ehl, int max_Ehl,
-              int	min_Ecap, int max_Ecap,
+    Generator(int n, int es, int et, int eg, int as, int am, int ad, int prob,
+              int min_Epw, int max_Epw,
+              int min_Ehl, int max_Ehl,
+              int min_Ecap, int max_Ecap,
               int min_Apw, int	max_Apw,
-              int	min_Ahl, int max_Ahl,
-              int	min_Acap, int max_Acap);
+              int min_Ahl, int max_Ahl,
+              int min_Acap, int max_Acap);
 
-    void Eunits_generator(Game *game, int n, int es, int et, int eg, int prop);
-    void Aunits_generator(Game *game, int n, int as, int am, int ad, int prop);
+    void generate(Game *game);
     int random_range(int min, int max);
 };
 

@@ -13,28 +13,29 @@ int Generator::current_time = 0;
 
 
 
-Generator::Generator(int min_Epw, int max_Epw, int min_Ehl, int max_Ehl, int min_Ecap, int max_Ecap,
-                     int min_Apw, int max_Apw, int min_Ahl, int max_Ahl, int min_Acap, int max_Acap)
+Generator::Generator(int n, int es, int et, int eg, int as, int am, int ad, int prob,
+    int min_Epw, int max_Epw, int min_Ehl, int max_Ehl, int min_Ecap, int max_Ecap,
+    int min_Apw, int max_Apw, int min_Ahl, int max_Ahl, int min_Acap, int max_Acap)
 
-        : min_Epower(min_Epw), max_Epower(max_Epw), min_Ehealth(min_Ehl), max_Ehealth(max_Ehl), min_Ecapacity(min_Ecap), max_Ecapacity(max_Ecap),
-          min_Apower(min_Apw), max_Apower(max_Apw), min_Ahealth(min_Ahl), max_Ahealth(max_Ahl), min_Acapacity(min_Acap), max_Acapacity(max_Acap)
+        : N(n), ES(es), ET(et), EG(eg), AS(as), AM(am), AD(ad),
+min_Epower(min_Epw), max_Epower(max_Epw), min_Ehealth(min_Ehl), max_Ehealth(max_Ehl), min_Ecapacity(min_Ecap), max_Ecapacity(max_Ecap),
+min_Apower(min_Apw), max_Apower(max_Apw), min_Ahealth(min_Ahl), max_Ahealth(max_Ahl), min_Acapacity(min_Acap), max_Acapacity(max_Acap)
 {}
 
-void Generator::Eunits_generator(Game *game, int n, int es, int et, int eg, int prop) {
-
+void Generator::generate(Game *game) {
     int A = random_range(1, 100);
-    if (A <= prop) {
-        for (int i = 0; i < n; i++) {
+    if (A <= probability) {
+        for (int i = 0; i < N; i++) {
             int B = random_range(1, 100);
             int power = random_range(min_Epower, max_Epower);
             int health = random_range(min_Ehealth, max_Ehealth);
             int capacity = random_range(min_Ecapacity, max_Ecapacity);
 
-            if (B <= es) {
+            if (B <= ES) {
                 auto Esoldier = new EarthSoldier(game, Ecount++, current_time, power, health, capacity);
                 game->add_Eunit(Esoldier, earth_solider);
             }
-            else if (B <= es + et) {
+            else if (B <= ES + ET) {
                 auto Etank = new EarthTank(game,Ecount++, current_time, power, health, capacity);
                 game->add_Eunit(Etank, earth_tank);
             }
@@ -43,22 +44,18 @@ void Generator::Eunits_generator(Game *game, int n, int es, int et, int eg, int 
                 game->add_Eunit(Egunnery, earth_gunnery);
             }
         }
-        Aunits_generator(game, n, es, et, eg, prop);
-    }
-}
-void Generator::Aunits_generator(Game *game, int n, int as, int am, int ad, int prop) {
-        for (int i = 0; i < n; i++) {
+        for (int i = 0; i < N; i++) {
             int B = random_range(1, 100);
             int power = random_range(min_Apower, max_Apower);
             int health = random_range(min_Ahealth, max_Ahealth);
             int capacity = random_range(min_Acapacity, max_Acapacity);
 
-            if (B <= as) {
+            if (B <= AS) {
 
                 auto Asoldier = new AlienSoldier(game, 2000 + Acount++, current_time, power, health, capacity);
                 game->add_Aunit(Asoldier, alien_solider);
             }
-            else if (B <= as + am) {
+            else if (B <= AS + AM) {
                 auto Amonster = new AlienMonster(game, 2000 + Acount++, current_time, power, health, capacity);
                 game->add_Aunit(Amonster, alien_monster);
             }
@@ -67,6 +64,7 @@ void Generator::Aunits_generator(Game *game, int n, int as, int am, int ad, int 
                 game->add_Aunit(Adrone, alien_drone);
             }
         }
+    }
     current_time++;
 }
 
