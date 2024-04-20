@@ -23,16 +23,17 @@ void Game::load_file() {
     file >> as >> am >> ad;
     file >> prob;
 
-    if (file.fail()) {
-        cout << "Error in reading file" << endl;
-        exit(9);//SIGKILL number 9
-    }
 
     int min_Epower, max_Epower, min_Ehealth, max_Ehealth, min_Ecapacity, max_Ecapacity,
             min_Apower, max_Apower, min_Ahealth, max_Ahealth, min_Acapacity, max_Acapacity;
 
     file >> min_Epower >> max_Epower >> min_Ehealth >> max_Ehealth >> min_Ecapacity >> max_Ecapacity;
     file >> min_Apower >> max_Apower >> min_Ahealth >> max_Ahealth >> min_Acapacity >> max_Acapacity;
+
+    if (file.fail()) {
+        cout << "Error in reading file" << endl;
+        exit(9);//SIGKILL number 9
+    }
 
     generator = new Generator(n, es, et, eg, as, am, ad, prob,
         min_Epower, max_Epower, min_Ehealth, max_Ehealth, min_Ecapacity, max_Ecapacity,
