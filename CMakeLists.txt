@@ -17,10 +17,10 @@ include_directories(Units/ArmyUnit)
 include_directories(Units/Earth)
 
 add_executable(Alien_Invastion_simulator
-        Armies/AlienArmy/AlienArmy.cpp
-        Armies/AlienArmy/AlienArmy.h
-        Armies/EarthArmy/EarthArmy.cpp
-        Armies/EarthArmy/EarthArmy.h
+        Units/Alien/AlienArmy.cpp
+        Units/Alien/AlienArmy.h
+        Units/Earth/EarthArmy.cpp
+        Units/Earth/EarthArmy.h
         containers/Array/Array.cpp
         containers/Array/Array.h
         containers/ArrayStack/ArrayStack.cpp

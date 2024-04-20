@@ -6,7 +6,7 @@
 class Generator {
 
     static int Ecount, Acount;  // earth and aliens units number
-    int current_time;
+    static int current_time;
 
     // from input file
     int min_Epower,

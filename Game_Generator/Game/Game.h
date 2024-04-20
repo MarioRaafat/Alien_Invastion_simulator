@@ -4,8 +4,8 @@
 #include <iostream>
 #include <fstream>
 #include "Generator.h"
-#include "../../Armies/EarthArmy/EarthArmy.h"
-#include "../../Armies/AlienArmy/AlienArmy.h"
+#include "../../Units/Earth/EarthArmy.h"
+#include "../../Units/Alien/AlienArmy.h"
 
 
 using namespace std;

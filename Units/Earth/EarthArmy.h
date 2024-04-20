@@ -1,9 +1,9 @@
 #ifndef ALIEN_INVASTION_SIMULATOR_EARTHARMY_H
 #define ALIEN_INVASTION_SIMULATOR_EARTHARMY_H
 
-#include "LinkedQueue.h"
-#include "ArrayStack.h"
-#include "PriorityQueue.h"
+#include "../../containers/LinkedQueue/LinkedQueue.h"
+#include "../../containers/ArrayStack/ArrayStack.h"
+#include "../../containers/PriorityQueue/PriorityQueue.h"
 
 #include "EarthSoldier.h"
 #include "EarthTank.h"
