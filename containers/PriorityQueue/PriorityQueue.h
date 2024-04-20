@@ -5,7 +5,7 @@
 #include <algorithm>
 #include <type_traits>
 
-template <typename T, typename Compare = std::greater_equal<T>>
+template <typename T, typename Compare = std::greater<T>>
 
 /**
  * Priority Queue class implemented using a Max Heap
@@ -73,7 +73,6 @@ class PriorityQueue {
         void ensure_extra_capacity();
         bool is_full() const;
         static size_t nearest_power_of_2(size_t n);
-
 };
 
 template<typename T, typename Compare>
