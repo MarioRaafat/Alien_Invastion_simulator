@@ -22,12 +22,10 @@ protected:
         health,
         attackCapacity;
     unit_type typeIdentifier; // 1 for ES , 2 for ET , 3 for EG ...etc
-private:
     Game *game;
 public:
 
     ArmyUnit(Game *game, int id, unit_type tyId, int t, int pw, int hl, int attC);
-    ArmyUnit(const ArmyUnit &other) = default;
     virtual ~ArmyUnit() = default;
 
     int getID() const;
