@@ -135,6 +135,7 @@ void Game::phase1Test() {
                 front = !front;
             }
         }
+        randGen();
     }
     cout << "Killed List: Content " << endl;
     killed_list.print();
