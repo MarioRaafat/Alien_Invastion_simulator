@@ -15,16 +15,15 @@ class Game;
 class ArmyUnit {
 
 protected:
-
     int ID,
         Tj, // time joining
         power,
         health,
         attackCapacity;
     unit_type typeIdentifier; // 1 for ES , 2 for ET , 3 for EG ...etc
+private:
     Game *game;
 public:
-
     ArmyUnit(Game *game, int id, unit_type tyId, int t, int pw, int hl, int attC);
     virtual ~ArmyUnit() = default;
 

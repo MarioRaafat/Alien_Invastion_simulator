@@ -76,7 +76,7 @@ void Game::phase1Test() {
         killed_list.print();
         std::cout << endl;
 
-        int X = generator->random_range(1, 60);
+        int X = generator->random_range(1, 100);
         ArmyUnit *unit = nullptr;
 
         if (0 < X && X < 10) {
@@ -93,7 +93,11 @@ void Game::phase1Test() {
             unit = Earmy.pickUnit(earth_gunnery);
             if (unit != nullptr) {
                 unit->setHealth(unit->getHealth() / 2);
-                Earmy.addUnit(unit, earth_gunnery);
+                if (unit->isDead()) {
+                    killed_list.enqueue(unit);
+                } else {
+                    Earmy.addUnit(unit, earth_gunnery);
+                }
             }
         } else if (30 < X && X < 40) {
             for (int i = 0; i < 5; i++) {
@@ -106,7 +110,11 @@ void Game::phase1Test() {
 
             while (!temp_list.isEmpty()) {
                 temp_list.dequeue(unit);
-                Aarmy.addUnit(unit, alien_solider);
+                if (unit->isDead()) {
+                    killed_list.enqueue(unit);
+                } else {
+                    Aarmy.addUnit(unit, alien_solider);
+                }
             }
 
         } else if (40 < X && X < 50) {
