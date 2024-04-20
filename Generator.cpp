@@ -23,7 +23,7 @@ Generator::Generator(int min_Epw, int max_Epw, int min_Ehl, int max_Ehl, int min
 void Generator::Eunits_generator(Game *game, int n, int es, int et, int eg, int prop) {
 
     int A = random_range(1, 100);
-    if (A >= prop) {
+    if (A <= prop) {
         for (int i = 0; i < n; i++) {
             int B = random_range(1, 100);
             int power = random_range(min_Epower, max_Epower);
@@ -43,11 +43,10 @@ void Generator::Eunits_generator(Game *game, int n, int es, int et, int eg, int 
                 game->add_Eunit(Egunnery, earth_gunnery);
             }
         }
+        Aunits_generator(game, n, es, et, eg, prop);
     }
 }
 void Generator::Aunits_generator(Game *game, int n, int as, int am, int ad, int prop) {
-    int A = random_range(1, 100);
-    if (A >= prop) {
         for (int i = 0; i < n; i++) {
             int B = random_range(1, 100);
             int power = random_range(min_Apower, max_Apower);
@@ -68,7 +67,6 @@ void Generator::Aunits_generator(Game *game, int n, int as, int am, int ad, int 
                 game->add_Aunit(Adrone, alien_drone);
             }
         }
-    }
     current_time++;
 }
 

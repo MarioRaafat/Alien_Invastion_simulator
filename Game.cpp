@@ -7,7 +7,6 @@ Game::Game() {
 
 void Game::randGen() {
     generator->Eunits_generator(this,n, es, et, eg, prop);
-    generator->Aunits_generator(this,n, as, am, ad, prop);
 }
 
 void Game::load_file() {
