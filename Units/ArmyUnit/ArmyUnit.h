@@ -18,6 +18,7 @@ private:
 public:
 
     ArmyUnit(Game *game, int id, int tyId, int t, int pw, int hl, int attC);
+    ArmyUnit(const ArmyUnit &other) = default;
     virtual ~ArmyUnit() = default;
 
     int getID() const;

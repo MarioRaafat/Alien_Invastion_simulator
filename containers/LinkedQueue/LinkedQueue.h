@@ -44,6 +44,7 @@ Single Node Case:
 #include "Node.h"
 #include "QueueADT.h"
 #include <iostream>
+#include <type_traits>
 using namespace std;
 
 
@@ -70,10 +71,20 @@ public :
 
 template<typename T>
 void LinkedQueue<T>::print() const {
-    std::cout << "Queue: content:";
     Node<T> *current = frontPtr;
+    bool is_pointer = false;
+
+    if (std::is_pointer<T>::value) {
+        is_pointer = true;
+    }
     while (current) {
-        std::cout << current->getItem() << " ";
+        if (is_pointer) {
+            if (current->getItem()) {
+                current->getItem()->print();
+            }
+        } else {
+            std::cout << current->getItem() << " ";
+        }
         current = current->getNext();
     }
     std::cout << std::endl;

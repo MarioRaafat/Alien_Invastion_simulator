@@ -6,6 +6,7 @@
 #include <algorithm>
 #include <iostream>
 #include <stdexcept>
+#include <type_traits>
 
 template <class T>
 class Array {
@@ -36,11 +37,17 @@ private:
 
 template<class T>
 void Array<T>::print() const {
-    std::cout << "Array: content:";
-    std::for_each(arr, arr + _size, [](const T &item) {
-        std::cout << item << " ";
-    });
-    std::cout << std::endl;
+    if (std::is_pointer<T>::value) {
+        for (size_t i = 0; i < _size; i++) {
+            if (arr[i] != nullptr) {
+                arr[i]->print();
+            }
+        }
+    } else {
+        for (size_t i = 0; i < _size; i++) {
+            std::cout  << arr[i];
+        }
+    }
 }
 
 template<class T>

@@ -36,15 +36,14 @@ void Game::load_file() {
 }
 
 Game::~Game() {
+    ArmyUnit *unit = nullptr;
+
     delete generator;
     generator = nullptr;
 
-
-    for (size_t i = 0; i < killed_list.size(); i++) {
-        if (killed_list[i] != nullptr) {
-            delete killed_list[i];
-            killed_list[i] = nullptr;
-        }
+    while (!killed_list.isEmpty()) {
+        killed_list.dequeue(unit);
+        delete unit;
     }
 }
 
@@ -60,6 +59,21 @@ void Game::phase1Test() {
     cout << "Phase 1 Test" << endl;
     cout << "----------------" << endl;
     cout << "----------------" << endl;
+    cout << "Content Before Test" << endl;
+    cout << "Earth Army: Content " << endl;
+    Earmy.print();
+    cout << "==============================================================================================" << endl;
+    cout << "Alien Army: Content " << endl;
+    Aarmy.print();
+    cout << "==============================================================================================" << endl;
+    cout << "Killed List: Content " << endl;
+    killed_list.print();
+    cout << "==============================================================================================" << endl;
+    cout << "Temp List: Content " << endl;
+    temp_list.print();
+    cout << "==============================================================================================" << endl;
+    cout << "Start Test" << endl;
+
     int loopCount  = 10;
 
     while (loopCount--) {
@@ -76,7 +90,7 @@ void Game::phase1Test() {
             unit = Earmy.pickUnit(2);
             if (unit != nullptr) {
                 unit->print();
-                killed_list.push_back(unit);
+                killed_list.enqueue(unit);
             }
         } else if (20 < X && X < 30) {
             unit = Earmy.pickUnit(3);
@@ -90,14 +104,18 @@ void Game::phase1Test() {
                 unit = Aarmy.pickUnit(4);
                 if (unit != nullptr) {
                     unit->setHealth(unit->getHealth() - 10);
-                    temp_list.push_back(unit);
-                    unit->print();
+                    temp_list.enqueue(unit);
                 }
             }
-            for (int i = 0; i < temp_list.size(); i++) {
-                Aarmy.addUnit(temp_list[i], 4);
-                temp_list[i] = NULL;
+
+            cout << "Temp List Content: ======================" << endl;
+            temp_list.print();
+            cout << "==========================================" << endl;
+            while (!temp_list.isEmpty()) {
+                temp_list.dequeue(unit);
+                Aarmy.addUnit(unit, 4);
             }
+
         } else if (40 < X && X < 50) {
             for (int i = 0; i < 5; i++) {
                 unit = Aarmy.pickUnit(5);
@@ -111,23 +129,21 @@ void Game::phase1Test() {
             for (int i = 0; i < 6; i++) {
                 unit = Aarmy.pickUnit(6, front);
                 if (unit != nullptr) {
-                    killed_list.push_back(unit);
+                    killed_list.enqueue(unit);
                     unit->print();
                 }
                 front = !front;
             }
         }
     }
-    cout << "Temp List: " << endl;
-    for (size_t i = 0; i < temp_list.size(); i++) {
-        if (temp_list[i] != nullptr) {
-            temp_list[i]->print();
-        }
-    }
-    cout << "Killed List: " << endl;
-    for (size_t i = 0; i < killed_list.size(); i++) {
-        if (killed_list[i] != nullptr) {
-            killed_list[i]->print();
-        }
-    }
+    cout << "Killed List: Content " << endl;
+    killed_list.print();
+    cout << "==============================================================================================" << endl;
+
+    cout << "Earth Army: Content " << endl;
+    Earmy.print();
+    cout << "==============================================================================================" << endl;
+
+    cout << "Alien Army: Content " << endl;
+    Aarmy.print();
 }
