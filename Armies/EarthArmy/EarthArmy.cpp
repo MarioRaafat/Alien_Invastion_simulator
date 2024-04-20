@@ -1,7 +1,3 @@
-//
-// Created by mohse on 4/18/2024.
-//
-
 #include "EarthArmy.h"
 
 void EarthArmy::addUnit(ArmyUnit *unit, int type) {
@@ -52,10 +48,6 @@ void EarthArmy::print() const {
 }
 
 EarthArmy::~EarthArmy() {
-    //Just for Phase1 to test memory leak in phase 2 not used in the final version
-    //bcs temp list and killed list will conatain the pointers to the units
-    //so we will delte them in the game class
-
     while (!Esoldiers.isEmpty()) {
         EarthSoldier *unit;
         if (Esoldiers.dequeue(unit)) {

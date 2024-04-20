@@ -11,7 +11,7 @@
 using namespace std;
 
 class Game {
-
+private:
     Generator* generator;
     EarthArmy Earmy;
     AlienArmy Aarmy;
@@ -21,24 +21,16 @@ class Game {
 
 //    EarthUnits Eunits;
 //    AlienUnits Aunits;
-
     int n, es, et, eg, as, am, ad, prop;
-
 
 public:
     Game();
     ~Game();
-
-    void randGen(); // I know that "تسمية " will not make you happy but fuck you that is its actually name in the document.
+    void randGen();
     void load_file();
-    /*IMPORTANNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNT*/
-    //u are a Fkin assHole marion actually I like it
-    //But what is n??? es et write it dudeee!! it is so weird
 
     void phase1Test();
     EarthArmy &getEarthArmy();
     AlienArmy& getAlienArmy();
 };
-
-
 #endif //GAME_H

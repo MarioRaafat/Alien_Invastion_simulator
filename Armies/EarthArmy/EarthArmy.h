@@ -28,7 +28,6 @@ private:
     LinkedQueue<EarthSoldier*> Esoldiers;
     ArrayStack<EarthTank*> tanks;
     PriorityQueue<EarthGunnery*, CompareEarthGunnery> gunneries;
-
 };
 
 

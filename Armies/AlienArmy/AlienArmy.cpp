@@ -1,5 +1,7 @@
 #include "AlienArmy.h"
 #include <cstdlib>
+#include <random>
+
 
 void AlienArmy::addUnit(ArmyUnit *unit, int type) {
     switch (type) {
@@ -7,7 +9,6 @@ void AlienArmy::addUnit(ArmyUnit *unit, int type) {
             Asoldiers.enqueue(static_cast<AlienSoldier *>(unit));
             break;
         case 5:
-            //idx is the index of the monster in the array
             monsters.push_back(static_cast<AlienMonster *>(unit));
             break;
         case 6:
@@ -21,9 +22,12 @@ void AlienArmy::addUnit(ArmyUnit *unit, int type) {
 ArmyUnit *AlienArmy::pickUnit(int type, bool droneFront) {
     AlienSoldier *soldier = nullptr;
     AlienDrone *drone = nullptr;
-    int random{};
-    if (!monsters.empty())
-        random = rand() % monsters.size();
+    AlienMonster *monster = nullptr;
+    int random = 0;
+
+    if (!monsters.empty()) {
+        random = randomNumber(0, static_cast<int>(monsters.size()) - 1);
+    }
 
     switch (type) {
         case 4:
@@ -35,8 +39,9 @@ ArmyUnit *AlienArmy::pickUnit(int type, bool droneFront) {
             if (monsters.empty()) {
                 return nullptr;
             }
-            return monsters[random];
-            break;
+            monster = monsters[random];
+            monsters[random] = nullptr;
+            return monster;
         case 6:
             if (drones.is_empty()) {
                 return nullptr;
@@ -48,7 +53,6 @@ ArmyUnit *AlienArmy::pickUnit(int type, bool droneFront) {
                 drones.pop_back(drone);
                 return drone;
             }
-            break;
         default:
             return nullptr;
     }
@@ -62,9 +66,6 @@ void AlienArmy::print() const {
 }
 
 AlienArmy::~AlienArmy() {
-    //Just for Phase1 to test memory leak in phase 2 not used in the final version
-    //bcs temp list and killed list will conatain the pointers to the units
-    //so we will delte them in the game class
     for (size_t i = 0; i < monsters.size(); i++) {
         if (monsters[i] != nullptr) {
             delete monsters[i];
@@ -89,4 +90,11 @@ AlienArmy::~AlienArmy() {
             }
         }
     }
+}
+
+ int AlienArmy::randomNumber(int min, int max) {
+     std::random_device rd;
+     std::mt19937 gen(rd());
+     std::uniform_int_distribution<> dis(min, max);
+    return dis(gen);
 }

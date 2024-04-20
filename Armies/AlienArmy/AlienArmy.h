@@ -21,6 +21,7 @@ private:
     LinkedQueue<AlienSoldier*> Asoldiers;
     Array<AlienMonster*> monsters;
     Dequeue<AlienDrone*> drones;
+    static int randomNumber(int min, int max);
 };
 
 
