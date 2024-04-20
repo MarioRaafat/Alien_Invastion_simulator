@@ -44,8 +44,11 @@ ArmyUnit* EarthArmy::pickUnit(unit_type type) {
 }
 
 void EarthArmy::print() const {
+    cout << Esoldiers.size() << " ES ";
     Esoldiers.print();
+    cout << tanks.getTop() << " ET ";
     tanks.print();
+    cout << gunneries.size() << " EG ";
     gunneries.print();
 }
 

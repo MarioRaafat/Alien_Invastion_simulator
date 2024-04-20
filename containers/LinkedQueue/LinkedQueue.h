@@ -52,7 +52,7 @@ template <typename T>
 class LinkedQueue:public QueueADT<T>
 {
 private :
-
+    size_t _size = {};
     Node<T>* backPtr;
     Node<T>* frontPtr;
 public :
@@ -61,6 +61,7 @@ public :
     bool enqueue(const T& newEntry);
     bool dequeue(T& frntEntry);
     bool peek(T& frntEntry)  const;
+    size_t size() const { return _size; }
     ~LinkedQueue();
     void print() const;
 
@@ -139,6 +140,7 @@ bool LinkedQueue<T>::enqueue( const T& newEntry)
         backPtr->setNext(newNodePtr); // The queue was not empty
 
     backPtr = newNodePtr; // New node is the last node now
+    _size++;
     return true ;
 } // end enqueue
 
@@ -168,7 +170,7 @@ bool LinkedQueue<T>:: dequeue(T& frntEntry)
 
     // Free memory reserved for the dequeued node
     delete nodeToDeletePtr;
-
+    _size--;
     return true;
 
 }

@@ -222,7 +222,6 @@ void PriorityQueue<T, Compare>::push(const T &value) {
 template<typename T, typename Compare>
 void PriorityQueue<T, Compare>::print() const {
     if (empty()) {
-        std::cout << "Empty" << std::endl;
         return;
     }
 
