@@ -1,4 +1,4 @@
-#include "Game_Generator/Game/Game.h"
+#include "Game.h"
 
 int main()
 {

@@ -1,7 +1,7 @@
 #ifndef EARTHSOLIDER_H
 #define EARTHSOLIDER_H
 
-#include "ArmyUnit.h"
+#include "../ArmyUnit.h"
 
 class EarthSoldier : public ArmyUnit {
     public:

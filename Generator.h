@@ -2,7 +2,7 @@
 #define GENERATOR_H
 
 
-#include "ArmyUnit.h"
+#include "Units/ArmyUnit.h"
 class Generator {
 
     static int Ecount, Acount;  // earth and aliens units number

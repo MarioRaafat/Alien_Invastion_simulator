@@ -2,7 +2,7 @@
 #define ALIEN_SOLIDER_H
 
 
-#include "ArmyUnit.h"
+#include "../ArmyUnit.h"
 
 class AlienSoldier : public ArmyUnit {
 public:

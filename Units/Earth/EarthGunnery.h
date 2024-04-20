@@ -2,7 +2,7 @@
 #define EARTHGUNNERY_H
 
 
-#include "ArmyUnit.h"
+#include "../ArmyUnit.h"
 
 class EarthGunnery : public ArmyUnit {
 public:

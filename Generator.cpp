@@ -1,11 +1,11 @@
 #include "Generator.h"
-#include "EarthSoldier.h"
-#include "EarthTank.h"
-#include "EarthGunnery.h"
+#include "Units/Earth/EarthSoldier.h"
+#include "Units/Earth/EarthTank.h"
+#include "Units/Earth/EarthGunnery.h"
 #include "Game.h"
 #include <random>
 
-#include "AlienSoldier.h"
+#include "Units/Alien/AlienSoldier.h"
 
 int Generator::Ecount = 1;
 int Generator::Acount = 1;

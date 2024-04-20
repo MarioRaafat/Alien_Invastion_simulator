@@ -1,7 +1,7 @@
 #ifndef EARTHTANK_H
 #define EARTHTANK_H
 
-#include "ArmyUnit.h"
+#include "../ArmyUnit.h"
 
 class EarthTank : public ArmyUnit {
 public:

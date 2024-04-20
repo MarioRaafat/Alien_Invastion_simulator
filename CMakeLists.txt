@@ -35,18 +35,18 @@ add_executable(Alien_Invastion_simulator
         containers/PriorityQueue/LinkedQueue.cpp
         containers/PriorityQueue/PriorityQueue.cpp
         containers/PriorityQueue/PriorityQueue.h
-        Game_Generator/Game/Game.cpp
-        Game_Generator/Game/Game.h
-        Game_Generator/Generator/Generator.cpp
-        Game_Generator/Generator/Generator.h
+        Game.cpp
+        Game.h
+        Generator.cpp
+        Generator.h
         Units/Alien/AlienDrone.cpp
         Units/Alien/AlienDrone.h
         Units/Alien/AlienMonster.cpp
         Units/Alien/AlienMonster.h
         Units/Alien/AlienSoldier.cpp
         Units/Alien/AlienSoldier.h
-        Units/ArmyUnit/ArmyUnit.cpp
-        Units/ArmyUnit/ArmyUnit.h
+        Units/ArmyUnit.cpp
+        Units/ArmyUnit.h
         Units/Earth/EarthGunnery.cpp
         Units/Earth/EarthGunnery.h
         Units/Earth/EarthSoldier.cpp
