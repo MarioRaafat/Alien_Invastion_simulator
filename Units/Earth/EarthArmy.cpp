@@ -50,33 +50,22 @@ void EarthArmy::print() const {
 }
 
 EarthArmy::~EarthArmy() {
-    while (!Esoldiers.isEmpty()) {
-        EarthSoldier *unit;
-        if (Esoldiers.dequeue(unit)) {
-            if (unit != nullptr) {
-                delete unit;
-                unit = nullptr;
-            }
-        }
+    EarthSoldier *solider = {};
+    EarthTank *tank = {};
+    EarthGunnery *gunnery = {};
+
+    while (Esoldiers.dequeue(solider)) {
+            delete solider;
+            solider = nullptr;
     }
 
-    while (!tanks.isEmpty()) {
-        EarthTank *unit;
-        if (tanks.pop(unit)) {
-            if (unit != nullptr) {
-                delete unit;
-                unit = nullptr;
-            }
-        }
+    while (tanks.pop(tank)) {
+        delete tank;
+        tank = nullptr;
     }
 
-    while (!gunneries.empty()) {
-        EarthGunnery *unit;
-        if (gunneries.pop(unit)) {
-            if (unit != nullptr) {
-                delete unit;
-                unit = nullptr;
-            }
-        }
+    while (gunneries.pop(gunnery)) {
+        delete gunnery;
+        gunnery = nullptr;
     }
 }

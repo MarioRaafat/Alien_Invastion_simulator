@@ -23,6 +23,11 @@ void Game::load_file() {
     file >> as >> am >> ad;
     file >> prop;
 
+    if (file.fail()) {
+        cout << "Error in reading file" << endl;
+        exit(9);//SIGKILL number 9
+    }
+
     int min_Epower, max_Epower, min_Ehealth, max_Ehealth, min_Ecapacity, max_Ecapacity,
             min_Apower, max_Apower, min_Ahealth, max_Ahealth, min_Acapacity, max_Acapacity;
 
@@ -74,7 +79,7 @@ void Game::phase1Test() {
     cout << "==============================================================================================" << endl;
     cout << "Start Test" << endl;
 
-    int loopCount  = 10;
+    int loopCount  = 50;
 
     while (loopCount--) {
         int X = generator->random_range(1, 60);

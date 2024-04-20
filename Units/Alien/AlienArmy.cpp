@@ -66,29 +66,24 @@ void AlienArmy::print() const {
 }
 
 AlienArmy::~AlienArmy() {
+    AlienSoldier *solider = {};
+    AlienDrone *drone = {};
+
     for (size_t i = 0; i < monsters.size(); i++) {
         if (monsters[i] != nullptr) {
             delete monsters[i];
             monsters[i] = nullptr;
         }
     }
-    while (!Asoldiers.isEmpty()) {
-        AlienSoldier *unit;
-        if (Asoldiers.dequeue(unit)) {
-            if (unit != nullptr) {
-                delete unit;
-                unit = nullptr;
-            }
-        }
+
+    while (Asoldiers.dequeue(solider)) {
+            delete solider;
+            solider = nullptr;
     }
-    while (!drones.is_empty()) {
-        AlienDrone *unit;
-        if (drones.pop_front(unit)) {
-            if (unit != nullptr) {
-                delete unit;
-                unit = nullptr;
-            }
-        }
+
+    while (drones.pop_front(drone)) {
+        delete drone;
+        drone = nullptr;
     }
 }
 
