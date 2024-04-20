@@ -3,6 +3,7 @@
 #include <iostream>
 #include <initializer_list>
 #include <algorithm>
+#include <type_traits>
 
 template <typename T, typename Compare = std::greater_equal<T>>
 
@@ -220,7 +221,20 @@ void PriorityQueue<T, Compare>::push(const T &value) {
 
 template<typename T, typename Compare>
 void PriorityQueue<T, Compare>::print() const {
-    std::cout << "Priority Queue: content: ";
+    if (empty()) {
+        std::cout << "Empty" << std::endl;
+        return;
+    }
+
+    if (std::is_pointer<T>::value) {
+        for (size_t i = 0; i < length; i++) {
+            if (data[i] != nullptr) {
+                data[i]->print();
+            }
+        }
+        return;
+    }
+
     for_each(data, data + length, [](const T &value) {
         std::cout << value << " ";
     });

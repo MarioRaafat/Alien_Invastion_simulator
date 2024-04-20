@@ -15,8 +15,8 @@ private:
     Generator* generator;
     EarthArmy Earmy;
     AlienArmy Aarmy;
-    Array<ArmyUnit*> temp_list;
-    Array<ArmyUnit*> killed_list;
+    LinkedQueue<ArmyUnit *> temp_list;
+    LinkedQueue<ArmyUnit *> killed_list;
 
 
 //    EarthUnits Eunits;

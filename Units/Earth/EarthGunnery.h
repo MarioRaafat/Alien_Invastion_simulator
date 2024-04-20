@@ -7,6 +7,7 @@
 class EarthGunnery : public ArmyUnit {
 public:
     EarthGunnery(Game *game, int id, int t, int pw, int hl, int attc);
+    EarthGunnery(const EarthGunnery &other) = default;
     void attack(ArmyUnit* solider) override;
     bool operator>(const EarthGunnery &other) const;
 };

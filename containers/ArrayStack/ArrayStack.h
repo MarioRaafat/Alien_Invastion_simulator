@@ -8,8 +8,8 @@
 #ifndef ARRAY_STACK_
 #define ARRAY_STACK_
 #include <iostream>
-
 #include "StackADT.h"
+#include <type_traits>
 
 //Unless spesificed by the stack user, the default size is 100
 template<typename T>
@@ -22,9 +22,13 @@ private:
 
 public:
     void print() const {
-        std::cout << "Stack: content:";
         for (int i = top; i >= 0; i--) {
-            std::cout << items[i] << " ";
+            if (std::is_pointer<T>::value) {
+                items[i]->print();
+            }
+            else {
+                std::cout << items[i] << " ";
+            }
         }
         std::cout << std::endl;
     }

@@ -3,6 +3,7 @@
 #include <initializer_list>
 #include <iostream>
 #include <bits/stdc++.h>
+#include <type_traits>
 //how to check for memory leaks
 
 /**
@@ -166,17 +167,23 @@ size_t Dequeue<T>::size() const {
 
 template<typename T>
 void Dequeue<T>::print() const {
+    bool is_pointer = false;
     if (is_moved()) {
         return;
     }
-    std::cout << "Dequeue: content: ";
+    if (std::is_pointer<T>::value) {
+        is_pointer = true;
+    }
     Node *current = head->next;
     if (is_empty()) {
-        std::cout << "Dequeue is empty" << std::endl;
         return;
     }
     while (current != tail) {
-        std::cout << current->data << " ";
+        if (is_pointer) {
+            current->data->print();
+        } else {
+            std::cout << current->data << " ";
+        }
         current = current->next;
     }
     std::cout << std::endl;
