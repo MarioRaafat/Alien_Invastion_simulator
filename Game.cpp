@@ -81,27 +81,27 @@ void Game::phase1Test() {
         ArmyUnit *unit = nullptr;
 
         if (0 < X && X < 10) {
-            unit = Earmy.pickUnit(1);
+            unit = Earmy.pickUnit(earth_solider);
             if (unit != nullptr) {
-                Earmy.addUnit(unit, 1);
+                Earmy.addUnit(unit, earth_solider);
                 unit->print();
             }
         } else if (10 < X && X < 20) {
-            unit = Earmy.pickUnit(2);
+            unit = Earmy.pickUnit(earth_tank);
             if (unit != nullptr) {
                 unit->print();
                 killed_list.enqueue(unit);
             }
         } else if (20 < X && X < 30) {
-            unit = Earmy.pickUnit(3);
+            unit = Earmy.pickUnit(earth_gunnery);
             if (unit != nullptr) {
                 unit->setHealth(unit->getHealth() / 2);
                 unit->print();
-                Earmy.addUnit(unit, 3);
+                Earmy.addUnit(unit, earth_gunnery);
             }
         } else if (30 < X && X < 40) {
             for (int i = 0; i < 5; i++) {
-                unit = Aarmy.pickUnit(4);
+                unit = Aarmy.pickUnit(alien_solider);
                 if (unit != nullptr) {
                     unit->setHealth(unit->getHealth() - 10);
                     temp_list.enqueue(unit);
@@ -113,21 +113,21 @@ void Game::phase1Test() {
             cout << "==========================================" << endl;
             while (!temp_list.isEmpty()) {
                 temp_list.dequeue(unit);
-                Aarmy.addUnit(unit, 4);
+                Aarmy.addUnit(unit, alien_solider);
             }
 
         } else if (40 < X && X < 50) {
             for (int i = 0; i < 5; i++) {
-                unit = Aarmy.pickUnit(5);
+                unit = Aarmy.pickUnit(alien_monster);
                 if (unit != nullptr) {
-                    Aarmy.addUnit(unit, 5);
+                    Aarmy.addUnit(unit, alien_monster);
                     unit->print();
                 }
             }
         } else if (50 < X && X < 60) {
             int front = true;
             for (int i = 0; i < 6; i++) {
-                unit = Aarmy.pickUnit(6, front);
+                unit = Aarmy.pickUnit(alien_drone, front);
                 if (unit != nullptr) {
                     killed_list.enqueue(unit);
                     unit->print();

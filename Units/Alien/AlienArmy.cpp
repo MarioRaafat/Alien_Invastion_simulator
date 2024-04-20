@@ -3,15 +3,15 @@
 #include <random>
 
 
-void AlienArmy::addUnit(ArmyUnit *unit, int type) {
+void AlienArmy::addUnit(ArmyUnit *unit, unit_type type) {
     switch (type) {
-        case 4:
+        case alien_solider:
             Asoldiers.enqueue(static_cast<AlienSoldier *>(unit));
             break;
-        case 5:
+        case alien_monster:
             monsters.push_back(static_cast<AlienMonster *>(unit));
             break;
-        case 6:
+        case alien_drone:
                 drones.push_back(static_cast<AlienDrone *>(unit));
             break;
         default:
@@ -19,7 +19,7 @@ void AlienArmy::addUnit(ArmyUnit *unit, int type) {
     }
 }
 
-ArmyUnit *AlienArmy::pickUnit(int type, bool droneFront) {
+ArmyUnit *AlienArmy::pickUnit(unit_type type, bool droneFront) {
     AlienSoldier *soldier = nullptr;
     AlienDrone *drone = nullptr;
     AlienMonster *monster = nullptr;
@@ -30,19 +30,19 @@ ArmyUnit *AlienArmy::pickUnit(int type, bool droneFront) {
     }
 
     switch (type) {
-        case 4:
+        case alien_solider:
             if (Asoldiers.dequeue(soldier)) {
                 return soldier;
             }
             break;
-        case 5:
+        case alien_monster:
             if (monsters.empty()) {
                 return nullptr;
             }
             monster = monsters[random];
             monsters[random] = nullptr;
             return monster;
-        case 6:
+        case alien_drone:
             if (drones.is_empty()) {
                 return nullptr;
             }

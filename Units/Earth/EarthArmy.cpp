@@ -1,36 +1,38 @@
 #include "EarthArmy.h"
 
-void EarthArmy::addUnit(ArmyUnit *unit, int type) {
+void EarthArmy::addUnit(ArmyUnit *unit, unit_type type) {
     switch (type) {
-        case 1:
+        case earth_solider:
             Esoldiers.enqueue(static_cast<EarthSoldier *>(unit));
             break;
-        case 2:
+        case earth_tank:
             tanks.push(static_cast<EarthTank *>(unit));
             break;
-        case 3:
+        case earth_gunnery:
             gunneries.push(static_cast<EarthGunnery *>(unit));
+            break;
+        default:
             break;
     }
 }
 
-ArmyUnit* EarthArmy::pickUnit(int type) {
+ArmyUnit* EarthArmy::pickUnit(unit_type type) {
     EarthTank *tank = nullptr;
     EarthSoldier *soldier = nullptr;
     EarthGunnery *gunnery = nullptr;
 
     switch (type) {
-        case 1:
+        case earth_solider:
             if (Esoldiers.dequeue(soldier)) {
                 return soldier;
             }
             break;
-        case 2:
+        case earth_tank:
             if (tanks.pop(tank)) {
                 return tank;
             }
             break;
-        case 3:
+        case earth_gunnery:
             if (gunneries.pop(gunnery)) {
                 return gunnery;
             }

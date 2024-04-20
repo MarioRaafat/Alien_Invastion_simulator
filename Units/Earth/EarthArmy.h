@@ -13,8 +13,8 @@
 class EarthArmy {
 public:
     void attack(ArmyUnit *unit);
-    void addUnit(ArmyUnit *unit, int type);
-    ArmyUnit* pickUnit(int type);
+    void addUnit(ArmyUnit *unit, unit_type type);
+    ArmyUnit* pickUnit(unit_type type);
     ~EarthArmy();
     void print() const;
 

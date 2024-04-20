@@ -1,7 +1,7 @@
 #include "ArmyUnit.h"
 #include <iostream>
 
-ArmyUnit::ArmyUnit(Game *game, int id, int tyId, int t, int pw, int hl, int attC) :
+ArmyUnit::ArmyUnit(Game *game, int id, unit_type tyId, int t, int pw, int hl, int attC) :
         game(game), ID(id), typeIdentifier(tyId), Tj(t), power(pw), health(hl), attackCapacity(attC) {
     setHealth(hl);
 }

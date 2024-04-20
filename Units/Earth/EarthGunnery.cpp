@@ -1,7 +1,7 @@
 #include "EarthGunnery.h"
 
 EarthGunnery::EarthGunnery(Game *game, int id, int t, int pw, int hl, int attc) :
-        ArmyUnit(game, id, 3, t, pw, hl, attc) {}
+        ArmyUnit(game, id, earth_gunnery, t, pw, hl, attc) {}
 
 void EarthGunnery::attack(ArmyUnit* solider) {
     damage(solider);

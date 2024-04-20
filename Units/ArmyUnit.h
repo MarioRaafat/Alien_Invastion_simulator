@@ -1,6 +1,15 @@
 #ifndef ARMYUNIT_H
 #define ARMYUNIT_H
 
+enum unit_type {
+    earth_solider = 1,
+    earth_tank,
+    earth_gunnery,
+    alien_solider,
+    alien_monster,
+    alien_drone
+};
+
 
 class Game;
 class ArmyUnit {
@@ -8,16 +17,16 @@ class ArmyUnit {
 protected:
 
     int ID,
-        typeIdentifier, // 1 for ES , 2 for ET , 3 for EG ...etc
         Tj, // time joining
         power,
         health,
         attackCapacity;
+    unit_type typeIdentifier; // 1 for ES , 2 for ET , 3 for EG ...etc
 private:
     Game *game;
 public:
 
-    ArmyUnit(Game *game, int id, int tyId, int t, int pw, int hl, int attC);
+    ArmyUnit(Game *game, int id, unit_type tyId, int t, int pw, int hl, int attC);
     ArmyUnit(const ArmyUnit &other) = default;
     virtual ~ArmyUnit() = default;
 
