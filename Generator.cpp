@@ -14,12 +14,12 @@ int Generator::current_time = 0;
 
 
 Generator::Generator(int n, int es, int et, int eg, int as, int am, int ad, int prob,
-    int min_Epw, int max_Epw, int min_Ehl, int max_Ehl, int min_Ecap, int max_Ecap,
-    int min_Apw, int max_Apw, int min_Ahl, int max_Ahl, int min_Acap, int max_Acap)
+                     int min_Epw, int max_Epw, int min_Ehl, int max_Ehl, int min_Ecap, int max_Ecap,
+                     int min_Apw, int max_Apw, int min_Ahl, int max_Ahl, int min_Acap, int max_Acap)
 
-        : N(n), ES(es), ET(et), EG(eg), AS(as), AM(am), AD(ad),
-min_Epower(min_Epw), max_Epower(max_Epw), min_Ehealth(min_Ehl), max_Ehealth(max_Ehl), min_Ecapacity(min_Ecap), max_Ecapacity(max_Ecap),
-min_Apower(min_Apw), max_Apower(max_Apw), min_Ahealth(min_Ahl), max_Ahealth(max_Ahl), min_Acapacity(min_Acap), max_Acapacity(max_Acap)
+        : N(n), ES(es), ET(et), EG(eg), AS(as), AM(am), AD(ad), probability{prob},
+          min_Epower(min_Epw), max_Epower(max_Epw), min_Ehealth(min_Ehl), max_Ehealth(max_Ehl), min_Ecapacity(min_Ecap), max_Ecapacity(max_Ecap),
+          min_Apower(min_Apw), max_Apower(max_Apw), min_Ahealth(min_Ahl), max_Ahealth(max_Ahl), min_Acapacity(min_Acap), max_Acapacity(max_Acap)
 {}
 
 void Generator::generate(Game *game) {

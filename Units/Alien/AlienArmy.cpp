@@ -63,8 +63,9 @@ void AlienArmy::print() const {
 
     std::cout << Asoldiers.size() << " AS ";
     Asoldiers.print();
-    std::cout << monsters.size() << " AM \n";
+    std::cout << monsters.size() << " AM ";
     monsters.print();
+    std:: cout << "\n";
     std::cout << drones.size() << " AD ";
     drones.print();
 }
