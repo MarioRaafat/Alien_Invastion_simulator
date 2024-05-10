@@ -2,12 +2,13 @@
 #define ARMYUNIT_H
 
 enum unit_type {
-    earth_solider = 1,
+    earth_soldier = 1,
     earth_tank,
     earth_gunnery,
-    alien_solider,
+    alien_soldier,
     alien_monster,
-    alien_drone
+    alien_drone,
+    heal_unit
 };
 
 
@@ -19,7 +20,9 @@ protected:
         Tj, // time joining
         power,
         health,
-        attackCapacity;
+        original_health,
+        attackCapacity,
+        count_UML; // counter for rounds in UML
     unit_type typeIdentifier; // 1 for ES , 2 for ET , 3 for EG ...etc
 private:
     Game *game;
@@ -32,7 +35,10 @@ public:
     int getPower() const;
     void setHealth(int hl);
     int getHealth() const;
+    int getOriginalHealth();
     int getAttackCapacity() const;
+    int get_count_UML();
+    void set_count_UML(int num);
 
     void damage(ArmyUnit* enemy);
     virtual void print() const;

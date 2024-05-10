@@ -5,7 +5,7 @@
 #include "Units/ArmyUnit.h"
 class Generator {
 
-    static int Ecount, Acount;  // earth and aliens units number
+    static int Ecount, Acount, HealNum;  // earth and aliens units number
     static int current_time;
 
     int N, ES, ET, EG, AS, AM, AD, probability;

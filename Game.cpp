@@ -50,8 +50,14 @@ void Game::add_Eunit(ArmyUnit *unit, unit_type type) {
     Earmy.addUnit(unit, type);
 }
 
+void Game::add_heal_unit(HealUnit* HU) {
+    heal_list.push(HU);
+}
+
 void Game::earth_attack_aliens() {
     Esolider_attack();
+
+    heal();
 }
 
 void Game::aliens_attack_earth() {
@@ -71,7 +77,7 @@ Game::~Game() {
 }
 
 void Game::Esolider_attack() {
-    ArmyUnit* soldier_to_attack = Earmy.pickUnit(earth_solider);
+    ArmyUnit* soldier_to_attack = Earmy.pickUnit(earth_soldier);
     ArmyUnit* soldier_to_be_attacked;
     int capacity;
     int empty_spaces = 0;
@@ -79,7 +85,7 @@ void Game::Esolider_attack() {
     if (dynamic_cast<EarthSoldier*>(soldier_to_attack)) {
         capacity = soldier_to_attack->getAttackCapacity();
         for(int i = 0; i < capacity; i++) {
-            soldier_to_be_attacked = Aarmy.pickUnit(alien_solider);
+            soldier_to_be_attacked = Aarmy.pickUnit(alien_soldier);
             if (soldier_to_be_attacked){
                 temp_list.enqueue(soldier_to_be_attacked);
             }
@@ -96,15 +102,15 @@ void Game::Esolider_attack() {
             killed_list.enqueue(soldier_to_be_attacked);
         }
         else {
-            Aarmy.addUnit(soldier_to_be_attacked, alien_solider);
+            Aarmy.addUnit(soldier_to_be_attacked, alien_soldier);
         }
     }
-    Earmy.addUnit(soldier_to_attack, earth_solider);
+    Earmy.addUnit(soldier_to_attack, earth_soldier);
 }
 
 
 void Game::Asolider_attack() {
-    ArmyUnit* soldier_to_attack = Aarmy.pickUnit(alien_solider);
+    ArmyUnit* soldier_to_attack = Aarmy.pickUnit(alien_soldier);
     ArmyUnit* soldier_to_be_attacked;
     int capacity;
     int empty_spaces = 0;
@@ -112,7 +118,7 @@ void Game::Asolider_attack() {
     if (dynamic_cast<AlienSoldier*>(soldier_to_attack)) {
         capacity = soldier_to_attack->getAttackCapacity();
         for(int i = 0; i < capacity; i++) {
-            soldier_to_be_attacked = Earmy.pickUnit(earth_solider);
+            soldier_to_be_attacked = Earmy.pickUnit(earth_soldier);
             if (soldier_to_be_attacked){
                 temp_list.enqueue(soldier_to_be_attacked);
             }
@@ -128,11 +134,108 @@ void Game::Asolider_attack() {
         if (soldier_to_be_attacked->isDead()) {
             killed_list.enqueue(soldier_to_be_attacked);
         }
+        else if (soldier_to_be_attacked->getHealth() >= double(soldier_to_be_attacked->getOriginalHealth() * 0.2)){
+            Earmy.addUnit(soldier_to_be_attacked, earth_soldier);
+        }
         else {
-            Earmy.addUnit(soldier_to_be_attacked, earth_solider);
+            soldier_UML.push(soldier_to_be_attacked);
         }
     }
-    Aarmy.addUnit(soldier_to_attack, alien_solider);
+    Aarmy.addUnit(soldier_to_attack, alien_soldier);
+}
+
+void Game::heal() {
+    HealUnit* HU;
+    ArmyUnit* damaged_unit;
+    int capacity;
+
+    count_rounds_in_UML();
+
+    while(true) {
+        if( (soldier_UML.is_empty() && tank_UML.isEmpty()) || heal_list.isEmpty()) {
+            return;
+        }
+
+        heal_list.pop(HU);
+        capacity = HU->getAttackCapacity();
+
+        for(int i = 0; i < capacity; i++) {
+            if (!soldier_UML.is_empty()) {
+                soldier_UML.pop(damaged_unit);
+                HU->attack(damaged_unit);
+                if (damaged_unit->getHealth() < double(damaged_unit->getOriginalHealth() * 0.2)) {
+                    temp_list.enqueue(damaged_unit);
+                }
+                else {
+                    add_Eunit(damaged_unit, earth_soldier);
+                }
+            }
+            else if (!tank_UML.isEmpty()){
+                tank_UML.dequeue(damaged_unit);
+                HU->attack(damaged_unit);
+                if (damaged_unit->getHealth() < double(damaged_unit->getOriginalHealth() * 0.2)) {
+                    temp_list.enqueue(damaged_unit);
+                }
+                else {
+                    add_Eunit(damaged_unit, earth_tank);
+                }
+            }
+            else {
+                delete HU;
+                HU = nullptr;
+                break;
+            }
+        }
+        delete HU;
+        HU = nullptr;
+    }
+
+    while(!temp_list.isEmpty()) {
+        temp_list.dequeue(damaged_unit);
+
+        if (damaged_unit->getTypeId() == earth_soldier) {
+            soldier_UML.push(damaged_unit);
+        }
+        else {
+            tank_UML.enqueue(damaged_unit);
+        }
+    }
+}
+
+void Game::count_rounds_in_UML() {
+    ArmyUnit* unit;
+
+    while(!soldier_UML.is_empty()) {
+        soldier_UML.pop(unit);
+        unit->set_count_UML(unit->get_count_UML() + 1);
+        temp_list.enqueue(unit);
+    }
+
+    while(!temp_list.isEmpty()) {
+        temp_list.dequeue(unit);
+        if (unit->get_count_UML() < 10) {
+            soldier_UML.push(unit);
+        }
+        else {
+            killed_list.enqueue(unit);
+        }
+    }
+
+    while(!tank_UML.isEmpty()) {
+        tank_UML.dequeue(unit);
+        unit->set_count_UML(unit->get_count_UML() + 1);
+        temp_list.enqueue(unit);
+    }
+
+    while(!soldier_UML.is_empty()) {
+        temp_list.dequeue(unit);
+        if (unit->get_count_UML() < 10) {
+            tank_UML.enqueue(unit);
+        }
+        else {
+            killed_list.enqueue(unit);
+        }
+    }
 }
 
 void Game::phase1Test() {
@@ -144,9 +247,9 @@ void Game::phase1Test() {
         ArmyUnit *unit = nullptr;
 
         if (0 < X && X < 10) {
-            unit = Earmy.pickUnit(earth_solider);
+            unit = Earmy.pickUnit(earth_soldier);
             if (unit != nullptr) {
-                Earmy.addUnit(unit, earth_solider);
+                Earmy.addUnit(unit, earth_soldier);
             }
         } else if (10 < X && X < 20) {
             unit = Earmy.pickUnit(earth_tank);
@@ -165,7 +268,7 @@ void Game::phase1Test() {
             }
         } else if (30 < X && X < 40) {
             for (int i = 0; i < 5; i++) {
-                unit = Aarmy.pickUnit(alien_solider);
+                unit = Aarmy.pickUnit(alien_soldier);
                 if (unit != nullptr) {
                     unit->setHealth(unit->getHealth() - 10);
                     temp_list.enqueue(unit);
@@ -177,7 +280,7 @@ void Game::phase1Test() {
                 if (unit->isDead()) {
                     killed_list.enqueue(unit);
                 } else {
-                    Aarmy.addUnit(unit, alien_solider);
+                    Aarmy.addUnit(unit, alien_soldier);
                 }
             }
 

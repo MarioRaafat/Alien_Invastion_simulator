@@ -9,6 +9,7 @@
 
 int Generator::Ecount = 1;
 int Generator::Acount = 1;
+int Generator::HealNum = 1;
 int Generator::current_time = 0;
 
 
@@ -24,6 +25,8 @@ Generator::Generator(int n, int es, int et, int eg, int as, int am, int ad, int 
 
 void Generator::generate(Game *game) {
     int A = random_range(1, 100);
+    int healing_probability = random_range(1, 100);
+
     if (A <= probability) {
         for (int i = 0; i < N; i++) {
             int B = random_range(1, 100);
@@ -31,9 +34,14 @@ void Generator::generate(Game *game) {
             int health = random_range(min_Ehealth, max_Ehealth);
             int capacity = random_range(min_Ecapacity, max_Ecapacity);
 
+            if(healing_probability <= 5) {
+                HealUnit* heal_unit = new HealUnit(game, 3000 + HealNum++, current_time, power, health, capacity);
+                game->add_heal_unit(heal_unit);
+            }
+
             if (B <= ES) {
                 auto Esoldier = new EarthSoldier(game, Ecount++, current_time, power, health, capacity);
-                game->add_Eunit(Esoldier, earth_solider);
+                game->add_Eunit(Esoldier, earth_soldier);
             }
             else if (B <= ES + ET) {
                 auto Etank = new EarthTank(game,Ecount++, current_time, power, health, capacity);
@@ -53,7 +61,7 @@ void Generator::generate(Game *game) {
             if (B <= AS) {
 
                 auto Asoldier = new AlienSoldier(game, 2000 + Acount++, current_time, power, health, capacity);
-                game->add_Aunit(Asoldier, alien_solider);
+                game->add_Aunit(Asoldier, alien_soldier);
             }
             else if (B <= AS + AM) {
                 auto Amonster = new AlienMonster(game, 2000 + Acount++, current_time, power, health, capacity);
@@ -65,6 +73,7 @@ void Generator::generate(Game *game) {
             }
         }
     }
+
     current_time++;
 }
 

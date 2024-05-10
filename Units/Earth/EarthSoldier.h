@@ -5,6 +5,7 @@
 #include "../Alien/AlienSoldier.h"
 
 class EarthSoldier : public ArmyUnit {
+
     public:
         EarthSoldier(Game *game, int id, int t, int pw, int hl, int attc);
         virtual void attack(ArmyUnit * enemy);

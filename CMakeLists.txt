@@ -53,4 +53,7 @@ add_executable(Alien_Invastion_simulator
         Units/Earth/EarthSoldier.h
         Units/Earth/EarthTank.cpp
         Units/Earth/EarthTank.h
-        main.cpp)
+        main.cpp
+        Units/Healing/HealUnit.cpp
+        Units/Healing/HealUnit.h
+        Units/Healing/HealUnit.h)

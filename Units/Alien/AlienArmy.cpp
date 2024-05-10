@@ -5,7 +5,7 @@
 
 void AlienArmy::addUnit(ArmyUnit *unit, unit_type type) {
     switch (type) {
-        case alien_solider:
+        case alien_soldier:
             Asoldiers.enqueue(static_cast<AlienSoldier *>(unit));
             break;
         case alien_monster:
@@ -30,7 +30,7 @@ ArmyUnit *AlienArmy::pickUnit(unit_type type, bool droneFront) {
     }
 
     switch (type) {
-        case alien_solider:
+        case alien_soldier:
             if (Asoldiers.dequeue(soldier)) {
                 return soldier;
             }
