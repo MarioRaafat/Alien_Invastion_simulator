@@ -1,5 +1,9 @@
 #include "EarthArmy.h"
 
+void EarthArmy::attack(ArmyUnit *unit) {
+
+}
+
 void EarthArmy::addUnit(ArmyUnit *unit, unit_type type) {
     switch (type) {
         case earth_solider:

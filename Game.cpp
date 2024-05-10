@@ -50,6 +50,14 @@ void Game::add_Eunit(ArmyUnit *unit, unit_type type) {
     Earmy.addUnit(unit, type);
 }
 
+void Game::earth_attack_aliens() {
+    Esolider_attack();
+}
+
+void Game::aliens_attack_earth() {
+    Asolider_attack();
+}
+
 Game::~Game() {
     ArmyUnit *unit = nullptr;
 
@@ -62,20 +70,75 @@ Game::~Game() {
     }
 }
 
+void Game::Esolider_attack() {
+    ArmyUnit* soldier_to_attack = Earmy.pickUnit(earth_solider);
+    ArmyUnit* soldier_to_be_attacked;
+    int capacity;
+    int empty_spaces = 0;
+
+    if (dynamic_cast<EarthSoldier*>(soldier_to_attack)) {
+        capacity = soldier_to_attack->getAttackCapacity();
+        for(int i = 0; i < capacity; i++) {
+            soldier_to_be_attacked = Aarmy.pickUnit(alien_solider);
+            if (soldier_to_be_attacked){
+                temp_list.enqueue(soldier_to_be_attacked);
+            }
+            else {
+                empty_spaces++;
+            }
+        }
+    }
+
+    for (int i = 0; i < (capacity - empty_spaces); i++) {
+        temp_list.dequeue(soldier_to_be_attacked);
+        soldier_to_attack->attack(soldier_to_be_attacked);
+        if (soldier_to_be_attacked->isDead()) {
+            killed_list.enqueue(soldier_to_be_attacked);
+        }
+        else {
+            Aarmy.addUnit(soldier_to_be_attacked, alien_solider);
+        }
+    }
+    Earmy.addUnit(soldier_to_attack, earth_solider);
+}
+
+
+void Game::Asolider_attack() {
+    ArmyUnit* soldier_to_attack = Aarmy.pickUnit(alien_solider);
+    ArmyUnit* soldier_to_be_attacked;
+    int capacity;
+    int empty_spaces = 0;
+
+    if (dynamic_cast<AlienSoldier*>(soldier_to_attack)) {
+        capacity = soldier_to_attack->getAttackCapacity();
+        for(int i = 0; i < capacity; i++) {
+            soldier_to_be_attacked = Earmy.pickUnit(earth_solider);
+            if (soldier_to_be_attacked){
+                temp_list.enqueue(soldier_to_be_attacked);
+            }
+            else {
+                empty_spaces++;
+            }
+        }
+    }
+
+    for (int i = 0; i < (capacity - empty_spaces); i++) {
+        temp_list.dequeue(soldier_to_be_attacked);
+        soldier_to_attack->attack(soldier_to_be_attacked);
+        if (soldier_to_be_attacked->isDead()) {
+            killed_list.enqueue(soldier_to_be_attacked);
+        }
+        else {
+            Earmy.addUnit(soldier_to_be_attacked, earth_solider);
+        }
+    }
+    Aarmy.addUnit(soldier_to_attack, alien_solider);
+}
+
 void Game::phase1Test() {
     int loopCount  = 50;
 
     while (loopCount--) {
-        std::cout << "========================Cuurent TimeStep " << 50 - loopCount << "============================" << std::endl;
-        std::cout << "===================================Earth Army Alive Units:======================================\n";
-        Earmy.print();
-        std::cout << endl;
-        std::cout << "===================================Alien Army Alive Units:======================================\n";
-        Aarmy.print();
-        std::cout << endl;
-        std::cout << "===================================Killed Units:======================================\n";
-        killed_list.print();
-        std::cout << endl;
 
         int X = generator->random_range(1, 100);
         ArmyUnit *unit = nullptr;
@@ -135,6 +198,26 @@ void Game::phase1Test() {
                 front = !front;
             }
         }
+        else if (60 < X && X < 70) {
+            earth_attack_aliens();
+        }
+        std::cout << endl << endl << endl;
+
+
+        std::cout << "========================Cuurent TimeStep " << 50 - loopCount << "============================" << std::endl;
+        std::cout << "===================================Earth Army Alive Units:======================================\n";
+        Earmy.print();
+        std::cout << endl;
+        std::cout << "===================================Alien Army Alive Units:======================================\n";
+        Aarmy.print();
+        std::cout << endl;
+        std::cout << "===================================Killed Units:======================================\n";
+        killed_list.print();
+        std::cout << endl;
+
+
+        std::string msg = (X < 70 ? std::to_string(1 + X/10) : "none");
+        std::cout << "Case number: "<< msg <<endl;
         randGen();
     }
 }

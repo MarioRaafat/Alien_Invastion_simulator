@@ -1,5 +1,7 @@
 #include "ArmyUnit.h"
 #include <iostream>
+#include <math.h>
+
 
 ArmyUnit::ArmyUnit(Game *game, int id, unit_type tyId, int t, int pw, int hl, int attC) :
         game(game), ID(id), typeIdentifier(tyId), Tj(t), power(pw), health(hl), attackCapacity(attC) {
@@ -35,11 +37,12 @@ int ArmyUnit::getAttackCapacity() const {
 }
 
 void ArmyUnit::damage(ArmyUnit* enemy) {
-    enemy->setHealth(enemy->getHealth() - ((power * health / 100) / static_cast<int>(enemy->getHealth())));
+    enemy->setHealth((enemy->getHealth() - ((power * health / 100) / sqrt(enemy->getHealth())) ) );
 }
 
 void ArmyUnit::print() const {
-    std::cout << getID() << ",";
+    std::string msg = "(" + std::to_string(getHealth()) + ")";
+    std::cout << getID() << msg << ",";
 }
 
 bool ArmyUnit::isDead() const {

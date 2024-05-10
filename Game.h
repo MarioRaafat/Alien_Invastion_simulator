@@ -24,9 +24,15 @@ public:
 
     void randGen();
     void load_file();
+
     void add_Aunit(ArmyUnit* unit, unit_type type);
     void add_Eunit(ArmyUnit* unit, unit_type type);
 
+    void earth_attack_aliens();
+    void aliens_attack_earth();
+
+    void Esolider_attack();
+    void Asolider_attack();
     void phase1Test();
 };
 #endif //GAME_H
