@@ -1,8 +1,17 @@
 #include "Game.h"
 
-Game::Game() {
+Game::Game()  {
+    char mode;
+
+    cout << "If you want to join Interactive mode press any character expect letter n in small case\n";
+    cin >> mode;
+
+    if (mode != 'n')
+        interactive_mode = true;
+
     load_file();
     Game::randGen();
+    out_file.open("output.txt", std::ios::out | std::ios::trunc);
 }
 
 void Game::randGen() {
@@ -66,14 +75,49 @@ void Game::add_heal_unit(HealUnit* HU) {
 
 Game::~Game() {
     ArmyUnit *unit = nullptr;
+    double earth_avg_df{};
+    double earth_avg_dd{};
+    double earth_avg_DBb{};
+    double alien_avg_df{};
+    double alien_avg_dd{};
+    double alien_avg_DBb{};
 
     delete generator;
     generator = nullptr;
 
     while (!killed_list.isEmpty()) {
         killed_list.dequeue(unit);
+
+        if (unit->getTypeId() == earth_soldier || unit->getTypeId() == earth_tank || unit->getTypeId() == earth_gunnery) {
+            earth_avg_df += unit->getDf();
+            earth_avg_dd += unit->getDd();
+            earth_avg_DBb += unit->getDBb();
+        } else if (unit->getTypeId() == alien_soldier || unit->getTypeId() == alien_monster || unit->getTypeId() == alien_drone){
+            alien_avg_df += unit->getDf();
+            alien_avg_dd += unit->getDd();
+            alien_avg_DBb += unit->getDBb();
+        }
+        out_file << unit->getTd() << " " << unit->getID() << " " << unit->getTj() << " ";
+        out_file << unit->getDf() << " " << unit->getDd() << " " << unit->getDBb() << endl;
         delete unit;
     }
+    out_file << "Result is " << winner() << endl;
+    Earmy.print_stats(out_file);
+    out_file << "Earth Army Avg Df: " << earth_avg_df / Earmy.getTotalKilled() << endl;
+    out_file << "Earth Army Avg Dd: " << earth_avg_dd / Earmy.getTotalKilled() << endl;
+    out_file << "Earth Army Avg DBb: " << earth_avg_DBb / Earmy.getTotalKilled() << endl;
+    //print avg df/db % and dd / db %
+    out_file << "Avg df / db percentage: " << ((earth_avg_df / Earmy.getTotalKilled()) / (earth_avg_DBb / Earmy.getTotalKilled()) * 100)  << endl;
+    out_file << "Avg dd / db percentage: " << ((earth_avg_dd / Earmy.getTotalKilled()) / (earth_avg_DBb / Earmy.getTotalKilled()) * 100)  << endl;
+
+    Aarmy.print_stats(out_file);
+    out_file << "Alien Army Avg Df: " << alien_avg_df / Aarmy.total_killed() << endl;
+    out_file << "Alien Army Avg Dd: " << alien_avg_dd / Aarmy.total_killed() << endl;
+    out_file << "Alien Army Avg DBb: " << alien_avg_DBb / Aarmy.total_killed() << endl;
+
+    out_file << "Avg df / db percentage: " << ((alien_avg_df / Aarmy.total_killed()) / (alien_avg_DBb / Aarmy.total_killed()) * 100)  << endl;
+    out_file << "Avg dd / db percentage: " << ((alien_avg_dd / Aarmy.total_killed()) / (alien_avg_DBb / Aarmy.total_killed()) * 100)  << endl;
+    out_file.close();
 }
 
 //void Game::Esolider_attack() {
@@ -240,14 +284,21 @@ void Game::count_rounds_in_UML() {
 
 void Game::play() {
     size_t curr_time_step{};
+    cout << "Simulation Starts\n";
     while (true) {
-        print();
-        fight();
+        if (interactive_mode) {
+            cout << "Enter a key to print ";
+            cin.get();
+            print();
+        }
+
+        fight(curr_time_step);
         randGen();
         if (curr_time_step++ > 40 && winner() != "None") {
             break;
         }
     }
+    cout << "Simulation Ended && Output File Is Created\n";
 }
 
 void Game::add_unit(ArmyUnit *unit, unit_type type) {
@@ -261,11 +312,13 @@ void Game::add_unit(ArmyUnit *unit, unit_type type) {
     }
 }
 
-void Game::fight() {
-    cout << "=================== Units Fighting at cuurent time step ==========\n";
-    Earmy.attack();
+void Game::fight(int time_step) {
+    if (interactive_mode) {
+        cout << "=================== Units Fighting at cuurent time step ==========\n";
+    }
+    Earmy.attack(time_step);
 //    heal();
-   Aarmy.attack();
+   Aarmy.attack(time_step);
 }
 
 EarthArmy &Game::getEarthArmy() {
@@ -281,6 +334,10 @@ void Game::add_to_killed_list(ArmyUnit *unit) {
 }
 
 void Game::print() {
+    if (!interactive_mode) {
+        return;
+    }
+
     Earmy.print();
     Aarmy.print();
     cout << "======================== Heal List Alive Units ====================\n" << heal_list;
@@ -305,4 +362,8 @@ const string &Game::winner() const {
         return draw;
     }
     return none;
+}
+
+bool Game::is_interactive() const {
+    return interactive_mode;
 }

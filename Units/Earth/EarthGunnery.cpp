@@ -10,6 +10,5 @@ bool EarthGunnery::operator>(const EarthGunnery &other) const {
     return (power + health) > (other.power + other.health);
 }
 
-void EarthGunnery::attack() {
-
+void EarthGunnery::attack(int time_step) {
 }

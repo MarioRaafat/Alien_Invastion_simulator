@@ -7,7 +7,7 @@
 class AlienSoldier : public ArmyUnit {
 public:
     AlienSoldier(Game *game, int id, int t, int pw, int hl, int attc);
-    void attack() override;
+    void attack(int time_step) override;
 };
 
 #endif //ALIEN_SOLIDER_H

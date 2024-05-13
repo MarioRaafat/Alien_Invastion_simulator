@@ -68,3 +68,43 @@ std::ostream &operator<<(std::ostream &os, const ArmyUnit &unit) {
     os <<  "(" << unit.getID() << "->" << unit.getHealth() << ")";
     return (os);
 }
+
+int ArmyUnit::getDBb() const {
+    return (Td - Ta);
+}
+
+bool ArmyUnit::is_dimmised() const {
+    return Td != -1;
+}
+
+bool ArmyUnit::is_attacked() const {
+   return Ta != -1;
+}
+
+int ArmyUnit::getDd() const {
+    return Td - Ta;
+}
+
+int ArmyUnit::getDf() const {
+   return Ta - Tj;
+}
+
+int ArmyUnit::getTd() const {
+    return Td;
+}
+
+int ArmyUnit::getTj() const {
+   return Tj;
+}
+
+int ArmyUnit::getTa() const {
+    return Ta;
+}
+
+void ArmyUnit::setTa(const int time) {
+    Ta = time;
+}
+
+void ArmyUnit::setTd(int time) {
+    Td = time;
+}

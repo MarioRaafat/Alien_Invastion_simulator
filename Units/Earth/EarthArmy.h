@@ -8,7 +8,7 @@
 #include "EarthSoldier.h"
 #include "EarthTank.h"
 #include "EarthGunnery.h"
-
+#include "fstream"
 
 class EarthArmy {
 public:
@@ -16,8 +16,19 @@ public:
     ArmyUnit* pickUnit(unit_type type);
     ~EarthArmy();
     void print() const;
-    void attack();
+    void attack(int time_step);
     size_t soliders_count() const;
+    size_t tanks_count() const;
+    size_t gunneries_count() const;
+
+    void updateKilledSoldiers(size_t killed_soldiers);
+    void updateKilledTanks(size_t killed_tanks);
+    void updateKilledGunneries(size_t killed_gunneries);
+    size_t getKilledSoldiers() const;
+    size_t getKilledTanks() const;
+    size_t getKilledGunneries() const;
+    size_t getTotalKilled() const;
+    void print_stats(ofstream &out) const;
 private:
     struct CompareEarthGunnery {
         bool operator()(const EarthGunnery* lhs, const EarthGunnery* rhs) const {
@@ -29,6 +40,10 @@ private:
     ArrayStack<EarthTank*> tanks;
     PriorityQueue<EarthGunnery*, CompareEarthGunnery> gunneries;
     size_t units_count() const;
+
+    size_t killed_soldiers{};
+    size_t killed_tanks{};
+    size_t killed_gunneries{};
 };
 
 

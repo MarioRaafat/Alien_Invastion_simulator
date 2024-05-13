@@ -98,7 +98,7 @@ AlienArmy::~AlienArmy() {
     return dis(gen);
 }
 
-void AlienArmy::attack() {
+void AlienArmy::attack(int time_step) {
     ArmyUnit* attackers[4]{};
     attackers[0] = pickUnit(alien_soldier);
     attackers[1] = pickUnit(alien_drone, true);
@@ -107,7 +107,7 @@ void AlienArmy::attack() {
 
     for (const auto & attacker : attackers) {
         if (attacker) {
-            attacker->attack();
+            attacker->attack(time_step);
             addUnit(attacker,(unit_type)attacker->getTypeId());
         }
     }
@@ -119,4 +119,53 @@ size_t AlienArmy::soldiers_count() const {
 
 size_t AlienArmy::units_count() const {
    return Asoldiers.size() + monsters.size() + drones.size();
+}
+
+size_t AlienArmy::monsters_count() const {
+    return monsters.size();
+}
+
+size_t AlienArmy::drones_count() const {
+    return drones.size();
+}
+
+void AlienArmy::updateKilledDrones(size_t killed_droness) {
+    this->killed_drones += killed_droness;
+}
+
+void AlienArmy::updateKilledMonsters(size_t killed_monsterss) {
+    this->killed_monsters += killed_monsterss;
+}
+
+void AlienArmy::updateKilledSoldiers(size_t killed_soldierss) {
+    this->killed_soldiers += killed_soldierss;
+}
+
+size_t AlienArmy::getKilledDrones() const {
+    return killed_drones;
+}
+
+size_t AlienArmy::getKilledMonsters() const {
+    return killed_monsters;
+}
+
+size_t AlienArmy::getKilledSoldiers() const {
+    return killed_soldiers;
+}
+
+size_t AlienArmy::total_killed() const {
+    return killed_drones + killed_monsters + killed_soldiers;
+}
+
+
+void AlienArmy::print_stats(ofstream &out) const {
+    out << "====================== Alien Army Stats =====================\n";
+    out << "Total Killed Soldiers: " << killed_soldiers << endl;
+    out << "Total Killed Monsters: " << killed_monsters << endl;
+    out << "Total Killed Drones: " << killed_drones << endl;
+    out << "Total Killed Units: " << total_killed() << endl;
+    out << "Alien Soliders destuced Soliders" << (killed_soldiers / soldiers_count()) * 100 << endl;
+    out << "Alien Monsters destuced Monsters" << (killed_monsters / monsters_count()) * 100 << endl;
+    out << "Alien Drones destuced Drones" << (killed_drones / drones_count()) * 100 << endl;
+    out << "Alien Total destuced Units" << (total_killed() / units_count()) * 100 << endl;
 }

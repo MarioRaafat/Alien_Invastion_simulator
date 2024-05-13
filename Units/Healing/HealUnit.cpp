@@ -9,6 +9,6 @@ HealUnit::HealUnit(Game *game, int id, int t, int pw, int hl, int attC) :
 
 
 
-void HealUnit::attack() {
+void HealUnit::attack(int time_step) {
 //        damaged_unit->setHealth( (damaged_unit->getHealth() + ( (power * health) / 100) / sqrt(damaged_unit->getHealth()) ) );
 }

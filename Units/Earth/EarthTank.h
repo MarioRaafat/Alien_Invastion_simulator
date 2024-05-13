@@ -6,6 +6,6 @@
 class EarthTank : public ArmyUnit {
 public:
     EarthTank(Game *game, int id, int t, int pw, int hl, int attc);
-    void attack() override;
+    void attack(int time_step) override;
 };
 #endif //EARTHTANK_H
