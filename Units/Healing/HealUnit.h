@@ -13,7 +13,7 @@ class HealUnit : public ArmyUnit{
 public:
     HealUnit(Game *game, int id, int t, int pw, int hl, int attC);
 
-    void attack(ArmyUnit *damaged_unit) override;
+    void attack() override;
 };
 
 

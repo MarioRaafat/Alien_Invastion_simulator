@@ -1,5 +1,6 @@
 #ifndef ARMYUNIT_H
 #define ARMYUNIT_H
+#include <iostream>
 
 enum unit_type {
     earth_soldier = 1,
@@ -24,7 +25,6 @@ protected:
         attackCapacity,
         count_UML; // counter for rounds in UML
     unit_type typeIdentifier; // 1 for ES , 2 for ET , 3 for EG ...etc
-private:
     Game *game;
 public:
     ArmyUnit(Game *game, int id, unit_type tyId, int t, int pw, int hl, int attC);
@@ -42,8 +42,9 @@ public:
 
     void damage(ArmyUnit* enemy);
     virtual void print() const;
-    virtual void attack(ArmyUnit* enemy) = 0;
+    virtual void attack() = 0;
     bool isDead() const;
+    friend std::ostream &operator<<(std::ostream &os, const ArmyUnit &unit);
 };
 
 #endif //ARMYUNIT_H

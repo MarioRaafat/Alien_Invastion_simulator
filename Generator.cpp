@@ -35,21 +35,21 @@ void Generator::generate(Game *game) {
             int capacity = random_range(min_Ecapacity, max_Ecapacity);
 
             if(healing_probability <= 5) {
-                HealUnit* heal_unit = new HealUnit(game, 3000 + HealNum++, current_time, power, health, capacity);
+                auto* heal_unit = new HealUnit(game, 3000 + HealNum++, current_time, power, health, capacity);
                 game->add_heal_unit(heal_unit);
             }
 
             if (B <= ES) {
                 auto Esoldier = new EarthSoldier(game, Ecount++, current_time, power, health, capacity);
-                game->add_Eunit(Esoldier, earth_soldier);
+                game->add_unit(Esoldier, earth_soldier);
             }
             else if (B <= ES + ET) {
                 auto Etank = new EarthTank(game,Ecount++, current_time, power, health, capacity);
-                game->add_Eunit(Etank, earth_tank);
+                game->add_unit(Etank, earth_tank);
             }
             else {
                 auto Egunnery = new EarthGunnery(game, Ecount++, current_time, power, health, capacity);
-                game->add_Eunit(Egunnery, earth_gunnery);
+                game->add_unit(Egunnery, earth_gunnery);
             }
         }
         for (int i = 0; i < N; i++) {
@@ -61,15 +61,15 @@ void Generator::generate(Game *game) {
             if (B <= AS) {
 
                 auto Asoldier = new AlienSoldier(game, 2000 + Acount++, current_time, power, health, capacity);
-                game->add_Aunit(Asoldier, alien_soldier);
+                game->add_unit(Asoldier, alien_soldier);
             }
             else if (B <= AS + AM) {
                 auto Amonster = new AlienMonster(game, 2000 + Acount++, current_time, power, health, capacity);
-                game->add_Aunit(Amonster, alien_monster);
+                game->add_unit(Amonster, alien_monster);
             }
             else {
                 auto Adrone = new AlienDrone(game, 2000 + Acount++, current_time, power, health, capacity);
-                game->add_Aunit(Adrone, alien_drone);
+                game->add_unit(Adrone, alien_drone);
             }
         }
     }

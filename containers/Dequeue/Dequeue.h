@@ -75,7 +75,11 @@ class Dequeue {
          * Utility functions
          */
          bool is_moved() const;
+
+    template<class U>
+         friend std::ostream& operator<<(std::ostream& os, const Dequeue<U>& dequeue);
 };
+
 
 template<typename T>
 bool Dequeue<T>::is_moved() const {
@@ -187,6 +191,38 @@ void Dequeue<T>::print() const {
         current = current->next;
     }
     std::cout << std::endl;
+}
+
+
+template<typename U>
+std::ostream &operator<<(std::ostream &os, const Dequeue<U> &dequeue) {
+    bool is_pointer = false;
+    os << "[";
+    if (dequeue.is_moved()) {
+        return os;
+        os << "]\n";
+    }
+    if (std::is_pointer<U>::value) {
+        is_pointer = true;
+    }
+    typename Dequeue<U>::Node *current = dequeue.head->next;
+    if (dequeue.is_empty()) {
+        os << "]\n";
+        return os;
+    }
+    while (current != dequeue.tail) {
+        if (is_pointer) {
+            os << *current->data;
+        } else {
+            os << current->data;
+        }
+        if (current->next != dequeue.tail) {
+            os << " ";
+        }
+        current = current->next;
+    }
+    os << "]\n";
+    return os;
 }
 
 template<typename T>

@@ -8,6 +8,6 @@ class EarthSoldier : public ArmyUnit {
 
     public:
         EarthSoldier(Game *game, int id, int t, int pw, int hl, int attc);
-        virtual void attack(ArmyUnit * enemy);
+        void attack() override;
 };
 #endif //EARTHSOLIDER_H

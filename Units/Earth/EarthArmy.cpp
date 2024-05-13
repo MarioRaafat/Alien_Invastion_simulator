@@ -1,8 +1,6 @@
 #include "EarthArmy.h"
+#include "Array.h"
 
-void EarthArmy::attack(ArmyUnit *unit) {
-
-}
 
 void EarthArmy::addUnit(ArmyUnit *unit, unit_type type) {
     switch (type) {
@@ -48,12 +46,10 @@ ArmyUnit* EarthArmy::pickUnit(unit_type type) {
 }
 
 void EarthArmy::print() const {
-    cout << Esoldiers.size() << " ES ";
-    Esoldiers.print();
-    cout << tanks.getTop() << " ET ";
-    tanks.print();
-    cout << gunneries.size() << " EG ";
-    gunneries.print();
+    cout << "====================== Earth Army Alive Units =====================\n";
+    cout << Esoldiers.size() << " ES " << Esoldiers;
+    cout << tanks.getTop() << " ET " << tanks;
+    cout << gunneries.size() << " EG " << gunneries << "\n";
 }
 
 EarthArmy::~EarthArmy() {
@@ -75,4 +71,26 @@ EarthArmy::~EarthArmy() {
         delete gunnery;
         gunnery = nullptr;
     }
+}
+
+void EarthArmy::attack() {
+    ArmyUnit* attackers[3]{};
+    attackers[0] = pickUnit(earth_soldier);
+    attackers[1] = pickUnit(earth_tank);
+    attackers[2] = pickUnit(earth_gunnery);
+
+    for (const auto & attacker : attackers) {
+        if (attacker) {
+            attacker->attack();
+            addUnit(attacker,(unit_type)attacker->getTypeId());
+        }
+    }
+}
+
+size_t EarthArmy::soliders_count() const {
+   return Esoldiers.size();
+}
+
+size_t EarthArmy::units_count() const {
+   return Esoldiers.size() + tanks.getTop() + gunneries.size();
 }

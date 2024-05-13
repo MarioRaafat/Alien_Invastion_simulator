@@ -33,6 +33,23 @@ public:
         }
         std::cout << std::endl;
     }
+    friend ostream& operator<<(ostream& os, const ArrayStack<T>& stack) {
+        os << "[";
+        for (int i = stack.top; i >= 0; i--) {
+            if (std::is_pointer<T>::value) {
+                os << *stack.items[i];
+            }
+            else {
+                os << stack.items[i];
+            }
+            if (i != 0) {
+                os << " ";
+            }
+
+        }
+        os << "]\n";
+        return os;
+    }
 
     int getTop() const {
         return top + 1;

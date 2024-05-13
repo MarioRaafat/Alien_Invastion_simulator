@@ -43,6 +43,9 @@ class PriorityQueue {
         size_t capacity() const;
         bool is_empty() const;
 
+    template<class U, class comp>
+        friend std::ostream& operator<<(std::ostream& os, const PriorityQueue<U, comp>& pq);
+
     private:
     /**
      * data: pointer to the array that stores the elements of the priority queue
@@ -64,16 +67,63 @@ class PriorityQueue {
      */
         void heapify_up(int index);
         void heapify_down(int index);
-        int get_parent_idx(int index) const;
-        int get_left_child_idx(int index) const;
-        int get_right_child_idx(int index) const;
-        bool has_parent(int index) const;
+        static int get_parent_idx(int index);
+        static int get_left_child_idx(int index);
+        static int get_right_child_idx(int index);
+        static bool has_parent(int index);
         bool has_left_child(int index) const;
         bool has_right_child(int index) const;
         void ensure_extra_capacity();
         bool is_full() const;
         static size_t nearest_power_of_2(size_t n);
 };
+
+template<typename U, typename Comp>
+std::ostream &operator<<(ostream &os, const PriorityQueue<U, Comp> &pq) {
+    if (pq.empty()) {
+        os << "[]\n";
+        return os;
+    }
+    os << "[";
+    if (std::is_pointer<U>::value) {
+        for (size_t i = 0; i < pq.length; i++) {
+            if (pq.data[i] != nullptr) {
+                os << *pq.data[i];
+                if (i != pq.length - 1) {
+                    os << " ";
+                }
+            }
+        }
+        os << "]\n";
+        return os;
+    }
+    for_each(pq.data, pq.data + pq.length, [&os](const U &value) {
+        os << value << " ";
+    });
+
+    return os;
+}
+
+template<typename T, typename Compare>
+void PriorityQueue<T, Compare>::print() const {
+    if (empty()) {
+        return;
+    }
+
+    if (std::is_pointer<T>::value) {
+        for (size_t i = 0; i < length; i++) {
+            if (data[i] != nullptr) {
+                data[i]->print();
+            }
+        }
+        return;
+    }
+
+    for_each(data, data + length, [](const T &value) {
+        std::cout << value << " ";
+    });
+    std::cout << std::endl;
+}
 
 template<typename T, typename Compare>
 PriorityQueue<T, Compare> &PriorityQueue<T, Compare>::operator=(PriorityQueue<T, Compare> &&other) noexcept {
@@ -219,26 +269,6 @@ void PriorityQueue<T, Compare>::push(const T &value) {
 }
 
 template<typename T, typename Compare>
-void PriorityQueue<T, Compare>::print() const {
-    if (empty()) {
-        return;
-    }
-
-    if (std::is_pointer<T>::value) {
-        for (size_t i = 0; i < length; i++) {
-            if (data[i] != nullptr) {
-                data[i]->print();
-            }
-        }
-        return;
-    }
-
-    for_each(data, data + length, [](const T &value) {
-        std::cout << value << " ";
-    });
-    std::cout << std::endl;
-}
-template<typename T, typename Compare>
 bool PriorityQueue<T, Compare>::empty() const {
     return length == 0;
 }
@@ -280,7 +310,7 @@ void PriorityQueue<T, Compare>::heapify_up(int index) {
 }
 
 template<typename T, typename Compare>
-int PriorityQueue<T, Compare>::get_parent_idx(int index) const {
+int PriorityQueue<T, Compare>::get_parent_idx(int index) {
     /*Root has no parent*/
     if (index == 0) {
         return -1;
@@ -289,17 +319,17 @@ int PriorityQueue<T, Compare>::get_parent_idx(int index) const {
 }
 
 template<typename T, typename Compare>
-bool PriorityQueue<T, Compare>::has_parent(int index) const {
+bool PriorityQueue<T, Compare>::has_parent(int index) {
     return get_parent_idx(index) >= 0;
 }
 
 template<typename T, typename Compare>
-int PriorityQueue<T, Compare>::get_right_child_idx(int index) const {
+int PriorityQueue<T, Compare>::get_right_child_idx(int index) {
    return ((index << 1) + 2);
 }
 
 template<typename T, typename Compare>
-int PriorityQueue<T, Compare>::get_left_child_idx(int index) const {
+int PriorityQueue<T, Compare>::get_left_child_idx(int index) {
     return ((index << 1) + 1);
 }
 

@@ -12,12 +12,12 @@
 
 class EarthArmy {
 public:
-    void attack(ArmyUnit *unit);
     void addUnit(ArmyUnit *unit, unit_type type);
     ArmyUnit* pickUnit(unit_type type);
     ~EarthArmy();
     void print() const;
-
+    void attack();
+    size_t soliders_count() const;
 private:
     struct CompareEarthGunnery {
         bool operator()(const EarthGunnery* lhs, const EarthGunnery* rhs) const {
@@ -28,6 +28,7 @@ private:
     LinkedQueue<EarthSoldier*> Esoldiers;
     ArrayStack<EarthTank*> tanks;
     PriorityQueue<EarthGunnery*, CompareEarthGunnery> gunneries;
+    size_t units_count() const;
 };
 
 

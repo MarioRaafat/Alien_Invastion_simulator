@@ -1,4 +1,3 @@
-
 /*
 This is a program that implements the queue abstract data type using a linked list.
 The queue is implemented as a chain of linked nodes that has two pointers,
@@ -67,6 +66,30 @@ public :
 
     //copy constructor
     LinkedQueue(const LinkedQueue<T> & LQ);
+    friend ostream& operator<<(ostream& os, const LinkedQueue<T>& LQ) {
+        Node<T> *current = LQ.frontPtr;
+        bool is_pointer = false;
+
+        if (std::is_pointer<T>::value) {
+            is_pointer = true;
+        }
+        os << "[";
+        while (current) {
+            if (is_pointer) {
+                if (current->getItem()) {
+                    os << *current->getItem();
+                }
+            } else {
+                os << current->getItem();
+            }
+            if (current->getNext() != nullptr) {
+                    os << " ";
+            }
+            current = current->getNext();
+        }
+        os << "]\n";
+        return os;
+    }
 };
 
 
@@ -78,6 +101,7 @@ void LinkedQueue<T>::print() const {
     if (std::is_pointer<T>::value) {
         is_pointer = true;
     }
+    std::cout << "[";
     while (current) {
         if (is_pointer) {
             if (current->getItem()) {
@@ -88,6 +112,7 @@ void LinkedQueue<T>::print() const {
         }
         current = current->getNext();
     }
+    std::cout << " ]";
     std::cout << std::endl;
 }
 /////////////////////////////////////////////////////////////////////////////////////////

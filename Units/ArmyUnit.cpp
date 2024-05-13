@@ -7,7 +7,7 @@ ArmyUnit::ArmyUnit(Game *game, int id, unit_type tyId, int t, int pw, int hl, in
         game(game), ID(id), typeIdentifier(tyId), Tj(t), power(pw), health(hl), attackCapacity(attC)
 {
     setHealth(hl);
-    original_health = hl;
+    original_health = health;
     count_UML = 0;
 }
 
@@ -57,9 +57,14 @@ void ArmyUnit::damage(ArmyUnit* enemy) {
 
 void ArmyUnit::print() const {
     std::string msg = "(" + std::to_string(getHealth()) + ")";
-    std::cout << getID() << msg << ",";
+    std::cout << getID() << msg;
 }
 
 bool ArmyUnit::isDead() const {
    return health <= 0;
+}
+
+std::ostream &operator<<(std::ostream &os, const ArmyUnit &unit) {
+    os <<  "(" << unit.getID() << "->" << unit.getHealth() << ")";
+    return (os);
 }

@@ -39,11 +39,14 @@ ArmyUnit *AlienArmy::pickUnit(unit_type type, bool droneFront) {
             if (monsters.empty()) {
                 return nullptr;
             }
+            //BAG ADT swap with the last element and pop_back
             monster = monsters[random];
-            monsters[random] = nullptr;
+            monsters[random] = monsters[monsters.size() - 1];
+            monsters[monsters.size() - 1] = nullptr;
+            monsters.pop_back();
             return monster;
         case alien_drone:
-            if (drones.is_empty()) {
+            if (drones.size() <= 1) {
                 return nullptr;
             }
             if (droneFront) {
@@ -60,14 +63,10 @@ ArmyUnit *AlienArmy::pickUnit(unit_type type, bool droneFront) {
 }
 
 void AlienArmy::print() const {
-
-    std::cout << Asoldiers.size() << " AS ";
-    Asoldiers.print();
-    std::cout << monsters.size() << " AM ";
-    monsters.print();
-    std:: cout << "\n";
-    std::cout << drones.size() << " AD ";
-    drones.print();
+    std::cout << "====================== Alien Army Alive Units =====================\n";
+    std::cout << Asoldiers.size() << " AS " << Asoldiers;
+    std::cout << monsters.size() << " AM " << monsters;
+    std::cout << drones.size() << " AD " << drones;
 }
 
 AlienArmy::~AlienArmy() {
@@ -97,4 +96,27 @@ AlienArmy::~AlienArmy() {
      std::mt19937 gen(rd());
      std::uniform_int_distribution<> dis(min, max);
     return dis(gen);
+}
+
+void AlienArmy::attack() {
+    ArmyUnit* attackers[4]{};
+    attackers[0] = pickUnit(alien_soldier);
+    attackers[1] = pickUnit(alien_drone, true);
+    attackers[2] = pickUnit(alien_drone, false);
+    attackers[3] = pickUnit(alien_monster);
+
+    for (const auto & attacker : attackers) {
+        if (attacker) {
+            attacker->attack();
+            addUnit(attacker,(unit_type)attacker->getTypeId());
+        }
+    }
+}
+
+size_t AlienArmy::soldiers_count() const {
+    return Asoldiers.size();
+}
+
+size_t AlienArmy::units_count() const {
+   return Asoldiers.size() + monsters.size() + drones.size();
 }

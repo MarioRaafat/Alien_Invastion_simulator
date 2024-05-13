@@ -26,14 +26,49 @@ public:
     const T &operator[](size_t index) const;
     void clear();
     void push_back(const T &item);
+    void pop_back();
     void push_back(T &&item);
     void print() const;
+    template<class U>
+    friend std::ostream &operator<<(std::ostream&os, const Array<U> &array);
 private:
     T *arr;
     size_t _size;
     size_t _capacity;
     void resize();
 };
+
+template<class T>
+void Array<T>::pop_back() {
+    if (_size != 0) {
+        _size--;
+    }
+}
+
+template<class U>
+std::ostream &operator<<(std::ostream &os, const Array<U> &array) {
+    os << "[";
+    if (std::is_pointer<U>::value) {
+        for (size_t i = 0; i < array._size; i++) {
+            if (array.arr[i] != nullptr) {
+                os << *array.arr[i];
+            }
+            if (i != array._size - 1) {
+                os << " ";
+            }
+        }
+    } else {
+        for (size_t i = 0; i < array._size; i++) {
+            os << array.arr[i];
+            if (i != array._size - 1) {
+                os << " ";
+            }
+        }
+    }
+    os << "]\n";
+    return os;
+}
+
 
 template<class T>
 void Array<T>::print() const {
