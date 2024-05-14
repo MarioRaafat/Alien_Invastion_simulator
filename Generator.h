@@ -6,7 +6,6 @@
 class Generator {
 
     static int Ecount, Acount, HealNum;  // earth and aliens units number
-    static int current_time;
 
     int N, ES, ET, EG, AS, AM, AD, probability;
     // from input file
@@ -22,11 +21,12 @@ class Generator {
             min_Ahealth,
             max_Ahealth,
             min_Acapacity,
-            max_Acapacity;
+            max_Acapacity,
+            infection_prob;
 
 public:
     // sorry
-    Generator(int n, int es, int et, int eg, int as, int am, int ad, int prob,
+    Generator(int n, int es, int et, int eg, int as, int am, int ad, int prob, int infec,
               int min_Epw, int max_Epw,
               int min_Ehl, int max_Ehl,
               int min_Ecap, int max_Ecap,

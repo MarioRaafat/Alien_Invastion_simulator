@@ -5,7 +5,8 @@
 EarthSoldier::EarthSoldier(Game *game, int id, int t, int pw, int hl, int attc) :
     ArmyUnit(game, id, earth_soldier, t, pw, hl, attc)
 {
- count_UML = 0;
+    count_UML = 0;
+    immmune = infected = false;
 }
 
 void EarthSoldier::attack() {
@@ -15,7 +16,14 @@ void EarthSoldier::attack() {
     //size_t alien_soldier_size = game->getAlienArmy().soldiers_count();
 
     for (int i = 0; i < attackCapacity; i++) {
-        ArmyUnit *curr = game->pick_unit(alien_soldier);
+        ArmyUnit *curr;
+        if(infected) {
+             curr = game->pick_unit(earth_soldier);
+        }
+        else {
+            curr = game->pick_unit(alien_soldier);
+        }
+
         if (curr) {
             temp_alien_soldiers.enqueue(curr);
         }
@@ -39,8 +47,15 @@ void EarthSoldier::attack() {
         if (curr->isDead()) {
             curr->setTd(time_step);
             game->add_to_killed_list(curr);
-        } else {
-            game->add_unit(curr, alien_soldier);
+        }
+        else {
+            if (infected) {
+                int random = randomNumber(0, 100);
+                if (random < 2) {
+                    static_cast<EarthSoldier*>(curr)->set_infection(true);
+                }
+            }
+            game->add_unit(curr, curr->getTypeId());
         }
     }
 
@@ -62,4 +77,27 @@ int EarthSoldier::get_count_UML() {
 
 void EarthSoldier::set_count_UML(int num) {
     count_UML = num;
+}
+
+void EarthSoldier::set_infection(bool infec) {
+    infected = infec;
+}
+
+bool EarthSoldier::get_infection() {
+    return infected;
+}
+
+void EarthSoldier::set_immune(bool im) {
+    immmune = im;
+}
+
+bool EarthSoldier::get_immune() {
+    return immmune;
+}
+
+int EarthSoldier::randomNumber(int min, int max) {
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    std::uniform_int_distribution<> dis(min, max);
+    return dis(gen);
 }

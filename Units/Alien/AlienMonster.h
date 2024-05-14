@@ -5,8 +5,13 @@
 #include "../ArmyUnit.h"
 
 class AlienMonster : public ArmyUnit {
+
+    int infection_prob;
+
 public:
-    AlienMonster(Game *game, int id, int t, int pw, int hl, int attc);
+
+    AlienMonster(Game *game, int id, int t, int pw, int hl, int attc, int infec);
     void attack() override;
+    int randomNumber(int min, int max);
 };
 #endif

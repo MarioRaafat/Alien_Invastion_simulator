@@ -10,15 +10,14 @@
 int Generator::Ecount = 1;
 int Generator::Acount = 1;
 int Generator::HealNum = 1;
-int Generator::current_time = 0;
 
 
 
-Generator::Generator(int n, int es, int et, int eg, int as, int am, int ad, int prob,
+Generator::Generator(int n, int es, int et, int eg, int as, int am, int ad, int prob, int infec,
                      int min_Epw, int max_Epw, int min_Ehl, int max_Ehl, int min_Ecap, int max_Ecap,
                      int min_Apw, int max_Apw, int min_Ahl, int max_Ahl, int min_Acap, int max_Acap)
 
-        : N(n), ES(es), ET(et), EG(eg), AS(as), AM(am), AD(ad), probability{prob},
+        : N(n), ES(es), ET(et), EG(eg), AS(as), AM(am), AD(ad), probability{prob}, infection_prob(infec),
           min_Epower(min_Epw), max_Epower(max_Epw), min_Ehealth(min_Ehl), max_Ehealth(max_Ehl), min_Ecapacity(min_Ecap), max_Ecapacity(max_Ecap),
           min_Apower(min_Apw), max_Apower(max_Apw), min_Ahealth(min_Ahl), max_Ahealth(max_Ahl), min_Acapacity(min_Acap), max_Acapacity(max_Acap)
 {}
@@ -35,20 +34,20 @@ void Generator::generate(Game *game) {
             int capacity = random_range(min_Ecapacity, max_Ecapacity);
 
             if(healing_probability <= 50) {
-                auto* heal_unit = new HealUnit(game, 3000 + HealNum++, current_time, power, health, capacity);
+                auto* heal_unit = new HealUnit(game, 3000 + HealNum++, game->get_time(), power, health, capacity);
                 game->add_heal_unit(heal_unit);
             }
 
             if (B <= ES) {
-                auto Esoldier = new EarthSoldier(game, Ecount++, current_time, power, health, capacity);
+                auto Esoldier = new EarthSoldier(game, Ecount++, game->get_time(), power, health, capacity);
                 game->add_unit(Esoldier, earth_soldier);
             }
             else if (B <= ES + ET) {
-                auto Etank = new EarthTank(game,Ecount++, current_time, power, health, capacity);
+                auto Etank = new EarthTank(game,Ecount++, game->get_time(), power, health, capacity);
                 game->add_unit(Etank, earth_tank);
             }
             else {
-                auto Egunnery = new EarthGunnery(game, Ecount++, current_time, power, health, capacity);
+                auto Egunnery = new EarthGunnery(game, Ecount++, game->get_time(), power, health, capacity);
                 game->add_unit(Egunnery, earth_gunnery);
             }
         }
@@ -60,21 +59,21 @@ void Generator::generate(Game *game) {
 
             if (B <= AS) {
 
-                auto Asoldier = new AlienSoldier(game, 2000 + Acount++, current_time, power, health, capacity);
+                auto Asoldier = new AlienSoldier(game, 2000 + Acount++, game->get_time(), power, health, capacity);
                 game->add_unit(Asoldier, alien_soldier);
             }
             else if (B <= AS + AM) {
-                auto Amonster = new AlienMonster(game, 2000 + Acount++, current_time, power, health, capacity);
+                auto Amonster = new AlienMonster(game, 2000 + Acount++, game->get_time(), power, health, capacity, infection_prob);
                 game->add_unit(Amonster, alien_monster);
             }
             else {
-                auto Adrone = new AlienDrone(game, 2000 + Acount++, current_time, power, health, capacity);
+                auto Adrone = new AlienDrone(game, 2000 + Acount++, game->get_time(), power, health, capacity);
                 game->add_unit(Adrone, alien_drone);
             }
         }
     }
 
-    current_time++;
+    game->get_time()++;
 }
 
 int Generator::random_range(int min, int max) {

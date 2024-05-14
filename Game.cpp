@@ -27,11 +27,12 @@ void Game::load_file() {
         exit(3);//SIGQUIT number 3
     }
 
-    int n, es, eg, et, as, am, ad, prob;
+    int n, es, eg, et, as, am, ad, prob, infection_prob;
     file >> n;
     file >> es >> et >> eg;
     file >> as >> am >> ad;
     file >> prob;
+    file >> infection_prob;
 
 
     int min_Epower, max_Epower, min_Ehealth, max_Ehealth, min_Ecapacity, max_Ecapacity,
@@ -45,7 +46,7 @@ void Game::load_file() {
         exit(9);//SIGKILL number 9
     }
 
-    generator = new Generator(n, es, et, eg, as, am, ad, prob,
+    generator = new Generator(n, es, et, eg, as, am, ad, prob, infection_prob,
         min_Epower, max_Epower, min_Ehealth, max_Ehealth, min_Ecapacity, max_Ecapacity,
         min_Apower, max_Apower, min_Ahealth, max_Ahealth, min_Acapacity, max_Acapacity);
 
