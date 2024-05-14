@@ -24,7 +24,7 @@ void AlienSoldier::attack() {
     }
 
     while (!temp_alien_soldiers.isEmpty()) {
-        ArmyUnit *curr;
+        ArmyUnit *curr{};
 
         temp_alien_soldiers.dequeue(curr);
         if (!curr->is_attacked()) {
@@ -35,7 +35,7 @@ void AlienSoldier::attack() {
         if (curr->isDead()) {
             curr->setTd(time_step);
             game->add_to_killed_list(curr);
-        }else if (curr->getHealth() >= double(curr->getOriginalHealth() * 0.2)){
+        } else if ((double) curr->getHealth() >= double(curr->getOriginalHealth() * 0.2)){
             game->add_unit(curr, earth_soldier);
         }
         else {

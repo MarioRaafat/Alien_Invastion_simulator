@@ -34,8 +34,8 @@ public:
               int min_Ahl, int max_Ahl,
               int min_Acap, int max_Acap);
 
-    void generate(Game *game);
-    int random_range(int min, int max);
+    void generate(Game *game) const;
+    static  int random_range(int min, int max);
 };
 
 

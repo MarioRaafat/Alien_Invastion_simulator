@@ -16,7 +16,7 @@ void HealUnit::attack() {
     for(int i = 0; i < attackCapacity; i++) {
         if (damaged_soldier) {
             heal(damaged_soldier);
-            if (damaged_soldier->getHealth() < double(damaged_soldier->getOriginalHealth() * 0.2)) {
+            if ((double)damaged_soldier->getHealth() < double(damaged_soldier->getOriginalHealth() * 0.2)) {
                 temp_list.enqueue(damaged_soldier);
             }
             else {

@@ -43,8 +43,14 @@ int ArmyUnit::getAttackCapacity() const {
 }
 
 void ArmyUnit::damage(ArmyUnit* enemy) {
-    if (enemy->getHealth()){
+    if (!enemy) {
+        return;
+    }
+
+    if (enemy->getHealth() > 0){
         enemy->setHealth((enemy->getHealth() - (( (power * health) / 100) / sqrt(enemy->getHealth())) ) );
+    } else {
+        enemy->setHealth(0);
     }
 }
 

@@ -101,3 +101,7 @@ int EarthSoldier::randomNumber(int min, int max) {
     std::uniform_int_distribution<> dis(min, max);
     return dis(gen);
 }
+
+bool EarthSoldier::operator>(const EarthSoldier &other) const {
+    return this->power > other.power;
+}

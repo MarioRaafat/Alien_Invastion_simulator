@@ -110,7 +110,7 @@ void AlienArmy::attack() {
             attacker->attack();
             addUnit(attacker, attacker->getTypeId());
         }
-    }
+}
 }
 
 size_t AlienArmy::soldiers_count() const {

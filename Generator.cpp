@@ -22,7 +22,7 @@ Generator::Generator(int n, int es, int et, int eg, int as, int am, int ad, int 
           min_Apower(min_Apw), max_Apower(max_Apw), min_Ahealth(min_Ahl), max_Ahealth(max_Ahl), min_Acapacity(min_Acap), max_Acapacity(max_Acap)
 {}
 
-void Generator::generate(Game *game) {
+void Generator::generate(Game *game) const {
     int A = random_range(1, 100);
     int healing_probability = random_range(1, 100);
 
@@ -34,8 +34,8 @@ void Generator::generate(Game *game) {
             int capacity = random_range(min_Ecapacity, max_Ecapacity);
 
             if(healing_probability <= 50) {
-                auto* heal_unit = new HealUnit(game, 3000 + HealNum++, game->get_time(), power, health, capacity);
-                game->add_heal_unit(heal_unit);
+                auto heal_unitt = new HealUnit(game, 3000 + HealNum++, game->get_time(), power, health, capacity);
+                game->add_unit(heal_unitt, heal_unit);
             }
 
             if (B <= ES) {

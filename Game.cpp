@@ -12,7 +12,7 @@ Game::Game()  {
     load_file();
     curr_time_step = 0;
     Game::randGen();
-    out_file.open("output.txt", std::ios::out | std::ios::trunc);
+//    out_file.open("output.txt", std::ios::out | std::ios::trunc);
 }
 
 void Game::randGen() {
@@ -53,39 +53,35 @@ void Game::load_file() {
     file.close();
 }
 
-int Game::get_time() {
+int Game::get_time() const {
     return curr_time_step;
 }
 
-void Game::add_Aunit(ArmyUnit *unit, unit_type type) {
-    Aarmy.addUnit(unit, type);
-}
-
-void Game::add_Eunit(ArmyUnit *unit, unit_type type) {
-    Earmy.addUnit(unit, type);
-}
 
 void Game::add_heal_unit(HealUnit* HU) {
     heal_list.push(HU);
 }
 
 void Game::add_to_soldier_UML(EarthSoldier* damaged_unit) {
-    soldier_UML.push(damaged_unit);
+    if (damaged_unit) {
+        soldier_UML.push(damaged_unit);
+    }
 }
 
 void Game::add_to_tank_UML(EarthTank *damaged_unit) {
-    tank_UML.enqueue(damaged_unit);
+    if (damaged_unit)
+        tank_UML.enqueue(damaged_unit);
 }
 
-EarthSoldier * Game::pick_from_soldier_UML() {
-    EarthSoldier* damaged_unit;
+EarthSoldier* Game::pick_from_soldier_UML() {
+    EarthSoldier* damaged_unit{};
     soldier_UML.pop(damaged_unit);
 
     return damaged_unit;
 }
 
 EarthTank * Game::pick_from_tank_UML() {
-    EarthTank* damaged_unit = NULL;
+    EarthTank* damaged_unit{};
     tank_UML.dequeue(damaged_unit);
 
     return damaged_unit;
@@ -223,8 +219,8 @@ void Game::heal() {
 }
 
 void Game::count_rounds_in_UML() {
-    EarthSoldier* soldier;
-    EarthTank* tank;
+    EarthSoldier* soldier{};
+    EarthTank* tank{};
     LinkedQueue<EarthSoldier*> soldier_list;
     LinkedQueue<EarthTank*> tank_list;
 
@@ -271,7 +267,7 @@ void Game::play() {
             print();
         }
 
-        fight(curr_time_step);
+        fight();
         randGen();
         if (curr_time_step++ > 40 && winner() != "None") {
             break;
@@ -299,13 +295,13 @@ ArmyUnit * Game::pick_unit(unit_type type) {
         return Aarmy.pickUnit(type);
     }
     else {
-        HealUnit* h;
+        HealUnit* h{};
         heal_list.pop(h);
         return h;
     }
 }
 
-void Game::fight(int time_step) {
+void Game::fight() {
     if (interactive_mode) {
         cout << "=================== Units Fighting at cuurent time step ==========\n";
     }
@@ -331,7 +327,9 @@ bool Game::stop_attacking_soldiers() {
 // }
 
 void Game::add_to_killed_list(ArmyUnit *unit) {
-    killed_list.enqueue(unit);
+    if (unit) {
+        killed_list.enqueue(unit);
+    }
 }
 
 void Game::print() {
@@ -359,7 +357,7 @@ const string &Game::winner() const { // why static
     if (Aarmy.soldiers_count() > 0 && Earmy.soliders_count() == 0) {
         return alien;
     }
-    if (Aarmy.soldiers_count() == 0 && Earmy.soliders_count() == 0) {
+    if (Aarmy.soldiers_count() == Earmy.soliders_count()) {
         return draw;
     }
     return none;

@@ -22,5 +22,6 @@ public:
     bool get_immune();
 
     int randomNumber(int min, int max);
+    bool operator>(const EarthSoldier &other) const;
 };
 #endif //EARTHSOLIDER_H

@@ -15,16 +15,13 @@ class Game {
 public:
     Game();
     ~Game(); // ---------> commented
-
     void randGen();
     void load_file();
-    int get_time();
+    int get_time() const;
     void add_unit(ArmyUnit*, unit_type);
     ArmyUnit* pick_unit(unit_type type);
     void add_to_killed_list(ArmyUnit* unit);
 
-    // AlienArmy& getAlienArmy();
-    // EarthArmy& getEarthArmy();
 
     void heal();
     void count_rounds_in_UML();
@@ -36,7 +33,7 @@ public:
     EarthTank* pick_from_tank_UML();
 
     void play();
-    void fight(int time_step);
+    void fight();
 
     // special cases
     bool which_tank_attack(); // to know if the tanks need to attack alien soldier ir not
@@ -46,25 +43,28 @@ public:
     void print();
 
 private:
+    struct CompareEarthSoldier {
+        bool operator()(const EarthSoldier* lhs, const EarthSoldier* rhs) const {
+            return *lhs > *rhs;
+        }
+    };
 
-    int curr_time_step;
     Generator* generator;
     EarthArmy Earmy;
     AlienArmy Aarmy;
-
     ArrayStack<HealUnit*> heal_list;
-    PriorityQueue<EarthSoldier*> soldier_UML;
+    PriorityQueue<EarthSoldier*, CompareEarthSoldier> soldier_UML;
     LinkedQueue<EarthTank*> tank_UML;
-
     LinkedQueue<ArmyUnit *> temp_list;
     LinkedQueue<ArmyUnit *> killed_list;
 
-    void add_Aunit(ArmyUnit* unit, unit_type type);
-    void add_Eunit(ArmyUnit* unit, unit_type type);
+
+    int curr_time_step;
+//    std::ofstream out_file;
+    bool interactive_mode{};
+
 
     const string& winner() const;
-    bool interactive_mode{};
-    std::ofstream out_file;
 };
 
 #endif //GAME_H
