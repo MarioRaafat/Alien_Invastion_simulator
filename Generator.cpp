@@ -72,8 +72,6 @@ void Generator::generate(Game *game) {
             }
         }
     }
-
-    game->get_time()++;
 }
 
 int Generator::random_range(int min, int max) {

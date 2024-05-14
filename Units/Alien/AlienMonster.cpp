@@ -52,7 +52,8 @@ void AlienMonster::attack() {
                 if (curr->isDead()) {
                         curr->setTd(time_step);
                         game->add_to_killed_list(curr);
-                }else if (curr->getHealth() >= double(curr->getOriginalHealth() * 0.2)){
+                }
+                else if (curr->getHealth() >= double(curr->getOriginalHealth() * 0.2)) {
                         game->add_unit(curr, curr->getTypeId());
                 }
                 else {
