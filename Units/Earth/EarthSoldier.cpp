@@ -80,7 +80,9 @@ void EarthSoldier::set_count_UML(int num) {
 }
 
 void EarthSoldier::set_infection(bool infec) {
-    infected = infec;
+    if(!immmune){
+        infected = infec;
+    }
 }
 
 bool EarthSoldier::get_infection() {

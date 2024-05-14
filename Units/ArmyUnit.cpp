@@ -47,7 +47,7 @@ void ArmyUnit::damage(ArmyUnit* enemy) {
         return;
     }
 
-    if (enemy->getHealth() > 0){
+    if (enemy->getHealth() > 0) {
         enemy->setHealth((enemy->getHealth() - (( (power * health) / 100) / sqrt(enemy->getHealth())) ) );
     } else {
         enemy->setHealth(0);
