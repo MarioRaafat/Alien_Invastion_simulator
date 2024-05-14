@@ -8,14 +8,13 @@ ArmyUnit::ArmyUnit(Game *game, int id, unit_type tyId, int t, int pw, int hl, in
 {
     setHealth(hl);
     original_health = health;
-    count_UML = 0;
 }
 
 int ArmyUnit::getID() const {
     return ID;
 }
 
-int ArmyUnit::getTypeId() const {
+unit_type ArmyUnit::getTypeId() const {
     return typeIdentifier;
 }
 
@@ -35,7 +34,7 @@ int ArmyUnit::getHealth() const {
     return health;
 }
 
-int ArmyUnit::getOriginalHealth() {
+int ArmyUnit::getOriginalHealth() const{
     return original_health;
 }
 
@@ -43,20 +42,14 @@ int ArmyUnit::getAttackCapacity() const {
     return attackCapacity;
 }
 
-int ArmyUnit::get_count_UML() {
-    return count_UML;
-}
-
-void ArmyUnit::set_count_UML(int num) {
-    count_UML = num;
-}
-
 void ArmyUnit::damage(ArmyUnit* enemy) {
-    enemy->setHealth((enemy->getHealth() - (( (power * health) / 100) / sqrt(enemy->getHealth())) ) );
+    if (enemy->getHealth()){
+        enemy->setHealth((enemy->getHealth() - (( (power * health) / 100) / sqrt(enemy->getHealth())) ) );
+    }
 }
 
 void ArmyUnit::print() const {
-    std::string msg = "(" + std::to_string(getHealth()) + ")";
+    std::string msg = "(" + std::to_string(getHealth()) + ',' + std::to_string(getOriginalHealth() ) + ")";
     std::cout << getID() << msg;
 }
 

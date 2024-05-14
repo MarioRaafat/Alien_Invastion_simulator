@@ -7,6 +7,6 @@
 class AlienMonster : public ArmyUnit {
 public:
     AlienMonster(Game *game, int id, int t, int pw, int hl, int attc);
-    void attack(int time_step) override;
+    void attack() override;
 };
 #endif

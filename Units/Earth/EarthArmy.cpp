@@ -73,7 +73,7 @@ EarthArmy::~EarthArmy() {
     }
 }
 
-void EarthArmy::attack(int time_step) {
+void EarthArmy::attack() {
     ArmyUnit* attackers[3]{};
     attackers[0] = pickUnit(earth_soldier);
     attackers[1] = pickUnit(earth_tank);
@@ -81,8 +81,8 @@ void EarthArmy::attack(int time_step) {
 
     for (const auto & attacker : attackers) {
         if (attacker) {
-            attacker->attack(time_step);
-            addUnit(attacker,(unit_type)attacker->getTypeId());
+            attacker->attack();
+            addUnit(attacker, attacker->getTypeId());
         }
     }
 }

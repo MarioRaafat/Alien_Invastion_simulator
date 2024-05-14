@@ -16,7 +16,7 @@ public:
     ArmyUnit* pickUnit(unit_type type);
     ~EarthArmy();
     void print() const;
-    void attack(int time_step);
+    void attack();
     size_t soliders_count() const;
     size_t tanks_count() const;
     size_t gunneries_count() const;

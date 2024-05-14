@@ -98,7 +98,7 @@ AlienArmy::~AlienArmy() {
     return dis(gen);
 }
 
-void AlienArmy::attack(int time_step) {
+void AlienArmy::attack() {
     ArmyUnit* attackers[4]{};
     attackers[0] = pickUnit(alien_soldier);
     attackers[1] = pickUnit(alien_drone, true);
@@ -107,8 +107,8 @@ void AlienArmy::attack(int time_step) {
 
     for (const auto & attacker : attackers) {
         if (attacker) {
-            attacker->attack(time_step);
-            addUnit(attacker,(unit_type)attacker->getTypeId());
+            attacker->attack();
+            addUnit(attacker, attacker->getTypeId());
         }
     }
 }

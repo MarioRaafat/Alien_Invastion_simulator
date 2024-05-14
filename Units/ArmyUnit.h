@@ -24,27 +24,26 @@ protected:
         power,
         health,
         original_health,
-        attackCapacity,
-        count_UML; // counter for rounds in UML
+        attackCapacity;
     unit_type typeIdentifier; // 1 for ES , 2 for ET , 3 for EG ...etc
     Game *game;
+
 public:
+
     ArmyUnit(Game *game, int id, unit_type tyId, int tj, int pw, int hl, int attC);
     virtual ~ArmyUnit() = default;
 
     int getID() const;
-    int getTypeId() const;
+    unit_type getTypeId() const;
     int getPower() const;
     void setHealth(int hl);
     int getHealth() const;
-    int getOriginalHealth();
+    int getOriginalHealth() const;
     int getAttackCapacity() const;
-    int get_count_UML();
-    void set_count_UML(int num);
 
     void damage(ArmyUnit* enemy);
     virtual void print() const;
-    virtual void attack(int time_step) = 0;
+    virtual void attack() = 0;
     bool isDead() const;
     int getTa() const;
     int getTj() const;

@@ -13,7 +13,7 @@
 
 class AlienArmy {
     public:
-    void attack(int time_step);
+    void attack();
     void addUnit(ArmyUnit *unit, unit_type type);
     ArmyUnit* pickUnit(unit_type type, bool droneFront = true);
     void print() const;

@@ -34,7 +34,7 @@ void Generator::generate(Game *game) {
             int health = random_range(min_Ehealth, max_Ehealth);
             int capacity = random_range(min_Ecapacity, max_Ecapacity);
 
-            if(healing_probability <= 5) {
+            if(healing_probability <= 50) {
                 auto* heal_unit = new HealUnit(game, 3000 + HealNum++, current_time, power, health, capacity);
                 game->add_heal_unit(heal_unit);
             }
