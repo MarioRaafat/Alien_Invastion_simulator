@@ -17,7 +17,7 @@ void EarthSoldier::attack() {
 
     for (int i = 0; i < attackCapacity; i++) {
         ArmyUnit *curr;
-        if(infected) {
+        if(infected && ! immmune) {
              curr = game->pick_unit(earth_soldier);
         }
         else {
@@ -49,7 +49,7 @@ void EarthSoldier::attack() {
             game->add_to_killed_list(curr);
         }
         else {
-            if (infected) {
+            if (infected && ! immmune) {
                 int random = randomNumber(0, 100);
                 if (random < 2) {
                     static_cast<EarthSoldier*>(curr)->set_infection(true);
