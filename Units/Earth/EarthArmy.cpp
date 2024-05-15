@@ -13,6 +13,9 @@ void EarthArmy::addUnit(ArmyUnit *unit, unit_type type) {
         case earth_gunnery:
             gunneries.push(static_cast<EarthGunnery *>(unit));
             break;
+        case saver_unit:
+            savers.enqueue(static_cast<SaverUnit*>(unit));
+            break;
         default:
             break;
     }
@@ -22,6 +25,7 @@ ArmyUnit* EarthArmy::pickUnit(unit_type type) {
     EarthTank *tank = nullptr;
     EarthSoldier *soldier = nullptr;
     EarthGunnery *gunnery = nullptr;
+    SaverUnit* saver = nullptr;
 
     switch (type) {
         case earth_soldier:
@@ -39,17 +43,24 @@ ArmyUnit* EarthArmy::pickUnit(unit_type type) {
                 return gunnery;
             }
             break;
+        case saver_unit:
+            if (savers.dequeue(saver)) {
+                return saver;
+            }
+            break;
         default:
             return nullptr;
     }
     return nullptr;
 }
 
+
 void EarthArmy::print() const {
     cout << "====================== Earth Army Alive Units =====================\n";
     cout << Esoldiers.size() << " ES " << Esoldiers;
     cout << tanks.getTop() << " ET " << tanks;
     cout << gunneries.size() << " EG " << gunneries << "\n";
+
 }
 
 EarthArmy::~EarthArmy() {
@@ -84,6 +95,16 @@ void EarthArmy::attack() {
             attacker->attack();
             addUnit(attacker, attacker->getTypeId());
         }
+    }
+}
+
+void EarthArmy::savers_attack() {
+    ArmyUnit* attacker = nullptr;
+    attacker = pickUnit(saver_unit);
+
+    if (attacker) {
+        attacker->attack();
+        addUnit(attacker, saver_unit);
     }
 }
 

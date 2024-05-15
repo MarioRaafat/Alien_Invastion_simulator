@@ -56,4 +56,7 @@ add_executable(Alien_Invastion_simulator
         main.cpp
         Units/Healing/HealUnit.cpp
         Units/Healing/HealUnit.h
-        Units/Healing/HealUnit.h)
+        Units/Healing/HealUnit.h
+        Units/savers/SaverUnit.cpp
+        Units/savers/SaverUnit.h
+        Units/savers/SaverUnit.h)

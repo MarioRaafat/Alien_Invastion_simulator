@@ -12,12 +12,42 @@
 using namespace std;
 
 class Game {
+
+    struct CompareEarthSoldier {
+        bool operator()(const EarthSoldier* lhs, const EarthSoldier* rhs) const {
+            return *lhs > *rhs;
+        }
+    };
+
+    Generator* generator;
+    EarthArmy Earmy;
+    AlienArmy Aarmy;
+    ArrayStack<HealUnit*> heal_list;
+    PriorityQueue<EarthSoldier*, CompareEarthSoldier> soldier_UML;
+    LinkedQueue<EarthTank*> tank_UML;
+    LinkedQueue<ArmyUnit *> temp_list;
+    LinkedQueue<ArmyUnit *> killed_list;
+
+
+    int curr_time_step;
+    int threshold;
+    int infection_number, immune_number;
+    bool saver_mode;
+    //    std::ofstream out_file;
+    bool interactive_mode{};
+
+
+    const string& winner() const;
+
 public:
+
     Game();
     ~Game(); // ---------> commented
     void randGen();
     void load_file();
     int get_time() const;
+    void increment_infection_number();
+    void increment_immune_number();
     void add_unit(ArmyUnit*, unit_type);
     ArmyUnit* pick_unit(unit_type type);
     void add_to_killed_list(ArmyUnit* unit);
@@ -38,33 +68,10 @@ public:
     // special cases
     bool which_tank_attack(); // to know if the tanks need to attack alien soldier ir not
     bool stop_attacking_soldiers();
+    bool check_savers_mode();
 
     bool is_interactive() const;
     void print();
-
-private:
-    struct CompareEarthSoldier {
-        bool operator()(const EarthSoldier* lhs, const EarthSoldier* rhs) const {
-            return *lhs > *rhs;
-        }
-    };
-
-    Generator* generator;
-    EarthArmy Earmy;
-    AlienArmy Aarmy;
-    ArrayStack<HealUnit*> heal_list;
-    PriorityQueue<EarthSoldier*, CompareEarthSoldier> soldier_UML;
-    LinkedQueue<EarthTank*> tank_UML;
-    LinkedQueue<ArmyUnit *> temp_list;
-    LinkedQueue<ArmyUnit *> killed_list;
-
-
-    int curr_time_step;
-//    std::ofstream out_file;
-    bool interactive_mode{};
-
-
-    const string& winner() const;
 };
 
 #endif //GAME_H

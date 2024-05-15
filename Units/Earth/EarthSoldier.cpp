@@ -30,7 +30,7 @@ void EarthSoldier::attack() {
     }
 
     if (game->is_interactive()) {
-        cout << "Es " << ID << " shots ";
+        cout << "ES " << ID << " shots ";
         cout << temp_alien_soldiers;
     }
 
@@ -53,6 +53,7 @@ void EarthSoldier::attack() {
                 int random = randomNumber(0, 100);
                 if (random < 2) {
                     static_cast<EarthSoldier*>(curr)->set_infection(true);
+                    game->increment_infection_number();
                 }
             }
             game->add_unit(curr, curr->getTypeId());

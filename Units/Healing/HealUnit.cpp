@@ -62,6 +62,7 @@ void HealUnit::heal(ArmyUnit *damaged_unit) {
             hl = (damaged_unit->getHealth() + (( (power * health) / 100) / sqrt(damaged_unit->getHealth()) )) / 2;
             if (damaged_unit->getHealth() > double(damaged_unit->getOriginalHealth() * 0.2)) {
                 static_cast<EarthSoldier*>(damaged_unit)->set_immune(true);
+                game->increment_immune_number();
             }
         }
     }

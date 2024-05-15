@@ -9,6 +9,7 @@
 
 int Generator::Ecount = 1;
 int Generator::Acount = 1;
+int Generator::Scount = 1;
 int Generator::HealNum = 1;
 
 
@@ -49,6 +50,10 @@ void Generator::generate(Game *game) const {
             else {
                 auto Egunnery = new EarthGunnery(game, Ecount++, game->get_time(), power, health, capacity);
                 game->add_unit(Egunnery, earth_gunnery);
+            }
+
+            if (game->check_savers_mode()) {
+                auto saver = new SaverUnit(game, 5000 + Scount++, game->get_time(), power, health, capacity);
             }
         }
         for (int i = 0; i < N; i++) {

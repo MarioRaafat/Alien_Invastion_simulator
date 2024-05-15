@@ -5,9 +5,9 @@
 #include "Units/ArmyUnit.h"
 class Generator {
 
-    static int Ecount, Acount, HealNum;  // earth and aliens units number
+    static int Ecount, Acount, Scount, HealNum;  // earth and aliens units number
 
-    int N, ES, ET, EG, AS, AM, AD, probability;
+    int N, ES, ET, EG, AS, AM, AD, probability, infection_prob;
     // from input file
     int min_Epower,
             max_Epower,
@@ -21,11 +21,9 @@ class Generator {
             min_Ahealth,
             max_Ahealth,
             min_Acapacity,
-            max_Acapacity,
-            infection_prob;
+            max_Acapacity;
 
 public:
-    // sorry
     Generator(int n, int es, int et, int eg, int as, int am, int ad, int prob, int infec,
               int min_Epw, int max_Epw,
               int min_Ehl, int max_Ehl,

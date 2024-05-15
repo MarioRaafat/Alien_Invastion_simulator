@@ -9,6 +9,7 @@ enum unit_type {
     alien_soldier,
     alien_monster,
     alien_drone,
+    saver_unit,
     heal_unit
 };
 

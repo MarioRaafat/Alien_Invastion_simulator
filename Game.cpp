@@ -11,6 +11,8 @@ Game::Game()  {
 
     load_file();
     curr_time_step = 0;
+    infection_number = immune_number = 0;
+    saver_mode = false;
     Game::randGen();
 //    out_file.open("output.txt", std::ios::out | std::ios::trunc);
 }
@@ -33,7 +35,7 @@ void Game::load_file() {
     file >> as >> am >> ad;
     file >> prob;
     file >> infection_prob;
-
+    file >> threshold;
 
     int min_Epower, max_Epower, min_Ehealth, max_Ehealth, min_Ecapacity, max_Ecapacity,
             min_Apower, max_Apower, min_Ahealth, max_Ahealth, min_Acapacity, max_Acapacity;
@@ -55,6 +57,14 @@ void Game::load_file() {
 
 int Game::get_time() const {
     return curr_time_step;
+}
+
+void Game::increment_infection_number() {
+    infection_number++;
+}
+
+void Game::increment_immune_number() {
+    immune_number++;
 }
 
 
@@ -306,6 +316,9 @@ void Game::fight() {
         cout << "=================== Units Fighting at cuurent time step ==========\n";
     }
     Earmy.attack();
+    if (check_savers_mode()) {
+        Earmy.savers_attack();
+    }
     heal();
     Aarmy.attack();
 }
@@ -316,6 +329,17 @@ bool Game::which_tank_attack() {
 
 bool Game::stop_attacking_soldiers() {
     return (double(Earmy.soliders_count()) > (double(Aarmy.soldiers_count()) * .8));
+}
+
+bool Game::check_savers_mode() {
+    if (infection_number == 0) {
+        saver_mode = false;
+    }
+    else if ( ((infection_number * 100) / Earmy.soliders_count()) > threshold) {
+        saver_mode = true;
+    }
+
+    return saver_mode;
 }
 
 // EarthArmy &Game::getEarthArmy() {

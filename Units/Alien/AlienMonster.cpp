@@ -46,6 +46,7 @@ void AlienMonster::attack() {
         if (random < infection_prob) {
             if (curr->getTypeId() == earth_soldier) {
                 static_cast<EarthSoldier*>(curr)->set_infection(true);
+                game->increment_infection_number();
             }
         }
 
