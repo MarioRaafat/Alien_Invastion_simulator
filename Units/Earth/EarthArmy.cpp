@@ -82,6 +82,12 @@ EarthArmy::~EarthArmy() {
         delete gunnery;
         gunnery = nullptr;
     }
+
+    SaverUnit* saver = {};
+    while (savers.dequeue(saver)) {
+        delete saver;
+        saver = nullptr;
+    }
 }
 
 void EarthArmy::attack() {

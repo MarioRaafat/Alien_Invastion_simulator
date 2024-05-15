@@ -138,6 +138,25 @@ Game::~Game() {
     delete generator;
     generator = nullptr;
 
+    while (!heal_list.isEmpty()) {
+        HealUnit* HU{};
+        heal_list.pop(HU);
+        delete HU;
+        HU = nullptr;
+    }
+    while (!soldier_UML.is_empty()) {
+        EarthSoldier* _unit{};
+        soldier_UML.pop(_unit);
+        delete unit;
+        unit = nullptr;
+    }
+    while (!tank_UML.isEmpty()) {
+        EarthTank* unitt{};
+        tank_UML.dequeue(unitt);
+        delete unit;
+        unit = nullptr;
+    }
+
     out_file.close();
 }
 //     out_file << "Earth Army Avg Df: " << earth_avg_df / Earmy.getTotalKilled() << endl;

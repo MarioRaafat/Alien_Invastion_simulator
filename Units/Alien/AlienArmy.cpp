@@ -95,7 +95,7 @@ AlienArmy::~AlienArmy() {
             solider = nullptr;
     }
 
-    while (drones.pop_front(drone)) {
+    while (drones.pop_back(drone)) {
         delete drone;
         drone = nullptr;
     }

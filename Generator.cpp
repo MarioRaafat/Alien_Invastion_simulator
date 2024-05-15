@@ -52,6 +52,7 @@ void Generator::generate(Game *game) const {
                 game->add_unit(Egunnery, earth_gunnery);
             }
 
+            //Mario u donot put that in any list MEM leak
             if (game->check_savers_mode()) {
                 auto saver = new SaverUnit(game, 5000 + Scount++, game->get_time(), power, health, capacity);
             }
@@ -72,8 +73,9 @@ void Generator::generate(Game *game) const {
                 game->add_unit(Amonster, alien_monster);
             }
             else {
-                auto Adrone = new AlienDrone(game, 2000 + Acount++, game->get_time(), power, health, capacity);
-                game->add_unit(Adrone, alien_drone);
+                //MARION there is a mem leak here and i dnonto know fkin why>??
+                auto Adronee = new AlienDrone(game, 2000 + Acount++, game->get_time(), power, health, capacity);
+                game->add_unit(Adronee, alien_drone);
             }
         }
     }
