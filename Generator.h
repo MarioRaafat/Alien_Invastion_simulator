@@ -34,6 +34,10 @@ public:
 
     void generate(Game *game) const;
     static  int random_range(int min, int max);
+    //geetrs for Ecount and Acount and Scount
+    static int get_Ecount();
+    static int get_Acount();
+    static int get_Scount();
 };
 
 

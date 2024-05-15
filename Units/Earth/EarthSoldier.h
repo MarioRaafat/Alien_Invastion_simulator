@@ -3,6 +3,7 @@
 
 #include "../ArmyUnit.h"
 #include "../Alien/AlienSoldier.h"
+#include <iostream>
 
 class EarthSoldier : public ArmyUnit {
     int count_UML; // counter for rounds in UML
@@ -13,15 +14,16 @@ public:
     EarthSoldier(Game *game, int id, int t, int pw, int hl, int attc);
     void attack() override;
 
-    int get_count_UML();
+    int get_count_UML() const;
     void set_count_UML(int num);
 
     void set_infection(bool infec);
-    bool get_infection();
+    bool get_infection() const;
     void set_immune(bool im);
-    bool get_immune();
+    bool get_immune() const;
 
-    int randomNumber(int min, int max);
+    static int randomNumber(int min, int max);
     bool operator>(const EarthSoldier &other) const;
+    friend std::ostream &operator<<(std::ostream &os, const EarthSoldier &soldier);
 };
 #endif //EARTHSOLIDER_H

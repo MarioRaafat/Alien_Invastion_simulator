@@ -12,6 +12,6 @@ public:
 
     AlienMonster(Game *game, int id, int t, int pw, int hl, int attc, int infec);
     void attack() override;
-    int randomNumber(int min, int max);
+    static int randomNumber(int min, int max);
 };
 #endif

@@ -3,7 +3,7 @@
 #include <random>
 
 
-void AlienArmy::addUnit(ArmyUnit *unit, unit_type type) {
+void AlienArmy::addUnit(ArmyUnit *unit, unit_type type, bool droneFront) {
     switch (type) {
         case alien_soldier:
             Asoldiers.enqueue(static_cast<AlienSoldier *>(unit));
@@ -12,14 +12,18 @@ void AlienArmy::addUnit(ArmyUnit *unit, unit_type type) {
             monsters.push_back(static_cast<AlienMonster *>(unit));
             break;
         case alien_drone:
+            if (droneFront) {
+                drones.push_front(static_cast<AlienDrone *>(unit));
+            } else {
                 drones.push_back(static_cast<AlienDrone *>(unit));
+            }
             break;
         default:
             break;
     }
 }
 
-ArmyUnit *AlienArmy::pickUnit(unit_type type, bool droneFront) {
+ArmyUnit *AlienArmy::pickUnit(unit_type type, bool droneFront, bool pickone) {
     AlienSoldier *soldier = nullptr;
     AlienDrone *drone = nullptr;
     AlienMonster *monster = nullptr;
@@ -47,7 +51,13 @@ ArmyUnit *AlienArmy::pickUnit(unit_type type, bool droneFront) {
             return monster;
         case alien_drone:
             if (drones.size() <= 1) {
-                return nullptr;
+                if (drones.is_empty()) {
+                    return nullptr;
+                }
+                if (pickone) {
+                    drones.pop_front(drone);
+                    return drone;
+                }
             }
             if (droneFront) {
                 drones.pop_front(drone);
@@ -101,23 +111,30 @@ int AlienArmy::randomNumber(int min, int max) {
 void AlienArmy::attack() {
     ArmyUnit* attackers[4]{};
     attackers[0] = pickUnit(alien_soldier);
-    attackers[1] = pickUnit(alien_drone, true);
-    attackers[2] = pickUnit(alien_drone, false);
+    attackers[1] = pickUnit(alien_drone, true, false);
+    attackers[2] = pickUnit(alien_drone, false, true);
     attackers[3] = pickUnit(alien_monster);
+    bool front = true;
+
+    if (attackers[2] && !attackers[1]) {
+        addUnit(attackers[2], alien_drone);
+        attackers[2] = nullptr;
+    }
 
     for (const auto & attacker : attackers) {
         if (attacker) {
             attacker->attack();
-            addUnit(attacker, attacker->getTypeId());
+            addUnit(attacker, attacker->getTypeId(), front);
         }
-}
+        front = !front;
+    }
 }
 
 size_t AlienArmy::soldiers_count() const {
     return Asoldiers.size();
 }
 
-size_t AlienArmy::units_count() const {
+size_t AlienArmy::army_count() const {
    return Asoldiers.size() + monsters.size() + drones.size();
 }
 
@@ -153,19 +170,6 @@ size_t AlienArmy::getKilledSoldiers() const {
     return killed_soldiers;
 }
 
-size_t AlienArmy::total_killed() const {
+size_t AlienArmy::units_count() const {
     return killed_drones + killed_monsters + killed_soldiers;
-}
-
-
-void AlienArmy::print_stats(ofstream &out) const {
-    out << "====================== Alien Army Stats =====================\n";
-    out << "Total Killed Soldiers: " << killed_soldiers << endl;
-    out << "Total Killed Monsters: " << killed_monsters << endl;
-    out << "Total Killed Drones: " << killed_drones << endl;
-    out << "Total Killed Units: " << total_killed() << endl;
-    out << "Alien Soliders destuced Soliders" << (killed_soldiers / soldiers_count()) * 100 << endl;
-    out << "Alien Monsters destuced Monsters" << (killed_monsters / monsters_count()) * 100 << endl;
-    out << "Alien Drones destuced Drones" << (killed_drones / drones_count()) * 100 << endl;
-    out << "Alien Total destuced Units" << (total_killed() / units_count()) * 100 << endl;
 }

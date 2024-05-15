@@ -11,11 +11,8 @@ EarthTank::EarthTank(Game *game, int id, int t, int pw, int hl, int attc) :
 void EarthTank::attack() {
     int time_step = game->get_time();
     LinkedQueue<ArmyUnit *> temp_alien_units;
-    bool fight_solider{};
     int  cap = attackCapacity;
 
-    // size_t alien_soldier_size = game->getAlienArmy().soldiers_count();
-    // size_t alien_monster_size = game->getAlienArmy().monsters_count();
 
     if (game->which_tank_attack()) {
         while (!game->stop_attacking_soldiers() && cap > getAttackCapacity() >> 1) {
@@ -75,7 +72,7 @@ void EarthTank::attack() {
     // }
 }
 
-int EarthTank::get_count_UML() {
+int EarthTank::get_count_UML() const {
     return count_UML;
 }
 

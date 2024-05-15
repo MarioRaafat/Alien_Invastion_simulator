@@ -25,10 +25,6 @@ class EarthArmy {
     PriorityQueue<EarthGunnery*, CompareEarthGunnery> gunneries;
     size_t units_count() const;
 
-    size_t killed_soldiers{};
-    size_t killed_tanks{};
-    size_t killed_gunneries{};
-
 public:
 
     void addUnit(ArmyUnit *unit, unit_type type);
@@ -41,13 +37,7 @@ public:
     size_t tanks_count() const;
     size_t gunneries_count() const;
 
-    void updateKilledSoldiers(size_t killed_soldiers);
-    void updateKilledTanks(size_t killed_tanks);
-    void updateKilledGunneries(size_t killed_gunneries);
-    size_t getKilledSoldiers() const;
-    size_t getKilledTanks() const;
-    size_t getKilledGunneries() const;
-    size_t getTotalKilled() const;
+    size_t army_size() const;
     void print_stats(ofstream &out) const;
 };
 

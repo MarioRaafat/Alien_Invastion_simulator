@@ -85,3 +85,15 @@ int Generator::random_range(int min, int max) {
     std::uniform_int_distribution<int> dist(min, max);
     return dist(mt);
 }
+
+int Generator::get_Ecount() {
+    return Ecount;
+}
+
+int Generator::get_Acount() {
+    return Acount;
+}
+
+int Generator::get_Scount() {
+    return Scount;
+}

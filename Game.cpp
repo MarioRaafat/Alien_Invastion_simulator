@@ -1,5 +1,6 @@
 #include "Game.h"
 
+
 Game::Game()  {
     char mode;
 
@@ -14,7 +15,6 @@ Game::Game()  {
     infection_number = immune_number = 0;
     saver_mode = false;
     Game::randGen();
-//    out_file.open("output.txt", std::ios::out | std::ios::trunc);
 }
 
 void Game::randGen() {
@@ -73,7 +73,9 @@ void Game::increment_immune_number() {
 
 
 void Game::add_heal_unit(HealUnit* HU) {
-    heal_list.push(HU);
+    if (HU) {
+        heal_list.push(HU);
+    }
 }
 
 void Game::add_to_soldier_UML(EarthSoldier* damaged_unit) {
@@ -102,35 +104,42 @@ EarthTank * Game::pick_from_tank_UML() {
 }
 
 Game::~Game() {
-//     ArmyUnit *unit = nullptr;
-//     double earth_avg_df{};
-//     double earth_avg_dd{};
-//     double earth_avg_DBb{};
-//     double alien_avg_df{};
-//     double alien_avg_dd{};
-//     double alien_avg_DBb{};
-//
-//     delete generator;
-//     generator = nullptr;
-//
-//     while (!killed_list.isEmpty()) {
-//         killed_list.dequeue(unit);
-//
-//         if (unit->getTypeId() == earth_soldier || unit->getTypeId() == earth_tank || unit->getTypeId() == earth_gunnery) {
-//             earth_avg_df += unit->getDf();
-//             earth_avg_dd += unit->getDd();
-//             earth_avg_DBb += unit->getDBb();
-//         } else if (unit->getTypeId() == alien_soldier || unit->getTypeId() == alien_monster || unit->getTypeId() == alien_drone){
-//             alien_avg_df += unit->getDf();
-//             alien_avg_dd += unit->getDd();
-//             alien_avg_DBb += unit->getDBb();
-//         }
-//         out_file << unit->getTd() << " " << unit->getID() << " " << unit->getTj() << " ";
-//         out_file << unit->getDf() << " " << unit->getDd() << " " << unit->getDBb() << endl;
-//         delete unit;
-//     }
-//     out_file << "Result is " << winner() << endl;
-//     Earmy.print_stats(out_file);
+    ofstream out_file("output.txt", std::ios::out | std::ios::trunc);
+    ArmyUnit *unit = nullptr;
+    out_file << winner() << endl;
+
+    while (!killed_list.isEmpty()) {
+        killed_list.dequeue(unit);
+
+        if (unit->getTypeId() == earth_soldier || unit->getTypeId() == earth_tank
+            || unit->getTypeId() == earth_gunnery) {
+            earth_avg_df += unit->getDf();
+            earth_avg_dd += unit->getDd();
+            earth_avg_DBb += unit->getDBb();
+        } else if (unit->getTypeId() == alien_soldier || unit->getTypeId() == alien_monster
+                   || unit->getTypeId() == alien_drone) {
+            alien_avg_df += unit->getDf();
+            alien_avg_dd += unit->getDd();
+            alien_avg_DBb += unit->getDBb();
+        }
+        out_file << unit->getTd() << " " << unit->getID() << " " << unit->getTj() << " ";
+        out_file << unit->getDf() << " " << unit->getDd() << " " << unit->getDBb() << endl;
+        if (unit->getDBb() != 0) {
+            out_file << "Df/ Db: " << double(unit->getDf() / unit->getDBb()) * 100.0 << endl;
+            out_file << "Dd/ Db: " << double(unit->getDd() / unit->getDBb()) * 100.0 << endl;
+        }
+        out_file << "==========================================================================" << endl;
+
+        delete unit;
+        unit = nullptr;
+    }
+    print_stats(out_file);
+
+    delete generator;
+    generator = nullptr;
+
+    out_file.close();
+}
 //     out_file << "Earth Army Avg Df: " << earth_avg_df / Earmy.getTotalKilled() << endl;
 //     out_file << "Earth Army Avg Dd: " << earth_avg_dd / Earmy.getTotalKilled() << endl;
 //     out_file << "Earth Army Avg DBb: " << earth_avg_DBb / Earmy.getTotalKilled() << endl;
@@ -145,84 +154,18 @@ Game::~Game() {
 //
 //     out_file << "Avg df / db percentage: " << ((alien_avg_df / Aarmy.total_killed()) / (alien_avg_DBb / Aarmy.total_killed()) * 100)  << endl;
 //     out_file << "Avg dd / db percentage: " << ((alien_avg_dd / Aarmy.total_killed()) / (alien_avg_DBb / Aarmy.total_killed()) * 100)  << endl;
+//     delete generator;
+//     generator = nullptr;
 //     out_file.close();
-}
+//}
 
-//void Game::Esolider_attack() {
-//    ArmyUnit* soldier_to_attack = Earmy.pickUnit(earth_soldier);
-//    ArmyUnit* soldier_to_be_attacked;
-//    int capacity;
-//    int empty_spaces = 0;
-//
-//    if (dynamic_cast<EarthSoldier*>(soldier_to_attack)) {
-//        capacity = soldier_to_attack->getAttackCapacity();
-//        for(int i = 0; i < capacity; i++) {
-//            soldier_to_be_attacked = Aarmy.pickUnit(alien_soldier);
-//            if (soldier_to_be_attacked){
-//                temp_list.enqueue(soldier_to_be_attacked);
-//            }
-//            else {
-//                empty_spaces++;
-//            }
-//        }
-//    }
-//
-//    for (int i = 0; i < (capacity - empty_spaces); i++) {
-//        temp_list.dequeue(soldier_to_be_attacked);
-//        soldier_to_attack->attack(soldier_to_be_attacked);
-//        if (soldier_to_be_attacked->isDead()) {
-//            killed_list.enqueue(soldier_to_be_attacked);
-//        }
-//        else {
-//            Aarmy.addUnit(soldier_to_be_attacked, alien_soldier);
-//        }
-//    }
-//    Earmy.addUnit(soldier_to_attack, earth_soldier);
-//}
-//
-//
-//void Game::Asolider_attack() {
-//    ArmyUnit* soldier_to_attack = Aarmy.pickUnit(alien_soldier);
-//    ArmyUnit* soldier_to_be_attacked;
-//    int capacity;
-//    int empty_spaces = 0;
-//
-//    if (dynamic_cast<AlienSoldier*>(soldier_to_attack)) {
-//        capacity = soldier_to_attack->getAttackCapacity();
-//        for(int i = 0; i < capacity; i++) {
-//            soldier_to_be_attacked = Earmy.pickUnit(earth_soldier);
-//            if (soldier_to_be_attacked){
-//                temp_list.enqueue(soldier_to_be_attacked);
-//            }
-//            else {
-//                empty_spaces++;
-//            }
-//        }
-//    }
-//
-//    for (int i = 0; i < (capacity - empty_spaces); i++) {
-//        temp_list.dequeue(soldier_to_be_attacked);
-//        soldier_to_attack->attack(soldier_to_be_attacked);
-//        if (soldier_to_be_attacked->isDead()) {
-//            killed_list.enqueue(soldier_to_be_attacked);
-//        }
-//        else if (soldier_to_be_attacked->getHealth() >= double(soldier_to_be_attacked->getOriginalHealth() * 0.2)){
-//            Earmy.addUnit(soldier_to_be_attacked, earth_soldier);
-//        }
-//        else {
-//            soldier_UML.push(soldier_to_be_attacked);
-//        }
-//    }
-//    Aarmy.addUnit(soldier_to_attack, alien_soldier);
-//}
 
 void Game::heal() {
-    HealUnit* HU;
-
     count_rounds_in_UML();
 
     while(true) {
-        if( (soldier_UML.is_empty() && tank_UML.isEmpty()) || heal_list.isEmpty()) {
+        HealUnit* HU{};
+        if((soldier_UML.is_empty() && tank_UML.isEmpty()) || heal_list.isEmpty()) {
             return;
         }
         heal_list.pop(HU);
@@ -290,23 +233,23 @@ void Game::play() {
     cout << "Simulation Ended && Output File Is Created\n";
 }
 
-void Game::add_unit(ArmyUnit *unit, unit_type type) {
+void Game::add_unit(ArmyUnit *unit, unit_type type, bool droneFront) {
     if (type == earth_soldier || type == earth_tank || type == earth_gunnery) {
         Earmy.addUnit(unit, type);
     } else if (type == alien_soldier || type == alien_monster || type == alien_drone) {
-        Aarmy.addUnit(unit, type);
+        Aarmy.addUnit(unit, type, droneFront);
     }
     else {
         add_heal_unit(static_cast<HealUnit*>(unit));
     }
 }
 
-ArmyUnit * Game::pick_unit(unit_type type) {
+ArmyUnit * Game::pick_unit(unit_type type, bool droneFront, bool pickone) {
     if (type == earth_soldier || type == earth_gunnery || type == earth_tank) {
         return Earmy.pickUnit(type);
     }
     else if (type == alien_soldier || type == alien_monster || type == alien_drone) {
-        return Aarmy.pickUnit(type);
+        return Aarmy.pickUnit(type, droneFront, pickone);
     }
     else {
         HealUnit* h{};
@@ -327,11 +270,11 @@ void Game::fight() {
     Aarmy.attack();
 }
 
-bool Game::which_tank_attack() {
+bool Game::which_tank_attack() const {
     return (double(Earmy.soliders_count()) < (double(Aarmy.soldiers_count()) * .3));
 }
 
-bool Game::stop_attacking_soldiers() {
+bool Game::stop_attacking_soldiers() const {
     return (double(Earmy.soliders_count()) > (double(Aarmy.soldiers_count()) * .8));
 }
 
@@ -346,21 +289,36 @@ bool Game::check_savers_mode() {
     return saver_mode;
 }
 
-// EarthArmy &Game::getEarthArmy() {
-//     return Earmy;
-// }
-//
-// AlienArmy &Game::getAlienArmy() {
-//     return Aarmy;
-// }
 
 void Game::add_to_killed_list(ArmyUnit *unit) {
-    if (unit) {
-        killed_list.enqueue(unit);
+    if (!unit) {
+        return;
+    }
+    killed_list.enqueue(unit);
+    if (unit->getTypeId() == earth_soldier) {
+        killed_earth_soldiers++;
+    }
+    else if (unit->getTypeId() == earth_tank) {
+        killed_earth_tanks++;
+    }
+    else if (unit->getTypeId() == earth_gunnery) {
+        killed_earth_gunneries++;
+    }
+    else if (unit->getTypeId() == alien_soldier) {
+        killed_aliens_soldiers++;
+    }
+    else if (unit->getTypeId() == alien_monster) {
+        killed_aliens_monsters++;
+    }
+    else if (unit->getTypeId() == alien_drone) {
+        killed_aliens_drones++;
+    }
+    else {
+        killed_saver_units++;
     }
 }
 
-void Game::print() {
+void Game::print() const {
     if (!interactive_mode) {
         return;
     }
@@ -374,18 +332,18 @@ void Game::print() {
 }
 
 const string &Game::winner() const { // why static
-    static string earth = "Earth";
-    static string alien = "Alien";
+    static string earth = "Earth Wins";
+    static string alien = "Alien Wins";
     static string draw = "Draw";
     static string none = "None";
 
-    if (Earmy.soliders_count() > 0 &&  Aarmy.soldiers_count() == 0) {
+    if (Earmy.army_size() > 0 &&  Aarmy.units_count() == 0) {
         return earth;
     }
-    if (Aarmy.soldiers_count() > 0 && Earmy.soliders_count() == 0) {
+    if (Aarmy.units_count() > 0 && Earmy.army_size() == 0) {
         return alien;
     }
-    if (Aarmy.soldiers_count() == Earmy.soliders_count()) {
+    if (Aarmy.units_count() == Earmy.army_size()) {
         return draw;
     }
     return none;
@@ -393,4 +351,32 @@ const string &Game::winner() const { // why static
 
 bool Game::is_interactive() const {
     return interactive_mode;
+}
+
+int Game::total_killed_aliens() const {
+    return killed_aliens_drones + killed_aliens_soldiers + killed_aliens_monsters;
+}
+
+int Game::total_killed_earth() const {
+    return killed_earth_gunneries + killed_earth_soldiers + killed_earth_tanks;
+}
+
+void Game::print_stats(ofstream &out_file) const {
+    out_file << "====================== Earth Army Stats =====================\n";
+    out_file << "ESd / ESTotal: " << double(killed_earth_soldiers / Generator::get_Ecount()) << "\n";
+    out_file << "ETd / ETTotal: " << double(killed_earth_tanks / Generator::get_Ecount()) << "\n";
+    out_file << "EGd / EGTotal: " << double(killed_earth_gunneries / Generator::get_Ecount()) << "\n";
+    out_file << "Earth Total Killed: " << total_killed_earth() << "\n";
+    out_file << "Average Df: " << earth_avg_df / total_killed_earth() << "\n";
+    out_file << "Average Dd: " << earth_avg_dd / total_killed_earth() << "\n";
+    out_file << "Average DBb: " << earth_avg_DBb / total_killed_earth() << "\n";
+
+    out_file << "====================== Alien Army Stats =====================\n";
+    out_file << "ASd / ASTotal: " << double(killed_aliens_soldiers / Generator::get_Acount()) << "\n";
+    out_file << "AMd / AMTotal: " << double(killed_aliens_monsters / Generator::get_Acount()) << "\n";
+    out_file << "ADd / ADTotal: " << double(killed_aliens_drones / Generator::get_Acount()) << "\n";
+    out_file << "Alien Total Killed: " << total_killed_aliens() << "\n";
+    out_file << "Average Df: " << alien_avg_df / total_killed_aliens() << "\n";
+    out_file << "Average Dd: " << alien_avg_dd / total_killed_aliens() << "\n";
+    out_file << "Average DBb: " << alien_avg_DBb / total_killed_aliens() << "\n";
 }

@@ -14,8 +14,8 @@
 class AlienArmy {
     public:
     void attack();
-    void addUnit(ArmyUnit *unit, unit_type type);
-    ArmyUnit* pickUnit(unit_type type, bool droneFront = true);
+    void addUnit(ArmyUnit *unit, unit_type type, bool droneFront = true);
+    ArmyUnit* pickUnit(unit_type type, bool droneFront = true, bool pickone = false);
     void print() const;
     ~AlienArmy();
     size_t soldiers_count() const;
@@ -27,7 +27,6 @@ class AlienArmy {
     size_t getKilledSoldiers() const;
     size_t getKilledMonsters() const;
     size_t getKilledDrones() const;
-    size_t total_killed() const;
     size_t units_count() const;
     void print_stats(ofstream &out) const;
 
@@ -39,5 +38,7 @@ private:
     size_t killed_soldiers{};
     size_t killed_monsters{};
     size_t killed_drones{};
+
+    size_t army_count() const;
 };
 #endif //ALIEN_INVASTION_SIMULATOR_ALIENARMY_H

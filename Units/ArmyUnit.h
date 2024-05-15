@@ -42,7 +42,7 @@ public:
     int getOriginalHealth() const;
     int getAttackCapacity() const;
 
-    void damage(ArmyUnit* enemy);
+    void damage(ArmyUnit* enemy) const;
     virtual void print() const;
     virtual void attack() = 0;
     bool isDead() const;

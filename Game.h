@@ -18,6 +18,12 @@ class Game {
             return *lhs > *rhs;
         }
     };
+    double earth_avg_df{};
+    double earth_avg_dd{};
+    double earth_avg_DBb{};
+    double alien_avg_df{};
+    double alien_avg_dd{};
+    double alien_avg_DBb{};
 
     Generator* generator;
     EarthArmy Earmy;
@@ -35,10 +41,13 @@ class Game {
     bool saver_mode;
     //    std::ofstream out_file;
     bool interactive_mode{};
+    int killed_earth_soldiers{}, killed_earth_tanks{}, killed_earth_gunneries{};
+    int killed_aliens_drones{}, killed_aliens_soldiers{}, killed_aliens_monsters{}, killed_saver_units{};
+    int total_killed_earth() const;
+    int total_killed_aliens() const;
 
 
     const string& winner() const;
-
 public:
 
     Game();
@@ -49,8 +58,8 @@ public:
     void increment_infection_number();
     void decrement_infection_number();
     void increment_immune_number();
-    void add_unit(ArmyUnit*, unit_type);
-    ArmyUnit* pick_unit(unit_type type);
+    void add_unit(ArmyUnit*, unit_type, bool droneFront = true);
+    ArmyUnit* pick_unit(unit_type type, bool droneFront = true, bool pickone = false);
     void add_to_killed_list(ArmyUnit* unit);
 
 
@@ -67,12 +76,14 @@ public:
     void fight();
 
     // special cases
-    bool which_tank_attack(); // to know if the tanks need to attack alien soldier ir not
-    bool stop_attacking_soldiers();
+    bool which_tank_attack() const; // to know if the tanks need to attack alien soldier ir not
+    bool stop_attacking_soldiers() const;
     bool check_savers_mode();
 
     bool is_interactive() const;
-    void print();
+    void print_stats(ofstream& out_file) const;
+
+    void print() const;
 };
 
 #endif //GAME_H

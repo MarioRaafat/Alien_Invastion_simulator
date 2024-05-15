@@ -72,7 +72,7 @@ void EarthSoldier::attack() {
      */
 }
 
-int EarthSoldier::get_count_UML() {
+int EarthSoldier::get_count_UML() const {
     return count_UML;
 }
 
@@ -86,7 +86,7 @@ void EarthSoldier::set_infection(bool infec) {
     }
 }
 
-bool EarthSoldier::get_infection() {
+bool EarthSoldier::get_infection() const {
     return infected;
 }
 
@@ -94,7 +94,7 @@ void EarthSoldier::set_immune(bool im) {
     immmune = im;
 }
 
-bool EarthSoldier::get_immune() {
+bool EarthSoldier::get_immune() const {
     return immmune;
 }
 
@@ -107,4 +107,12 @@ int EarthSoldier::randomNumber(int min, int max) {
 
 bool EarthSoldier::operator>(const EarthSoldier &other) const {
     return this->power > other.power;
+}
+
+std::ostream &operator<<(ostream &os, const EarthSoldier &soldier) {
+    os <<  "(" << soldier.getID() << "->" << soldier.getHealth() << ")";
+    if (soldier.get_infection()) {
+        os << "->Inf";
+    }
+    return (os);
 }

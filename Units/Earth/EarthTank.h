@@ -9,7 +9,7 @@ class EarthTank : public ArmyUnit {
 public:
     EarthTank(Game *game, int id, int t, int pw, int hl, int attc);
     void attack() override;
-    int get_count_UML();
+    int get_count_UML() const;
     void set_count_UML(int num);
 };
 #endif //EARTHTANK_H

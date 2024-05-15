@@ -1,6 +1,6 @@
 #include "ArmyUnit.h"
 #include <iostream>
-#include <math.h>
+#include <cmath>
 
 
 ArmyUnit::ArmyUnit(Game *game, int id, unit_type tyId, int t, int pw, int hl, int attC) :
@@ -42,7 +42,7 @@ int ArmyUnit::getAttackCapacity() const {
     return attackCapacity;
 }
 
-void ArmyUnit::damage(ArmyUnit* enemy) {
+void ArmyUnit::damage(ArmyUnit* enemy) const {
     if (!enemy) {
         return;
     }

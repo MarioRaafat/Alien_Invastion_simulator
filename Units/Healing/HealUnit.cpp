@@ -58,7 +58,7 @@ void HealUnit::attack() {
 void HealUnit::heal(ArmyUnit *damaged_unit) {
     int hl = 0;
     if (damaged_unit->getTypeId() == earth_soldier) {
-        if(static_cast<EarthSoldier*>(damaged_unit)->get_infection()){
+        if (static_cast<EarthSoldier*>(damaged_unit)->get_infection()) {
             hl = (damaged_unit->getHealth() + (( (power * health) / 100) / sqrt(damaged_unit->getHealth()) )) / 2;
             if (damaged_unit->getHealth() > double(damaged_unit->getOriginalHealth() * 0.2)) {
                 static_cast<EarthSoldier*>(damaged_unit)->set_immune(true);
