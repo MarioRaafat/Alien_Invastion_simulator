@@ -14,6 +14,7 @@ void EarthSoldier::attack() {
     int time_step = game->get_time();
 
     //size_t alien_soldier_size = game->getAlienArmy().soldiers_count();
+    //Recheck plz there is a meme leak.
 
     for (int i = 0; i < attackCapacity; i++) {
         ArmyUnit *curr;

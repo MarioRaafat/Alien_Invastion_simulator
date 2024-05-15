@@ -47,6 +47,8 @@ void EarthGunnery::attack() {
         if (curr->getTypeId() == alien_drone) {
             if (front) {
                 front_unit.push(curr);
+            } else {
+                back_unit.push(curr);
             }
             front = !front;
             continue;

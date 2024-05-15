@@ -38,6 +38,7 @@ void AlienDrone::attack() {
 
         if (curr->isDead()) {
             game->add_to_killed_list(curr);
+            curr->setTd(game->get_time());
         } else {
             game->add_unit(curr, curr->getTypeId());
         }

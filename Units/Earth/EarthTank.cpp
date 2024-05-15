@@ -15,6 +15,7 @@ void EarthTank::attack() {
 
 
     if (game->which_tank_attack()) {
+        //Recheck plz there is a leak.
         while (!game->stop_attacking_soldiers() && cap > getAttackCapacity() >> 1) {
             ArmyUnit* solider = game->pick_unit(alien_soldier);
             if (solider) {

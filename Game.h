@@ -31,7 +31,6 @@ class Game {
     ArrayStack<HealUnit*> heal_list;
     PriorityQueue<EarthSoldier*, CompareEarthSoldier> soldier_UML;
     LinkedQueue<EarthTank*> tank_UML;
-    LinkedQueue<ArmyUnit *> temp_list;
     LinkedQueue<ArmyUnit *> killed_list;
 
 

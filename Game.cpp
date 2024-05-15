@@ -111,16 +111,22 @@ Game::~Game() {
     while (!killed_list.isEmpty()) {
         killed_list.dequeue(unit);
 
-        if (unit->getTypeId() == earth_soldier || unit->getTypeId() == earth_tank
-            || unit->getTypeId() == earth_gunnery) {
+        if (unit->getTypeId() == earth_tank) {
             earth_avg_df += unit->getDf();
             earth_avg_dd += unit->getDd();
             earth_avg_DBb += unit->getDBb();
-        } else if (unit->getTypeId() == alien_soldier || unit->getTypeId() == alien_monster
-                   || unit->getTypeId() == alien_drone) {
-            alien_avg_df += unit->getDf();
-            alien_avg_dd += unit->getDd();
-            alien_avg_DBb += unit->getDBb();
+        } else {
+            if (unit->getTypeId() == earth_soldier
+                || unit->getTypeId() == earth_gunnery) {
+                earth_avg_df += unit->getDf();
+                earth_avg_dd += unit->getDd();
+                earth_avg_DBb += unit->getDBb();
+            } else if (unit->getTypeId() == alien_soldier || unit->getTypeId() == alien_monster
+                       || unit->getTypeId() == alien_drone) {
+                alien_avg_df += unit->getDf();
+                alien_avg_dd += unit->getDd();
+                alien_avg_DBb += unit->getDBb();
+            }
         }
         out_file << unit->getTd() << " " << unit->getID() << " " << unit->getTj() << " ";
         out_file << unit->getDf() << " " << unit->getDd() << " " << unit->getDBb() << endl;
