@@ -13,7 +13,7 @@ Game::Game()  {
     load_file();
     curr_time_step = 0;
     infection_number = immune_number = 0;
-    saver_mode = false;
+    saver_mode =  savers_called_before = false;
     Game::randGen();
 }
 
@@ -288,8 +288,8 @@ void Game::fight() {
         cout << "=================== Units Fighting at cuurent time step ==========\n";
     }
     Earmy.attack();
-    if (check_savers_mode()) {
-        Earmy.savers_attack();
+    if (savers_called_before) {
+        Earmy.destroy_savers();
     }
     heal();
     Aarmy.attack();
@@ -305,10 +305,15 @@ bool Game::stop_attacking_soldiers() const {
 
 bool Game::check_savers_mode() {
     if (infection_number == 0) {
+        if(saver_mode) {
+            savers_called_before = true;
+        }
         saver_mode = false;
     }
-    else if (Earmy.soliders_count() && (((infection_number * 100) / Earmy.soliders_count()) > threshold)) {
-        saver_mode = true;
+    else if (!savers_called_before) {
+        if (Earmy.soliders_count() && (((infection_number * 100) / Earmy.soliders_count()) > threshold)) {
+            saver_mode = true;
+        }
     }
 
     return saver_mode;

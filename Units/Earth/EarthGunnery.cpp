@@ -12,10 +12,10 @@ bool EarthGunnery::operator>(const EarthGunnery &other) const {
 }
 
 void EarthGunnery::attack() {
-    //ASK MARIO TOMMORROW
+
     LinkedQueue<ArmyUnit*> temp_alien_units;
-    ArrayStack<ArmyUnit *> front_unit;
-    ArrayStack<ArmyUnit *> back_unit;
+    Dequeue<ArmyUnit*> front_unit;
+    Dequeue<ArmyUnit*> back_unit;
 
     bool front = true;
 
@@ -35,7 +35,7 @@ void EarthGunnery::attack() {
     }
 
     if (game->is_interactive()) {
-        cout << "EG " << getID() << " shots ";
+        cout << "EG " << ID << " shots ";
         cout << temp_alien_units;
     }
 
@@ -46,9 +46,9 @@ void EarthGunnery::attack() {
 
         if (curr->getTypeId() == alien_drone) {
             if (front) {
-                front_unit.push(curr);
+                front_unit.push_front(curr);
             } else {
-                back_unit.push(curr);
+                back_unit.push_front(curr);
             }
             front = !front;
             continue;
@@ -68,9 +68,9 @@ void EarthGunnery::attack() {
         }
     }
 
-    while (!front_unit.isEmpty()) {
+    while (!front_unit.is_empty()) {
         ArmyUnit *curr{};
-        front_unit.pop(curr);
+        front_unit.pop_front(curr);
         if (!curr->is_attacked()) {
             curr->setTa(game->get_time());
         }
@@ -84,9 +84,9 @@ void EarthGunnery::attack() {
         }
     }
 
-    while (!back_unit.isEmpty()) {
+    while (!back_unit.is_empty()) {
         ArmyUnit *curr{};
-        back_unit.pop(curr);
+        back_unit.pop_front(curr);
         if (!curr->is_attacked()) {
             curr->setTa(game->get_time());
         }

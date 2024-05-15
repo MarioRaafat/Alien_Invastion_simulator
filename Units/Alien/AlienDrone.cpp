@@ -7,9 +7,9 @@ AlienDrone::AlienDrone(Game *game, int id, int t, int pw, int hl, int attc) :
 }
 void AlienDrone::attack() {
     LinkedQueue<ArmyUnit*> temp_enemy_units;
-    int half_cap = getAttackCapacity() >> 1;
+    int half_cap = attackCapacity >> 1;
 
-    for (int i = 0; i < getAttackCapacity() - half_cap; ++i) {
+    for (int i = 0; i < attackCapacity - half_cap; ++i) {
         ArmyUnit* curr = game->pick_unit(earth_tank);
         if (curr) {
             temp_enemy_units.enqueue(curr);
@@ -23,7 +23,7 @@ void AlienDrone::attack() {
     }
 
     if (game->is_interactive()) {
-        cout << "Ad " << getID() << " shots ";
+        cout << "AD " << ID << " shots ";
         cout << temp_enemy_units;
     }
 

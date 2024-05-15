@@ -52,9 +52,9 @@ void Generator::generate(Game *game) const {
                 game->add_unit(Egunnery, earth_gunnery);
             }
 
-            //Mario u donot put that in any list MEM leak
             if (game->check_savers_mode()) {
                 auto saver = new SaverUnit(game, 5000 + Scount++, game->get_time(), power, health, capacity);
+                game->add_unit(saver, saver_unit);
             }
         }
         for (int i = 0; i < N; i++) {

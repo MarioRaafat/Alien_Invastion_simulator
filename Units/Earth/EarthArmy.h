@@ -20,9 +20,10 @@ class EarthArmy {
     };
 
     LinkedQueue<EarthSoldier*> Esoldiers;
-    LinkedQueue<SaverUnit*> savers;
     ArrayStack<EarthTank*> tanks;
     PriorityQueue<EarthGunnery*, CompareEarthGunnery> gunneries;
+    LinkedQueue<SaverUnit*> savers;
+
     size_t units_count() const;
 
 public:
@@ -32,7 +33,7 @@ public:
     ~EarthArmy();
     void print() const;
     void attack();
-    void savers_attack();
+    void destroy_savers();
     size_t soliders_count() const;
     size_t tanks_count() const;
     size_t gunneries_count() const;

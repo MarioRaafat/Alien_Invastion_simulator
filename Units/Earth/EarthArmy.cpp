@@ -91,10 +91,11 @@ EarthArmy::~EarthArmy() {
 }
 
 void EarthArmy::attack() {
-    ArmyUnit* attackers[3]{};
+    ArmyUnit* attackers[4]{};
     attackers[0] = pickUnit(earth_soldier);
     attackers[1] = pickUnit(earth_tank);
     attackers[2] = pickUnit(earth_gunnery);
+    attackers[3] = pickUnit(saver_unit);
 
     for (const auto& attacker : attackers) {
         if (attacker) {
@@ -104,13 +105,11 @@ void EarthArmy::attack() {
     }
 }
 
-void EarthArmy::savers_attack() {
-    ArmyUnit* attacker = nullptr;
-    attacker = pickUnit(saver_unit);
-
-    if (attacker) {
-        attacker->attack();
-        addUnit(attacker, saver_unit);
+void EarthArmy::destroy_savers() {
+    SaverUnit* saver = {};
+    while (savers.dequeue(saver)) {
+        delete saver;
+        saver = nullptr;
     }
 }
 

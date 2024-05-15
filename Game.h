@@ -38,6 +38,7 @@ class Game {
     int threshold;
     int infection_number, immune_number;
     bool saver_mode;
+    bool savers_called_before;
     //    std::ofstream out_file;
     bool interactive_mode{};
     int killed_earth_soldiers{}, killed_earth_tanks{}, killed_earth_gunneries{};
@@ -47,6 +48,7 @@ class Game {
 
 
     const string& winner() const;
+
 public:
 
     Game();
@@ -70,6 +72,7 @@ public:
     void add_to_tank_UML(EarthTank* damaged_unit);
     EarthSoldier* pick_from_soldier_UML();
     EarthTank* pick_from_tank_UML();
+
 
     void play();
     void fight();
