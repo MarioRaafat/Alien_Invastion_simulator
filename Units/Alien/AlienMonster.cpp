@@ -53,6 +53,9 @@ void AlienMonster::attack() {
         if (curr->isDead()) {
             curr->setTd(time_step);
             game->add_to_killed_list(curr);
+            if (curr->getTypeId() == earth_soldier) {
+                game->decrement_infection_number();
+            }
         }
         else if ((double)curr->getHealth() >= double(curr->getOriginalHealth() * 0.2)) {
             game->add_unit(curr, curr->getTypeId());

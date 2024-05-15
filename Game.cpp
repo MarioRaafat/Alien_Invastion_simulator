@@ -63,6 +63,10 @@ void Game::increment_infection_number() {
     infection_number++;
 }
 
+void Game::decrement_infection_number() {
+    infection_number--;
+}
+
 void Game::increment_immune_number() {
     immune_number++;
 }
@@ -335,7 +339,7 @@ bool Game::check_savers_mode() {
     if (infection_number == 0) {
         saver_mode = false;
     }
-    else if ( ((infection_number * 100) / Earmy.soliders_count()) > threshold) {
+    else if (Earmy.soliders_count() && (((infection_number * 100) / Earmy.soliders_count()) > threshold)) {
         saver_mode = true;
     }
 

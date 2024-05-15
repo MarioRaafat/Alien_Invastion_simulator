@@ -47,6 +47,7 @@ public:
     void load_file();
     int get_time() const;
     void increment_infection_number();
+    void decrement_infection_number();
     void increment_immune_number();
     void add_unit(ArmyUnit*, unit_type);
     ArmyUnit* pick_unit(unit_type type);
