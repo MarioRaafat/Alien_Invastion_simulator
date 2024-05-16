@@ -60,4 +60,7 @@ add_executable(Alien_Invastion_simulator
         Units/savers/SaverUnit.cpp
         Units/savers/SaverUnit.h
         Units/savers/SaverUnit.h
-        Random.cpp)
+        Random.cpp
+        Units/savers/SaversArmy.cpp
+        Units/savers/SaversArmy.h
+        Units/savers/SaversArmy.h)

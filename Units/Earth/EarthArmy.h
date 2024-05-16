@@ -9,7 +9,6 @@
 #include "EarthTank.h"
 #include "EarthGunnery.h"
 #include "fstream"
-#include "../savers/SaverUnit.h"
 
 class EarthArmy {
 
@@ -22,7 +21,6 @@ class EarthArmy {
     LinkedQueue<EarthSoldier*> Esoldiers;
     ArrayStack<EarthTank*> tanks;
     PriorityQueue<EarthGunnery*, CompareEarthGunnery> gunneries;
-    LinkedQueue<SaverUnit*> savers;
 
     size_t units_count() const;
 public:
@@ -32,7 +30,6 @@ public:
     ~EarthArmy();
     void print() const;
     void attack();
-    void destroy_savers();
     size_t soliders_count() const;
     size_t tanks_count() const;
     size_t gunneries_count() const;

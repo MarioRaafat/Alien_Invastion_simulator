@@ -14,89 +14,89 @@ bool EarthGunnery::operator>(const EarthGunnery &other) const {
 void EarthGunnery::attack() {
 
     LinkedQueue<ArmyUnit*> temp_alien_units;
-    ArrayStack<ArmyUnit*> front_unit;
-    ArrayStack<ArmyUnit*> back_unit;
+    Dequeue<ArmyUnit*> front_unit;
+    Dequeue<ArmyUnit*> back_unit;
 
     bool front = true;
 
-    for (int i = 0; i < (getAttackCapacity() - getAttackCapacity() / 2); ++i) {
-        ArmyUnit* curr = game->pick_unit(alien_monster);
-        if (curr) {
-            temp_alien_units.enqueue(curr);
-        }
-    }
+     for (int i = 0; i < (getAttackCapacity() - getAttackCapacity() / 2); ++i) {
+         ArmyUnit* curr = game->pick_unit(alien_monster);
+         if (curr) {
+             temp_alien_units.enqueue(curr);
+         }
+     }
 
-    for (int i = 0; i < getAttackCapacity() / 2; ++i) {
-        ArmyUnit *curr = game->pick_unit(alien_drone,front, true);
-        if (curr) {
-            temp_alien_units.enqueue(curr);
-        }
-        front = !front;
-    }
+     for (int i = 0; i < getAttackCapacity() / 2; ++i) {
+         ArmyUnit *curr = game->pick_unit(alien_drone,front, true);
+         if (curr) {
+             temp_alien_units.enqueue(curr);
+         }
+         front = !front;
+     }
 
-    if (game->is_interactive()) {
-        cout << "EG " << ID << " shots ";
-        cout << temp_alien_units;
-    }
+     if (game->is_interactive()) {
+         cout << "EG " << ID << " shots ";
+         cout << temp_alien_units;
+     }
 
-    front = true;
-    while (!temp_alien_units.isEmpty()) {
-        ArmyUnit* curr{};
-        temp_alien_units.dequeue(curr);
+     front = true;
+     while (!temp_alien_units.isEmpty()) {
+         ArmyUnit* curr{};
+         temp_alien_units.dequeue(curr);
 
-        if (curr->getTypeId() == alien_drone) {
-            if (front) {
-                front_unit.push(curr);
-            } else {
-                back_unit.push(curr);
-            }
-            front = !front;
-            continue;
-        }
+         if (curr->getTypeId() == alien_drone) {
+             if (front) {
+                 front_unit.push_front(curr);
+             } else {
+                 back_unit.push_front(curr);
+             }
+             front = !front;
+             continue;
+         }
 
-        if (!curr->is_attacked()) {
-            curr->setTa(game->get_time());
-        }
+         if (!curr->is_attacked()) {
+             curr->setTa(game->get_time());
+         }
 
-        damage(curr);
+         damage(curr);
 
-        if (curr->isDead()) {
-            curr->setTd(game->get_time());
-            game->add_to_killed_list(curr);
-        } else {
-            game->add_unit(curr, curr->getTypeId());
-        }
-    }
+         if (curr->isDead()) {
+             curr->setTd(game->get_time());
+             game->add_to_killed_list(curr);
+         } else {
+             game->add_unit(curr, curr->getTypeId());
+         }
+     }
 
-    while (!front_unit.isEmpty()) {
-        ArmyUnit *curr{};
-        front_unit.pop(curr);
-        if (!curr->is_attacked()) {
-            curr->setTa(game->get_time());
-        }
+     while (!front_unit.is_empty()) {
+         ArmyUnit *curr{};
+         front_unit.pop_front(curr);
+         if (!curr->is_attacked()) {
+             curr->setTa(game->get_time());
+         }
 
-        damage(curr);
-        if (curr->isDead()) {
-            curr->setTd(game->get_time());
-            game->add_to_killed_list(curr);
-        } else {
-            game->add_unit(curr, curr->getTypeId(), true);
-        }
-    }
+         damage(curr);
+         if (curr->isDead()) {
+             curr->setTd(game->get_time());
+             game->add_to_killed_list(curr);
+         } else {
+             game->add_unit(curr, curr->getTypeId(), true);
+         }
+     }
 
-    while (!back_unit.isEmpty()) {
-        ArmyUnit *curr{};
-        back_unit.pop(curr);
-        if (!curr->is_attacked()) {
-            curr->setTa(game->get_time());
-        }
+     while (!back_unit.is_empty()) {
+         ArmyUnit *curr{};
+         back_unit.pop_front(curr);
+         if (!curr->is_attacked()) {
+             curr->setTa(game->get_time());
+         }
 
-        damage(curr);
-        if (curr->isDead()) {
-            curr->setTd(game->get_time());
-            game->add_to_killed_list(curr);
-        } else {
-            game->add_unit(curr, curr->getTypeId(), false);
-        }
-    }
+         damage(curr);
+         if (curr->isDead()) {
+             curr->setTd(game->get_time());
+             game->add_to_killed_list(curr);
+         } else {
+             game->add_unit(curr, curr->getTypeId(), false);
+         }
+     }
 }

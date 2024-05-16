@@ -13,9 +13,6 @@ void EarthArmy::addUnit(ArmyUnit *unit, unit_type type) {
         case earth_gunnery:
             gunneries.push(static_cast<EarthGunnery *>(unit));
             break;
-        case saver_unit:
-            savers.enqueue(static_cast<SaverUnit*>(unit));
-            break;
         default:
             break;
     }
@@ -25,7 +22,6 @@ ArmyUnit* EarthArmy::pickUnit(unit_type type) {
     EarthTank *tank = nullptr;
     EarthSoldier *soldier = nullptr;
     EarthGunnery *gunnery = nullptr;
-    SaverUnit* saver = nullptr;
 
     switch (type) {
         case earth_soldier:
@@ -43,11 +39,6 @@ ArmyUnit* EarthArmy::pickUnit(unit_type type) {
                 return gunnery;
             }
             break;
-        case saver_unit:
-            if (savers.dequeue(saver)) {
-                return saver;
-            }
-            break;
         default:
             return nullptr;
     }
@@ -60,7 +51,6 @@ void EarthArmy::print() const {
     cout << Esoldiers.size() << " ES " << Esoldiers;
     cout << tanks.getTop() << " ET " << tanks;
     cout << gunneries.size() << " EG " << gunneries << "\n";
-    cout << savers.size() << " Saver Units " << savers << "\n";
 }
 
 EarthArmy::~EarthArmy() {
@@ -82,14 +72,6 @@ EarthArmy::~EarthArmy() {
         delete gunnery;
         gunnery = nullptr;
     }
-
-    while (!savers.isEmpty()) {
-        SaverUnit* saver = {};
-        if (savers.dequeue(saver)) {
-            delete saver;
-            saver = nullptr;
-        }
-    }
 }
 
 void EarthArmy::attack() {
@@ -97,7 +79,6 @@ void EarthArmy::attack() {
     attackers[0] = pickUnit(earth_soldier);
     attackers[1] = pickUnit(earth_tank);
     attackers[2] = pickUnit(earth_gunnery);
-    attackers[3] = pickUnit(saver_unit);
 
     for (const auto& attacker : attackers) {
         if (attacker) {
@@ -107,13 +88,6 @@ void EarthArmy::attack() {
     }
 }
 
-void EarthArmy::destroy_savers() {
-    SaverUnit* saver = {};
-    while (savers.dequeue(saver)) {
-        delete saver;
-        saver = nullptr;
-    }
-}
 
 size_t EarthArmy::soliders_count() const {
    return Esoldiers.size();

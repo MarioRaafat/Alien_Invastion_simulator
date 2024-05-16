@@ -7,6 +7,7 @@
 #include "Units/Earth/EarthArmy.h"
 #include "Units/Alien/AlienArmy.h"
 #include "Units/Healing/HealUnit.h"
+#include "Units/savers/SaversArmy.h"
 
 
 using namespace std;
@@ -28,6 +29,7 @@ class Game {
     Generator* generator;
     EarthArmy Earmy;
     AlienArmy Aarmy;
+    SaversArmy Sarmy;
 
     ArrayStack<HealUnit*> heal_list;
     PriorityQueue<EarthSoldier*, CompareEarthSoldier> soldier_UML;
@@ -40,6 +42,8 @@ class Game {
     int threshold;
     int infection_number, immune_number, total_infected{};
     bool interactive_mode{};
+    bool saver_mode;
+
     int killed_earth_soldiers{}, killed_earth_tanks{}, killed_earth_gunneries{};
     int killed_aliens_drones{}, killed_aliens_soldiers{}, killed_aliens_monsters{}, killed_saver_units{};
     int total_killed_earth() const;
@@ -49,7 +53,7 @@ class Game {
 public:
 
     Game();
-    ~Game(); // ---------> commented
+    ~Game();
     void randGen();
     void load_file();
     int get_time() const;
@@ -77,8 +81,6 @@ public:
     bool which_tank_attack() const; // to know if the tanks need to attack alien soldier ir not
     bool stop_attacking_soldiers() const;
     bool check_savers_mode();
-    bool saver_mode;
-    bool  savers_called_before = false;
 
     bool is_interactive() const;
     void print_stats(ofstream& out_file) const;

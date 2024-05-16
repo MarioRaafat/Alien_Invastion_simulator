@@ -10,7 +10,7 @@ Game::Game()  {
     load_file();
     curr_time_step = 1;
     infection_number = immune_number = 0;
-    saver_mode =  savers_called_before = false;
+    saver_mode = false;
     Game::randGen();
 }
 
@@ -268,24 +268,28 @@ void Game::play() {
 }
 
 void Game::add_unit(ArmyUnit *unit, unit_type type, bool droneFront) {
-    //added saver_unit by Kerolos
-    if (type == earth_soldier || type == earth_tank || type == earth_gunnery || type == saver_unit) {
+
+    if (type == earth_soldier || type == earth_tank || type == earth_gunnery) {
         Earmy.addUnit(unit, type);
     } else if (type == alien_soldier || type == alien_monster || type == alien_drone) {
         Aarmy.addUnit(unit, type, droneFront);
-    } else {
+    } else if (type == heal_unit){
         add_heal_unit(static_cast<HealUnit*>(unit));
+    } else if (type == saver_unit) {
+        Sarmy.addUnit(unit);
     }
 }
 
 ArmyUnit* Game::pick_unit(unit_type type, bool droneFront, bool pickone) {
     //Should u add saverUnit here;
-    if (type == earth_soldier || type == earth_gunnery || type == earth_tank || type == saver_unit) {
+    if (type == earth_soldier || type == earth_gunnery || type == earth_tank) {
         return Earmy.pickUnit(type);
     }
     else if (type == alien_soldier || type == alien_monster || type == alien_drone) {
         return Aarmy.pickUnit(type, droneFront, pickone);
-    } else {
+    } else if (type == saver_unit) {
+        return Sarmy.pickUnit();
+    }else if (type == heal_unit){
         HealUnit* h{};
         heal_list.pop(h);
         return h;
@@ -296,15 +300,13 @@ void Game::fight() {
     if (interactive_mode) {
         cout << "=================== Units Fighting at cuurent time step ==========\n";
     }
-//    if (fightSavers == -1) {
-//        Earmy.destroy_savers();
-//    }
+
     Earmy.attack();
-    if (savers_called_before) {
-        Earmy.destroy_savers();
+    if (!Sarmy.is_destroyed()) {
+        Sarmy.attack();
     }
-    heal();
     Aarmy.attack();
+    heal();
 }
 
 bool Game::which_tank_attack() const {
@@ -318,11 +320,10 @@ bool Game::stop_attacking_soldiers() const {
 bool Game::check_savers_mode() {
     if (infection_number == 0) {
         if (saver_mode) {
-            savers_called_before = true;
+            Sarmy.destroy_savers();
         }
         saver_mode = false;
-    } else if (!savers_called_before) {
-        //added = in the threshold
+    } else if (!Sarmy.is_destroyed()) {
         if (Earmy.soliders_count() && (((infection_number * 100) / Earmy.soliders_count()) >= threshold)) {
             saver_mode = true;
         }
@@ -364,7 +365,7 @@ void Game::print() const {
    }
     Earmy.print();
     Aarmy.print();
-    cout << "====/==================== Heal List Alive Units ====================\n" << heal_list;
+    cout << "======================== Heal List Alive Units ====================\n" << heal_list;
     cout << "======================== Soldier UML Units ====-===================\n" << soldier_UML;
     cout << "========================== Tank UML Units =========================\n" << tank_UML;
     cout << "========================= Kiled List Units ========================\n" << killed_list;
@@ -430,33 +431,3 @@ void Game::print_stats(ofstream &out_file) const {
 int Game::total_earth_soldiers_count() const {
     return Earmy.soliders_count() + killed_earth_soldiers;
 }
-
-/**
- *
- * @return: fightSavers
- * return: the condition at which the fight savers should be called 0 is the initial value no fights starts
- * 1 is the condition at which the fight savers should be called
- * -1 is the condition at which we should stop the fight savers
- */
-//int Game::getFightSaversState() {
-//    if (fightSavers == 0) /*initally no fight*/ {
-//        if (Earmy.soliders_count() > 0 &&
-//            double(infection_number / Earmy.soliders_count()) >= double(threshold / 100)) {
-//            fightSavers = 1;
-//            return 1;//first time fight
-//        }
-//        return 0;
-//    } else if (fightSavers == 1) {// contine the fight
-//        if (infection_number == 0) {
-//            fightSavers = -1;
-//            return -1;
-//        }
-//        return 1;
-//    }
-//    return -1;
-//}
-
-
-//bool Game::did_we_save_before() const {
-//    return savers_called_before;
-//}
