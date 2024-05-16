@@ -65,7 +65,7 @@ void HealUnit::heal(ArmyUnit *damaged_unit) {
     if (damaged_unit->getTypeId() == earth_soldier) {
         auto soldier = static_cast<EarthSoldier*>(damaged_unit);
         if (soldier->get_infection()) {
-            hl = (( (power * health) / 100) / sqrt(damaged_unit->getHealth())))/2;
+            hl = (((power * health) / 100) / sqrt(damaged_unit->getHealth())) / 2;
             soldier->setHealth(soldier->getHealth() + hl);
 
             //if healed make it immune and not infected
