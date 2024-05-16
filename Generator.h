@@ -47,6 +47,8 @@ public:
     //geetrs for Ecount and Acount and Scount
     static int get_Ecount();
     static int get_Acount();
+
+    static int get_Scount();
 };
 
 

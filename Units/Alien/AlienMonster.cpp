@@ -19,8 +19,14 @@ void AlienMonster::attack() {
         ArmyUnit *curr = game->pick_unit(earth_soldier);
         if (curr) {
             temp.enqueue(curr);
+        } else {
+            curr = game->pick_unit(saver_unit);
+            if (curr) {
+                temp.enqueue(curr);
+            }
         }
     }
+
     for (int i = 0; i < tank_cap; i++) {
         ArmyUnit *curr = game->pick_unit(earth_tank);
         if (curr) {
@@ -52,10 +58,7 @@ void AlienMonster::attack() {
                     game->add_unit(curr, earth_soldier);
                     continue;
                 }
-                //return it to its list
         }
-        //EdIT ASK MARIOOOOOOOOOO
-        //Damage the unit after checking if it is infected or not
         damage(curr);
 
         if (curr->isDead()) {
@@ -72,6 +75,8 @@ void AlienMonster::attack() {
                 game->add_to_soldier_UML(static_cast<EarthSoldier*>(curr));
             } else if (curr->getTypeId() == earth_tank) {
                 game->add_to_tank_UML(static_cast<EarthTank*>(curr));
+            } else {
+                game->add_unit(curr, curr->getTypeId());
             }
         }
     }

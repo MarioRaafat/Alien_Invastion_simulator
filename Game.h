@@ -22,9 +22,14 @@ class Game {
     double earth_avg_df{};
     double earth_avg_dd{};
     double earth_avg_DBb{};
+
     double alien_avg_df{};
     double alien_avg_dd{};
     double alien_avg_DBb{};
+
+    double saver_ave_df{};
+    double saver_ave_dd{};
+    double saver_ave_DBb{};
 
     Generator* generator;
     EarthArmy Earmy;
@@ -48,6 +53,7 @@ class Game {
     int killed_aliens_drones{}, killed_aliens_soldiers{}, killed_aliens_monsters{}, killed_saver_units{};
     int total_killed_earth() const;
     int total_killed_aliens() const;
+    int total_killed_savers() const;
 
     const string& winner() const;
 public:

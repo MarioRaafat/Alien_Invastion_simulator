@@ -1,7 +1,7 @@
 #include "Game.h"
 
 
-Game::Game()  {
+Game::Game()  :generator{nullptr}, threshold{0} {
     cout << "If you want to join Interactive mode press any character expect letter n in small case\n";
 
     if (cin.get() != 'n')
@@ -10,7 +10,7 @@ Game::Game()  {
     load_file();
     curr_time_step = 1;
     infection_number = immune_number = 0;
-    saver_mode = false;
+    saver_mode   = false;
     Game::randGen();
 }
 
@@ -153,6 +153,10 @@ Game::~Game() {
             alien_avg_df += unit->getDf();
             alien_avg_dd += unit->getDd();
             alien_avg_DBb += unit->getDBb();
+        }  else if (unit->getTypeId() == saver_unit) {
+            saver_ave_df += unit->getDf();
+            saver_ave_dd += unit->getDd();
+            saver_ave_DBb += unit->getDBb();
         }
         out_file << unit->getTd() << " " << unit->getID() << " " << unit->getTj() << " ";
         out_file << unit->getDf() << " " << unit->getDd() << " " << unit->getDBb() << endl;
@@ -284,16 +288,16 @@ ArmyUnit* Game::pick_unit(unit_type type, bool droneFront, bool pickone) {
     //Should u add saverUnit here;
     if (type == earth_soldier || type == earth_gunnery || type == earth_tank) {
         return Earmy.pickUnit(type);
-    }
-    else if (type == alien_soldier || type == alien_monster || type == alien_drone) {
+    } else if (type == alien_soldier || type == alien_monster || type == alien_drone) {
         return Aarmy.pickUnit(type, droneFront, pickone);
     } else if (type == saver_unit) {
         return Sarmy.pickUnit();
-    }else if (type == heal_unit){
+    } else if (type == heal_unit){
         HealUnit* h{};
         heal_list.pop(h);
         return h;
     }
+    return nullptr;
 }
 
 void Game::fight() {
@@ -365,6 +369,7 @@ void Game::print() const {
    }
     Earmy.print();
     Aarmy.print();
+    Sarmy.print();
     cout << "======================== Heal List Alive Units ====================\n" << heal_list;
     cout << "======================== Soldier UML Units ====-===================\n" << soldier_UML;
     cout << "========================== Tank UML Units =========================\n" << tank_UML;
@@ -402,7 +407,9 @@ int Game::total_killed_earth() const {
 }
 
 void Game::print_stats(ofstream &out_file) const {
-    out_file << "\n#Earth Units Generated vs #Alien Units Generated " << generator->get_Ecount() << " " << generator->get_Acount() << "\n";
+    out_file << "\nInfecton Ratio: " << (total_earth_soldiers_count() != 0 ? (double)total_infected / total_earth_soldiers_count() : 0)  * 100<< "\n";
+    out_file << "\n#Earth Units Generated vs #Alien Units Generated vs #Savers Units Generated" << generator->get_Ecount() << " " << generator->get_Acount() << "\n" << generator->get_Scount();
+
     out_file << "====================== Earth Army Stats =====================\n";
     out_file << "ESd / ESTotal: " << (generator->get_Ecount() != 0 ? static_cast<double>(killed_earth_soldiers) / Generator::get_Ecount() : 0) * 100 << "\n";
     out_file << "ETd / ETTotal: " << (generator->get_Ecount() != 0 ? static_cast<double>(killed_earth_tanks) / Generator::get_Ecount() : 0)  * 100 << "\n";
@@ -415,19 +422,30 @@ void Game::print_stats(ofstream &out_file) const {
     out_file  << "Averge Dd / Db percentage " << (earth_avg_DBb != 0 ? double(earth_avg_dd / earth_avg_DBb) : 0) * 100  << "\n";
 
     out_file << "====================== Alien Army Stats =====================\n";
-    out_file << "ASd / ASTotal: " << (generator->get_Acount() != 0 ? static_cast<double>(killed_aliens_soldiers) / Generator::get_Acount() : 0) * 100 << "\n";
-    out_file << "AMd / AMTotal: " << (generator->get_Acount() != 0 ? static_cast<double>(killed_aliens_monsters) / Generator::get_Acount() : 0)  * 100 << "\n";
-    out_file << "ADd / ADTotal: " << (generator->get_Acount() != 0 ? static_cast<double>(killed_aliens_drones) / Generator::get_Acount() : 0)  * 100 << "\n";
+    out_file << "ASd / ASTotal: " << (generator->get_Acount() != 0 ? static_cast<double>(killed_aliens_soldiers) /  generator->get_Acount(): 0) * 100 << "\n";
+    out_file << "AMd / AMTotal: " << (generator->get_Acount() != 0 ? static_cast<double>(killed_aliens_monsters) /  generator->get_Acount(): 0)  * 100 << "\n";
+    out_file << "ADd / ADTotal: " << (generator->get_Acount() != 0 ? static_cast<double>(killed_aliens_drones) /  generator->get_Acount(): 0)  * 100 << "\n";
     out_file << "Alien Total Killed: " << total_killed_aliens() << "\n";
     out_file << "Average Df : " << (total_killed_aliens() != 0 ? double(alien_avg_df / total_killed_aliens()) : 0) << "\n";
     out_file << "Average Dd : " << (total_killed_aliens() != 0 ? double(alien_avg_dd / total_killed_aliens()) : 0)  << "\n";
     out_file << "Average Db : " << (total_killed_aliens() != 0 ? double(alien_avg_DBb / total_killed_aliens()) : 0) << "\n";
-
     out_file << "Averge Df / Db percentage " << (alien_avg_DBb != 0 ? double(alien_avg_df / alien_avg_DBb) : 0)  * 100 << "\n";
     out_file  << "Averge Dd / Db percentage " << (alien_avg_DBb != 0 ? double(alien_avg_dd / alien_avg_DBb) : 0) * 100 << "\n";
-    out_file << "Infecton Ratio: " << (total_earth_soldiers_count() != 0 ? (double)total_infected / total_earth_soldiers_count() : 0)  * 100<< "\n";
+
+    out_file << "====================== Saver Unit Stats =====================\n";
+    out_file << "Sud / STotal: " << (generator->get_Scount() != 0 ? static_cast<double>(killed_saver_units) / Generator::get_Scount() : 0) * 100 << "\n";
+    out_file << "Saver Total Killed: " << total_killed_savers() << "\n";
+    out_file << "Average Df : " << (total_killed_savers() != 0 ? double(saver_ave_df / total_killed_savers()) : 0) << "\n";
+    out_file << "Average Dd : " << (total_killed_savers() != 0 ? double(saver_ave_dd / total_killed_savers()) : 0)  << "\n";
+    out_file << "Average Db : " << (total_killed_savers() != 0 ? double(saver_ave_DBb / total_killed_savers()) : 0) << "\n";
+    out_file << "Averge Df / Db percentage " << (saver_ave_DBb != 0 ? double(saver_ave_df / saver_ave_DBb) : 0)  * 100 << "\n";
+    out_file  << "Averge Dd / Db percentage " << (saver_ave_DBb != 0 ? double(saver_ave_dd / saver_ave_DBb) : 0) * 100 << "\n";
 }
 
 int Game::total_earth_soldiers_count() const {
     return Earmy.soliders_count() + killed_earth_soldiers;
+}
+
+int Game::total_killed_savers() const {
+    return killed_saver_units;
 }

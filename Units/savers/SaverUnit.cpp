@@ -10,13 +10,8 @@ SaverUnit::SaverUnit(Game *game, int id, int t, int pw, int hl, int attc) :
 
 void SaverUnit::attack() {
                 
-//    if (game->getFightSaversState() != 1) {//means no fight
-//        return;
-//    }
     LinkedQueue<ArmyUnit *> temp;
     int time_step = game->get_time();
-
-    //size_t alien_soldier_size = game->getAlienArmy().soldiers_count();
 
     for (int i = 0; i < attackCapacity; i++) {
         ArmyUnit *curr;

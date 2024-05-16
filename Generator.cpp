@@ -98,3 +98,6 @@ int Generator::get_Ecount() {
 int Generator::get_Acount() {
     return Acount;
 }
+int Generator::get_Scount() {
+    return Scount;
+}

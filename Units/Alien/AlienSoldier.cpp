@@ -9,12 +9,16 @@ void AlienSoldier::attack() {
     LinkedQueue<ArmyUnit*> temp_alien_soldiers;
     int time_step = game->get_time();
 
-    //size_t earthSoliderSize = game->getEarthArmy().soliders_count();
 
-    for (int i = 0; i < getAttackCapacity(); i++) {
+    for (int i = getAttackCapacity(); i > 0; --i) {
         ArmyUnit *curr = game->pick_unit(earth_soldier);
         if (curr) {
             temp_alien_soldiers.enqueue(curr);
+        } else {
+            curr = game->pick_unit(saver_unit);
+            if (curr) {
+                temp_alien_soldiers.enqueue(curr);
+            }
         }
     }
 
@@ -30,25 +34,29 @@ void AlienSoldier::attack() {
         if (!curr->is_attacked()) {
             curr->setTa(time_step);
         }
-        damage(curr);
 
-        if (curr->isDead()) {
-            curr->setTd(time_step);
-            game->add_to_killed_list(curr);
-            //MARIO a quick qesutoin should we make sure that it is infected before we decrement the infection number
-            if (static_cast<EarthSoldier*>(curr)->get_infection()) {
-                game->decrement_infection_number();
+        damage(curr);
+        unit_type curr_type = curr->getTypeId();
+
+        if (curr_type == earth_soldier) {
+            if (curr->isDead()) {
+                curr->setTd(time_step);
+                game->add_to_killed_list(curr);
+                if (static_cast<EarthSoldier*>(curr)->get_infection()) {
+                    game->decrement_infection_number();
+                }
+            } else if ((double) curr->getHealth() >= double((double)curr->getOriginalHealth() * 0.2)){
+                game->add_unit(curr, earth_soldier);
+            } else {
+                game->add_to_soldier_UML(static_cast<EarthSoldier*>(curr));
             }
-        } else if ((double) curr->getHealth() >= double((double)curr->getOriginalHealth() * 0.2)){
-            game->add_unit(curr, earth_soldier);
-        }
-        else {
-            game->add_to_soldier_UML(static_cast<EarthSoldier*>(curr));
+        } else if (curr_type == saver_unit) {
+            if (curr->isDead()) {
+                curr->setTd(time_step);
+                game->add_to_killed_list(curr);
+            } else {
+                game->add_unit(curr, saver_unit);
+            }
         }
     }
-
-    // size_t curr_soliders_count = game->getEarthArmy().soliders_count();
-    // if (earthSoliderSize != curr_soliders_count) {
-    //     game->getEarthArmy().updateKilledSoldiers(earthSoliderSize - curr_soliders_count);
-    // }
 }
