@@ -53,22 +53,6 @@ void HealUnit::attack() {
 }
 
 void HealUnit::heal(ArmyUnit *damaged_unit) {
-//    int hl = 0;
-//    if (damaged_unit->getTypeId() == earth_soldier) {
-//        if (static_cast<EarthSoldier*>(damaged_unit)->get_infection()) {
-//            hl = (damaged_unit->getHealth() + (( (power * health) / 100) / sqrt(damaged_unit->getHealth()) )) / 2;
-//            if (damaged_unit->getHealth() > double(damaged_unit->getOriginalHealth() * 0.2)) {
-//                static_cast<EarthSoldier*>(damaged_unit)->set_immune(true);
-//                game->increment_immune_number();
-//            }
-//        }
-//    }
-//    if (hl == 0) {
-//        hl = (damaged_unit->getHealth() + (( (power * health) / 100) / sqrt(damaged_unit->getHealth())));
-//    }
-//    damaged_unit->setHealth(hl);
-
-
     if (!damaged_unit) {
         return;
     }
@@ -85,11 +69,7 @@ void HealUnit::heal(ArmyUnit *damaged_unit) {
             if (soldier->is_healed()) {
                 soldier->set_immune(true);
                 game->increment_immune_number();
-                //Show we now decrease the infection number
-                //and make him not infected
-                //Important
                 soldier->set_infection(false);
-                game->decrement_infection_number();
             }
         }
         return;

@@ -38,13 +38,12 @@ class Game {
 
     int curr_time_step;
     int threshold;
-    int infection_number, immune_number;
+    int infection_number, immune_number, total_infected{};
     bool interactive_mode{};
     int killed_earth_soldiers{}, killed_earth_tanks{}, killed_earth_gunneries{};
     int killed_aliens_drones{}, killed_aliens_soldiers{}, killed_aliens_monsters{}, killed_saver_units{};
     int total_killed_earth() const;
     int total_killed_aliens() const;
-    int fightSavers{};
 
     const string& winner() const;
 public:
@@ -84,6 +83,7 @@ public:
     bool is_interactive() const;
     void print_stats(ofstream& out_file) const;
     void print() const;
+    int total_earth_soldiers_count() const;
 //    int getFightSaversState();
 };
 

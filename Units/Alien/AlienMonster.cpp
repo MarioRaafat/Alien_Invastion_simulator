@@ -65,7 +65,7 @@ void AlienMonster::attack() {
             if (curr->getTypeId() == earth_soldier && static_cast<EarthSoldier*>(curr)->get_infection()) {
                 game->decrement_infection_number();
             }
-        } else if ((double)curr->getHealth() >= double(curr->getOriginalHealth() * 0.2)) {
+        } else if ((double)curr->getHealth() >= double((double)curr->getOriginalHealth() * 0.2)) {
             game->add_unit(curr, curr->getTypeId());
         } else {
             if (curr->getTypeId() == earth_soldier) {

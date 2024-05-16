@@ -7,10 +7,10 @@
 
 #include "Units/Alien/AlienSoldier.h"
 
-int Generator::Ecount = 1;
-int Generator::Acount = 1;
-int Generator::Scount = 1;
-int Generator::HealNum = 1;
+int Generator::Ecount = 0;
+int Generator::Acount = 0;
+int Generator::Scount = 0;
+int Generator::HealNum = 0;
 
 
 
@@ -34,26 +34,29 @@ void Generator::generate(Game *game) const {
             int power = random_range(min_Epower, max_Epower);
             int health = random_range(min_Ehealth, max_Ehealth);
             int capacity = random_range(min_Ecapacity, max_Ecapacity);
+            int Spower = random_range(min_Spower, max_Spower);
+            int Shealth = random_range(min_Shealth, max_Shealth);
+            int Scapacity = random_range(min_Scapacity, max_Scapacity);
 
             if (B <= ES) {
-                auto Esoldier = new EarthSoldier(game, Ecount++, game->get_time(), power, health, capacity);
+                auto Esoldier = new EarthSoldier(game, ++Ecount, game->get_time(), power, health, capacity);
                 game->add_unit(Esoldier, earth_soldier);
             }
             else if (B <= ES + ET) {
-                auto Etank = new EarthTank(game,Ecount++, game->get_time(), power, health, capacity);
+                auto Etank = new EarthTank(game,++Ecount, game->get_time(), power, health, capacity);
                 game->add_unit(Etank, earth_tank);
             }
             else if (B <= ES + ET + EG){
-                auto Egunnery = new EarthGunnery(game, Ecount++, game->get_time(), power, health, capacity);
+                auto Egunnery = new EarthGunnery(game, ++Ecount, game->get_time(), power, health, capacity);
                 game->add_unit(Egunnery, earth_gunnery);
             }
             else {
-                auto heal_unitt = new HealUnit(game, 3000 + HealNum++, game->get_time(), power, health, capacity);
+                auto heal_unitt = new HealUnit(game, 3000 + ++HealNum, game->get_time(), power, health, capacity);
                 game->add_unit(heal_unitt, heal_unit);
             }
 
             if (game->check_savers_mode()) {
-                auto saver = new SaverUnit(game, 5000 + Scount++, game->get_time(), power, health, capacity);
+                auto saver = new SaverUnit(game, 5000 + ++Scount, game->get_time(), Spower, Shealth, Scapacity);
                 game->add_unit(saver, saver_unit);
             }
         }
@@ -65,16 +68,16 @@ void Generator::generate(Game *game) const {
 
             if (B <= AS) {
 
-                auto Asoldier = new AlienSoldier(game, 2000 + Acount++, game->get_time(), power, health, capacity);
+                auto Asoldier = new AlienSoldier(game, 2000 + ++Acount, game->get_time(), power, health, capacity);
                 game->add_unit(Asoldier, alien_soldier);
             }
             else if (B <= AS + AM) {
-                auto Amonster = new AlienMonster(game, 2000 + Acount++, game->get_time(), power, health, capacity, infection_prob);
+                auto Amonster = new AlienMonster(game, 2000 + ++Acount, game->get_time(), power, health, capacity, infection_prob);
                 game->add_unit(Amonster, alien_monster);
             }
             else {
                 //MARION there is a mem leak here and i dnonto know fkin why>??
-                auto Adronee = new AlienDrone(game, 2000 + Acount++, game->get_time(), power, health, capacity);
+                auto Adronee = new AlienDrone(game, 2000 + ++Acount, game->get_time(), power, health, capacity);
                 game->add_unit(Adronee, alien_drone);
             }
         }
@@ -94,8 +97,4 @@ int Generator::get_Ecount() {
 
 int Generator::get_Acount() {
     return Acount;
-}
-
-int Generator::get_Scount() {
-    return Scount;
 }

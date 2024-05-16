@@ -39,7 +39,7 @@ void AlienSoldier::attack() {
             if (static_cast<EarthSoldier*>(curr)->get_infection()) {
                 game->decrement_infection_number();
             }
-        } else if ((double) curr->getHealth() >= double(curr->getOriginalHealth() * 0.2)){
+        } else if ((double) curr->getHealth() >= double((double)curr->getOriginalHealth() * 0.2)){
             game->add_unit(curr, earth_soldier);
         }
         else {

@@ -48,9 +48,8 @@ void EarthSoldier::attack() {
         if (curr->isDead()) {
             curr->setTd(time_step);
             game->add_to_killed_list(curr);
-            //ASK MARIO============= this should be added isn't it?
             //Should we decreamnt immunie or not if it was immune
-            if (static_cast<EarthSoldier*>(curr)->get_infection()) {
+            if (curr->getTypeId() == earth_soldier && static_cast<EarthSoldier*>(curr)->get_infection()) {
                 game->decrement_infection_number();
             }
         } else {

@@ -69,7 +69,7 @@ std::ostream &operator<<(std::ostream &os, const ArmyUnit &unit) {
 }
 
 int ArmyUnit::getDBb() const {
-    return (Td - Ta);
+    return (Td - Tj);
 }
 
 bool ArmyUnit::is_dimmised() const {

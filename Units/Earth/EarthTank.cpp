@@ -79,5 +79,5 @@ void EarthTank::set_count_UML(int num) {
 }
 
 bool EarthTank::is_healed() const {
-    return (double(getHealth()) > double(getOriginalHealth() * 0.2));
+    return (double(getHealth()) > double((double)getOriginalHealth() * 0.2));
 }
