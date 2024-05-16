@@ -14,13 +14,11 @@ void EarthSoldier::attack() {
     int time_step = game->get_time();
     unit_type pick_type = alien_soldier;
 
-    //Should this be just Inf or inf && !immune
+    //inf attack his brothers
     if (infected) {
         pick_type = earth_soldier;
     }
 
-    //size_t alien_soldier_size = game->getAlienArmy().soldiers_count();
-    //Recheck plz there is a meme leak.
 
     for (int i = 0; i < attackCapacity; i++) {
         ArmyUnit* curr  = game->pick_unit(pick_type);
@@ -48,17 +46,16 @@ void EarthSoldier::attack() {
         if (curr->isDead()) {
             curr->setTd(time_step);
             game->add_to_killed_list(curr);
-            //Should we decreamnt immunie or not if it was immune
+            //dec if the killed unit is infected
             if (curr->getTypeId() == earth_soldier && static_cast<EarthSoldier*>(curr)->get_infection()) {
                 game->decrement_infection_number();
             }
         } else {
-            //ASK MARIO
-            if (infected /*&&!immmune*/) {
+            if (infected) {
                 int random = randomNumber(0, 100);
                 if (random < 2) {
-                    //Aske mario===============
                      auto e_solider = static_cast<EarthSoldier*>(curr);
+                     //if infected and not immune he can infect
                      if (!e_solider->get_infection() && !e_solider->get_immune()) {
                          e_solider->set_infection(true);
                          game->increment_infection_number();
@@ -72,17 +69,6 @@ void EarthSoldier::attack() {
             game->add_unit(curr, curr->getTypeId());
         }
     }
-
-    // size_t curr_soldiers_count = game->getAlienArmy().soldiers_count();
-    // if (alien_soldier_size != curr_soldiers_count) {
-    //     game->getAlienArmy().updateKilledSoldiers(alien_soldier_size - curr_soldiers_count);
-    // }
-
-    /*
-     Note:
-
-     as we agreed, you will count the killed units in --> add_to_kill_list or in the end of the game
-     */
 }
 
 int EarthSoldier::get_count_UML() const {

@@ -9,6 +9,7 @@ void AlienDrone::attack() {
     LinkedQueue<ArmyUnit*> temp_enemy_units;
     int half_cap = attackCapacity >> 1;
 
+    //check for cap - half cap bcs it has most prio bcs of the floor fun for example try if attacCap was 1
     for (int i = 0; i < attackCapacity - half_cap; ++i) {
         ArmyUnit* curr = game->pick_unit(earth_tank);
         if (curr) {
@@ -22,6 +23,7 @@ void AlienDrone::attack() {
         }
     }
 
+    //interactive mode for the printing
     if (game->is_interactive()) {
         cout << "AD " << ID << " shots ";
         cout << temp_enemy_units;

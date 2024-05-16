@@ -12,6 +12,11 @@
 
 class EarthArmy {
 
+    /**
+     * CompareEarthGunnery struct
+     * to compare two EarthGunnery objects based on their power + health the derived formula
+     * defing the call operator to be used in the priority queue
+     */
     struct CompareEarthGunnery {
         bool operator()(const EarthGunnery* lhs, const EarthGunnery* rhs) const {
             return *lhs > *rhs;
@@ -21,19 +26,13 @@ class EarthArmy {
     LinkedQueue<EarthSoldier*> Esoldiers;
     ArrayStack<EarthTank*> tanks;
     PriorityQueue<EarthGunnery*, CompareEarthGunnery> gunneries;
-
-    size_t units_count() const;
 public:
-
     void addUnit(ArmyUnit *unit, unit_type type);
     ArmyUnit* pickUnit(unit_type type);
     ~EarthArmy();
     void print() const;
     void attack();
     size_t soliders_count() const;
-    size_t tanks_count() const;
-    size_t gunneries_count() const;
-
     size_t army_size() const;
 };
 #endif //ALIEN_INVASTION_SIMULATOR_EARTHARMY_H

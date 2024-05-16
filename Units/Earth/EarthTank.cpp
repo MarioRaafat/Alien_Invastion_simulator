@@ -5,14 +5,21 @@
 EarthTank::EarthTank(Game *game, int id, int t, int pw, int hl, int attc) :
         ArmyUnit{game, id, earth_tank, t, pw, hl, attc} , count_UML{0} {}
 
+/**
+ * @brief attack function for EarthTank that attacks alien solider and monster
+ * return them to the game if they are not killed and set the time of attack
+ * priority to the solider
+ * @param none
+ * @return none
+ */
 void EarthTank::attack() {
     int time_step = game->get_time();
     LinkedQueue<ArmyUnit *> temp_alien_units;
     int  cap = attackCapacity;
 
 
+    //Based on the 20% of the health of the tank condition to attack
     if (game->which_tank_attack()) {
-        //Recheck plz there is a leak.
         while (!game->stop_attacking_soldiers() && cap > getAttackCapacity() >> 1) {
             ArmyUnit* solider = game->pick_unit(alien_soldier);
             if (solider) {
@@ -57,17 +64,6 @@ void EarthTank::attack() {
             game->add_unit(curr, curr->getTypeId());
         }
     }
-
-    // edit it
-
-    // size_t curr_soldiers_count = game->getAlienArmy().soldiers_count();
-    // size_t curr_monsters_count = game->getAlienArmy().monsters_count();
-    // if (alien_soldier_size != curr_soldiers_count) {
-    //     game->getAlienArmy().updateKilledSoldiers(alien_soldier_size - curr_soldiers_count);
-    // }
-    // if (alien_monster_size != curr_monsters_count) {
-    //     game->getAlienArmy().updateKilledMonsters(alien_monster_size - curr_monsters_count);
-    // }
 }
 
 int EarthTank::get_count_UML() const {

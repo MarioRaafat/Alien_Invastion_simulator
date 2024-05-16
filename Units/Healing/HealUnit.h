@@ -1,7 +1,3 @@
-//
-// Created by mario on 5/10/2024.
-//
-
 #ifndef HEALUNIT_H
 #define HEALUNIT_H
 
@@ -14,7 +10,4 @@ public:
     void attack() override;
     void heal(ArmyUnit *damaged_unit);
 };
-
-
-
 #endif //HEALUNIT_H

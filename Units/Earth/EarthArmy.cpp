@@ -18,6 +18,12 @@ void EarthArmy::addUnit(ArmyUnit *unit, unit_type type) {
     }
 }
 
+/**
+ * @brief pickUnit
+ * @param type unit_type
+ * @return ArmyUnit* or nullptr
+ * return solider or tank or gunnery based on the type or nullptr in case of  emptiness
+ */
 ArmyUnit* EarthArmy::pickUnit(unit_type type) {
     EarthTank *tank = nullptr;
     EarthSoldier *soldier = nullptr;
@@ -93,17 +99,6 @@ size_t EarthArmy::soliders_count() const {
    return Esoldiers.size();
 }
 
-size_t EarthArmy::units_count() const {
-   return Esoldiers.size() + tanks.getTop() + gunneries.size();
-}
-
-size_t EarthArmy::gunneries_count() const {
-    return gunneries.size();
-}
-
-size_t EarthArmy::tanks_count() const {
-    return tanks.getTop();
-}
 
 size_t EarthArmy::army_size() const {
    return Esoldiers.size() + tanks.getTop() + gunneries.size();

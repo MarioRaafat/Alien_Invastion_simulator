@@ -18,9 +18,6 @@ unit_type ArmyUnit::getTypeId() const {
     return typeIdentifier;
 }
 
-int ArmyUnit::getPower() const {
-    return power;
-}
 
 void ArmyUnit::setHealth(int hl) {
     if (hl < 0) {
@@ -47,6 +44,7 @@ void ArmyUnit::damage(ArmyUnit* enemy) const {
         return;
     }
 
+    //Check for > 0 to avoid negative sqrt or division by zero
     if (enemy->getHealth() > 0) {
         enemy->setHealth((enemy->getHealth() - (( (power * health) / 100) / sqrt(enemy->getHealth())) ) );
     } else {
@@ -72,9 +70,6 @@ int ArmyUnit::getDBb() const {
     return (Td - Tj);
 }
 
-bool ArmyUnit::is_dimmised() const {
-    return Td != -1;
-}
 
 bool ArmyUnit::is_attacked() const {
    return Ta != -1;
@@ -94,10 +89,6 @@ int ArmyUnit::getTd() const {
 
 int ArmyUnit::getTj() const {
    return Tj;
-}
-
-int ArmyUnit::getTa() const {
-    return Ta;
 }
 
 void ArmyUnit::setTa(const int time) {

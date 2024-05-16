@@ -7,6 +7,10 @@
 HealUnit::HealUnit(Game *game, int id, int t, int pw, int hl, int attC) :
         ArmyUnit(game, id, heal_unit, t, pw, hl, attC) {}
 
+/**
+ * Heal unit Heals a unit from the UML only can only heal infected units
+ * priority is given to soldiers
+ */
 void HealUnit::attack() {
     ArmyUnit* damaged_unit = nullptr;
     LinkedQueue<ArmyUnit *> temp_list;
@@ -46,7 +50,7 @@ void HealUnit::attack() {
 
         if (damaged_unit->getTypeId() == earth_soldier) {
             game->add_to_soldier_UML(static_cast<EarthSoldier*>(damaged_unit));
-        } else {
+        } else if (damaged_unit->getTypeId() == earth_tank) {
             game->add_to_tank_UML(static_cast<EarthTank*>(damaged_unit));
         }
     }
@@ -61,22 +65,19 @@ void HealUnit::heal(ArmyUnit *damaged_unit) {
     if (damaged_unit->getTypeId() == earth_soldier) {
         auto soldier = static_cast<EarthSoldier*>(damaged_unit);
         if (soldier->get_infection()) {
-            //samll change here damaunig_getHealth() should be after this operation
-            hl = (((((power * health) / 100) / sqrt(damaged_unit->getHealth()) ))) / 2;
-            //shouldnot we check for the new health after the healing ????
+            hl = (( (power * health) / 100) / sqrt(damaged_unit->getHealth())))/2;
             soldier->setHealth(soldier->getHealth() + hl);
 
+            //if healed make it immune and not infected
             if (soldier->is_healed()) {
                 soldier->set_immune(true);
                 game->increment_immune_number();
                 soldier->set_infection(false);
             }
+            return;
         }
-        return;
     }
-//    if (hl == 0) {
+    //Healing improves the health of the tank and !infected soldier
     hl = (damaged_unit->getHealth() + (( (power * health) / 100) / sqrt(damaged_unit->getHealth())));
-//    }
     damaged_unit->setHealth(hl);
 }
-

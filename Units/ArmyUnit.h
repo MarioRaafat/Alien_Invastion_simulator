@@ -20,8 +20,8 @@ class ArmyUnit {
 protected:
     int ID,
         Tj, // time joining
-        Ta = -1 ,
-        Td = -1,
+        Ta = -1 ,// -1 it the PHI value nothing happened
+        Td = -1,// -1 it the PHI value nothing happened
         power,
         health,
         original_health,
@@ -32,11 +32,10 @@ protected:
 public:
 
     ArmyUnit(Game *game, int id, unit_type tyId, int tj, int pw, int hl, int attC);
-    virtual ~ArmyUnit() = default;
+    virtual ~ArmyUnit() = default;//Virtual destructor since we have virtual functions
 
     int getID() const;
     unit_type getTypeId() const;
-    int getPower() const;
     void setHealth(int hl);
     int getHealth() const;
     int getOriginalHealth() const;
@@ -46,17 +45,14 @@ public:
     virtual void print() const;
     virtual void attack() = 0;
     bool isDead() const;
-    int getTa() const;
     int getTj() const;
     int getTd() const;
     void setTa(int time);
     void setTd(int time);
-
     int getDf() const;
     int getDd() const;
     int getDBb() const;
-    bool is_dimmised() const;
-    bool is_attacked() const;
+    bool is_attacked() const;//Check if the unit is attacked or not to check  for its Ta value
 
     friend std::ostream &operator<<(std::ostream &os, const ArmyUnit &unit);
 };

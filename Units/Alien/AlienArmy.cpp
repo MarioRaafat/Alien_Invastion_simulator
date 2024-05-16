@@ -1,8 +1,11 @@
 #include "AlienArmy.h"
 #include <cstdlib>
-#include <random>
+#include "../../Random.h"
 
-
+/**
+ * @param droneFront to add to the front of the queue default is true
+ * @brief Add a unit to the army in its list provide bool to add to the front of the queue
+ */
 void AlienArmy::addUnit(ArmyUnit *unit, unit_type type, bool droneFront) {
     switch (type) {
         case alien_soldier:
@@ -23,6 +26,13 @@ void AlienArmy::addUnit(ArmyUnit *unit, unit_type type, bool droneFront) {
     }
 }
 
+/**
+ * Pick a unit from the army
+ * @param type
+ * @param droneFront to pick from the front of the queue default is true
+ * @param pickone to pick only one unit default is false else pick nullptr if drone
+ * @return ArmyUnit* of anyType Army or nullptr
+ */
 ArmyUnit *AlienArmy::pickUnit(unit_type type, bool droneFront, bool pickone) {
     AlienSoldier *soldier = nullptr;
     AlienDrone *drone = nullptr;
@@ -30,7 +40,7 @@ ArmyUnit *AlienArmy::pickUnit(unit_type type, bool droneFront, bool pickone) {
     int random = 0;
 
     if (!monsters.empty()) {
-        random = randomNumber(0, static_cast<int>(monsters.size()) - 1);
+        random = randomNum(0, static_cast<int>(monsters.size()) - 1);
     }
 
     switch (type) {
@@ -101,13 +111,6 @@ AlienArmy::~AlienArmy() {
     }
 }
 
-int AlienArmy::randomNumber(int min, int max) {
-     std::random_device rd;
-     std::mt19937 gen(rd());
-     std::uniform_int_distribution<> dis(min, max);
-    return dis(gen);
-}
-
 void AlienArmy::attack() {
     ArmyUnit* attackers[4]{};
     attackers[0] = pickUnit(alien_soldier);
@@ -116,6 +119,7 @@ void AlienArmy::attack() {
     attackers[3] = pickUnit(alien_monster);
     bool front = true;
 
+    // if there is only one drone then return it to the army donot attack
     if (attackers[2] && !attackers[1]) {
         addUnit(attackers[2], alien_drone);
         attackers[2] = nullptr;
@@ -133,43 +137,6 @@ void AlienArmy::attack() {
 size_t AlienArmy::soldiers_count() const {
     return Asoldiers.size();
 }
-
-size_t AlienArmy::army_count() const {
-   return Asoldiers.size() + monsters.size() + drones.size();
-}
-
-size_t AlienArmy::monsters_count() const {
-    return monsters.size();
-}
-
-size_t AlienArmy::drones_count() const {
-    return drones.size();
-}
-
-void AlienArmy::updateKilledDrones(size_t killed_droness) {
-    this->killed_drones += killed_droness;
-}
-
-void AlienArmy::updateKilledMonsters(size_t killed_monsterss) {
-    this->killed_monsters += killed_monsterss;
-}
-
-void AlienArmy::updateKilledSoldiers(size_t killed_soldierss) {
-    this->killed_soldiers += killed_soldierss;
-}
-
-size_t AlienArmy::getKilledDrones() const {
-    return killed_drones;
-}
-
-size_t AlienArmy::getKilledMonsters() const {
-    return killed_monsters;
-}
-
-size_t AlienArmy::getKilledSoldiers() const {
-    return killed_soldiers;
-}
-
-size_t AlienArmy::units_count() const {
+size_t AlienArmy::army_size() const {
     return Asoldiers.size() + monsters.size() + drones.size();
 }

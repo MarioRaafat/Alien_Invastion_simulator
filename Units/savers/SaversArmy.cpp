@@ -39,10 +39,6 @@ void SaversArmy::destroy_savers() {
     destroyed_before = true;
 }
 
-int SaversArmy::army_size() const{
-    return savers.size();
-}
-
 SaversArmy::~SaversArmy() {
     destroy_savers();
 }

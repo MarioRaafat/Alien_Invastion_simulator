@@ -10,7 +10,6 @@ class SaversArmy {
     bool destroyed_before = false;
 
 public:
-
     void addUnit(ArmyUnit *unit);
     ArmyUnit* pickUnit();
     void attack();
@@ -18,8 +17,6 @@ public:
     bool is_destroyed() const;
     void print() const;
     void destroy_savers();
-    int army_size() const;
-
     ~SaversArmy();
 };
 

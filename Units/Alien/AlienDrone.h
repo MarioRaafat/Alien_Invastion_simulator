@@ -1,7 +1,6 @@
 #ifndef ALIEN_DRONE_H
 #define ALIEN_DRONE_H
 
-
 #include "../ArmyUnit.h"
 
 class AlienDrone : public ArmyUnit {
