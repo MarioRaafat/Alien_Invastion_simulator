@@ -28,17 +28,19 @@ void Game::load_file() {
 
     int n, es, eg, et, as, am, ad, hu, prob, infection_prob;
     file >> n;
-    file >> es >> et >> eg;
+    file >> es >> et >> eg >> hu;
     file >> as >> am >> ad;
-    file >> hu >> prob;
+    file >> prob;
     file >> infection_prob;
     file >> threshold;
 
     int min_Epower, max_Epower, min_Ehealth, max_Ehealth, min_Ecapacity, max_Ecapacity,
-            min_Apower, max_Apower, min_Ahealth, max_Ahealth, min_Acapacity, max_Acapacity;
+            min_Apower, max_Apower, min_Ahealth, max_Ahealth, min_Acapacity, max_Acapacity,
+            min_Spower, max_Spower, min_Shealth, max_Shealth, min_Scapacity, max_Scapacity;
 
     file >> min_Epower >> max_Epower >> min_Ehealth >> max_Ehealth >> min_Ecapacity >> max_Ecapacity;
     file >> min_Apower >> max_Apower >> min_Ahealth >> max_Ahealth >> min_Acapacity >> max_Acapacity;
+    file >> min_Spower >> max_Spower >>  min_Shealth >>  max_Shealth >> min_Scapacity >> max_Scapacity;
 
     if (file.fail()) {
         cout << "Error in reading file" << endl;
@@ -47,7 +49,8 @@ void Game::load_file() {
 
     generator = new Generator(n, es, et, eg, as, am, ad, hu, prob, infection_prob,
         min_Epower, max_Epower, min_Ehealth, max_Ehealth, min_Ecapacity, max_Ecapacity,
-        min_Apower, max_Apower, min_Ahealth, max_Ahealth, min_Acapacity, max_Acapacity);
+        min_Apower, max_Apower, min_Ahealth, max_Ahealth, min_Acapacity, max_Acapacity,
+        min_Spower, max_Spower, min_Shealth, max_Shealth, min_Scapacity, max_Scapacity);
 
     file.close();
 }

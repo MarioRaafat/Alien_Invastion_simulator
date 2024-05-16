@@ -23,6 +23,13 @@ class Generator {
             min_Acapacity,
             max_Acapacity;
 
+    int min_Spower,
+            max_Spower,
+            min_Shealth,
+            max_Shealth,
+            min_Scapacity,
+            max_Scapacity;
+
 public:
     Generator(int n, int es, int et, int eg, int as, int am, int ad, int hu, int prob, int infec,
               int min_Epw, int max_Epw,
@@ -30,7 +37,10 @@ public:
               int min_Ecap, int max_Ecap,
               int min_Apw, int	max_Apw,
               int min_Ahl, int max_Ahl,
-              int min_Acap, int max_Acap);
+              int min_Acap, int max_Acap,
+              int min_Spw, int	max_Spw,
+              int min_Shl, int max_Shl,
+              int min_Scap, int max_Scap);
 
     void generate(Game *game) const;
     static  int random_range(int min, int max);
