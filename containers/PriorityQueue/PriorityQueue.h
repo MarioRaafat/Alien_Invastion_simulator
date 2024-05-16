@@ -354,7 +354,7 @@ void PriorityQueue<T, Compare>::ensure_extra_capacity() {
     }
 }
 
-//what to add here it doesno wrok with the template i think it waits for the compat
+//what to add here it doesno wrok with the template I think it waits for the compat
 template<typename T, typename Compare>
 bool PriorityQueue<T, Compare>::is_full() const {
     return length == capacity_;

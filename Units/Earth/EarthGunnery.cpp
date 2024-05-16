@@ -14,8 +14,8 @@ bool EarthGunnery::operator>(const EarthGunnery &other) const {
 void EarthGunnery::attack() {
 
     LinkedQueue<ArmyUnit*> temp_alien_units;
-    Dequeue<ArmyUnit*> front_unit;
-    Dequeue<ArmyUnit*> back_unit;
+    ArrayStack<ArmyUnit*> front_unit;
+    ArrayStack<ArmyUnit*> back_unit;
 
     bool front = true;
 
@@ -46,9 +46,9 @@ void EarthGunnery::attack() {
 
         if (curr->getTypeId() == alien_drone) {
             if (front) {
-                front_unit.push_front(curr);
+                front_unit.push(curr);
             } else {
-                back_unit.push_front(curr);
+                back_unit.push(curr);
             }
             front = !front;
             continue;
@@ -68,9 +68,9 @@ void EarthGunnery::attack() {
         }
     }
 
-    while (!front_unit.is_empty()) {
+    while (!front_unit.isEmpty()) {
         ArmyUnit *curr{};
-        front_unit.pop_front(curr);
+        front_unit.pop(curr);
         if (!curr->is_attacked()) {
             curr->setTa(game->get_time());
         }
@@ -84,9 +84,9 @@ void EarthGunnery::attack() {
         }
     }
 
-    while (!back_unit.is_empty()) {
+    while (!back_unit.isEmpty()) {
         ArmyUnit *curr{};
-        back_unit.pop_front(curr);
+        back_unit.pop(curr);
         if (!curr->is_attacked()) {
             curr->setTa(game->get_time());
         }

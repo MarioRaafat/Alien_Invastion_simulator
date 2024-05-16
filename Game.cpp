@@ -2,16 +2,13 @@
 
 
 Game::Game()  {
-    char mode;
-
     cout << "If you want to join Interactive mode press any character expect letter n in small case\n";
-    cin >> mode;
 
-    if (mode != 'n')
+    if (cin.get() != 'n')
         interactive_mode = true;
 
     load_file();
-    curr_time_step = 0;
+    curr_time_step = 1;
     infection_number = immune_number = 0;
     saver_mode =  savers_called_before = false;
     Game::randGen();
@@ -105,28 +102,21 @@ EarthTank * Game::pick_from_tank_UML() {
 
 Game::~Game() {
     ofstream out_file("output.txt", std::ios::out | std::ios::trunc);
-    ArmyUnit *unit = nullptr;
     out_file << winner() << endl;
+    out_file << curr_time_step << endl;
 
     while (!killed_list.isEmpty()) {
+        ArmyUnit *unit = nullptr;
         killed_list.dequeue(unit);
 
-        if (unit->getTypeId() == earth_tank) {
+        if (unit->getTypeId() == earth_tank || unit->getTypeId() == earth_gunnery || unit->getTypeId() == earth_soldier) {
             earth_avg_df += unit->getDf();
             earth_avg_dd += unit->getDd();
             earth_avg_DBb += unit->getDBb();
-        } else {
-            if (unit->getTypeId() == earth_soldier
-                || unit->getTypeId() == earth_gunnery) {
-                earth_avg_df += unit->getDf();
-                earth_avg_dd += unit->getDd();
-                earth_avg_DBb += unit->getDBb();
-            } else if (unit->getTypeId() == alien_soldier || unit->getTypeId() == alien_monster
-                       || unit->getTypeId() == alien_drone) {
-                alien_avg_df += unit->getDf();
-                alien_avg_dd += unit->getDd();
-                alien_avg_DBb += unit->getDBb();
-            }
+        } else if (unit->getTypeId() == alien_soldier || unit->getTypeId() == alien_monster || unit->getTypeId() == alien_drone) {
+            alien_avg_df += unit->getDf();
+            alien_avg_dd += unit->getDd();
+            alien_avg_DBb += unit->getDBb();
         }
         out_file << unit->getTd() << " " << unit->getID() << " " << unit->getTj() << " ";
         out_file << unit->getDf() << " " << unit->getDd() << " " << unit->getDBb() << endl;
@@ -141,8 +131,6 @@ Game::~Game() {
     }
     print_stats(out_file);
 
-    delete generator;
-    generator = nullptr;
 
     while (!heal_list.isEmpty()) {
         HealUnit* HU{};
@@ -151,39 +139,23 @@ Game::~Game() {
         HU = nullptr;
     }
     while (!soldier_UML.is_empty()) {
-        EarthSoldier* _unit{};
-        soldier_UML.pop(_unit);
-        delete unit;
-        unit = nullptr;
+        EarthSoldier* soldier{};
+        soldier_UML.pop(soldier);
+        delete soldier;
+        soldier = nullptr;
     }
     while (!tank_UML.isEmpty()) {
-        EarthTank* unitt{};
-        tank_UML.dequeue(unitt);
-        delete unit;
-        unit = nullptr;
+        EarthTank* tank{};
+        tank_UML.dequeue(tank);
+        delete tank;
+        tank = nullptr;
     }
+
+    delete generator;
+    generator = nullptr;
 
     out_file.close();
 }
-//     out_file << "Earth Army Avg Df: " << earth_avg_df / Earmy.getTotalKilled() << endl;
-//     out_file << "Earth Army Avg Dd: " << earth_avg_dd / Earmy.getTotalKilled() << endl;
-//     out_file << "Earth Army Avg DBb: " << earth_avg_DBb / Earmy.getTotalKilled() << endl;
-//     //print avg df/db % and dd / db %
-//     out_file << "Avg df / db percentage: " << ((earth_avg_df / Earmy.getTotalKilled()) / (earth_avg_DBb / Earmy.getTotalKilled()) * 100)  << endl;
-//     out_file << "Avg dd / db percentage: " << ((earth_avg_dd / Earmy.getTotalKilled()) / (earth_avg_DBb / Earmy.getTotalKilled()) * 100)  << endl;
-//
-//     Aarmy.print_stats(out_file);
-//     out_file << "Alien Army Avg Df: " << alien_avg_df / Aarmy.total_killed() << endl;
-//     out_file << "Alien Army Avg Dd: " << alien_avg_dd / Aarmy.total_killed() << endl;
-//     out_file << "Alien Army Avg DBb: " << alien_avg_DBb / Aarmy.total_killed() << endl;
-//
-//     out_file << "Avg df / db percentage: " << ((alien_avg_df / Aarmy.total_killed()) / (alien_avg_DBb / Aarmy.total_killed()) * 100)  << endl;
-//     out_file << "Avg dd / db percentage: " << ((alien_avg_dd / Aarmy.total_killed()) / (alien_avg_DBb / Aarmy.total_killed()) * 100)  << endl;
-//     delete generator;
-//     generator = nullptr;
-//     out_file.close();
-//}
-
 
 void Game::heal() {
     count_rounds_in_UML();
@@ -201,40 +173,50 @@ void Game::heal() {
 }
 
 void Game::count_rounds_in_UML() {
-    EarthSoldier* soldier{};
-    EarthTank* tank{};
+
     LinkedQueue<EarthSoldier*> soldier_list;
     LinkedQueue<EarthTank*> tank_list;
 
     while(!soldier_UML.is_empty()) {
+        EarthSoldier* soldier{};
         soldier_UML.pop(soldier);
         soldier->set_count_UML(soldier->get_count_UML() + 1);
         soldier_list.enqueue(soldier);
     }
 
     while(!soldier_list.isEmpty()) {
+        EarthSoldier* soldier{};
         soldier_list.dequeue(soldier);
-        if (soldier->get_count_UML() < 10) {
+        //A samll change, I think it should be greater than 10 / in the doc it says if it has spent more than 10 timesteps in uml so 10 is valid and u incre before check
+        // <= 10
+        if (soldier->get_count_UML() <= 10) {
             soldier_UML.push(soldier);
         }
         else {
-            killed_list.enqueue(soldier);
+            ////????? we should edit Td
+            soldier->setTd(curr_time_step);
+            add_to_killed_list(soldier);
         }
     }
 
     while(!tank_UML.isEmpty()) {
+        EarthTank* tank{};
         tank_UML.dequeue(tank);
         tank->set_count_UML(tank->get_count_UML() + 1);
         tank_list.enqueue(tank);
     }
 
     while(!tank_list.isEmpty()) {
+        EarthTank* tank{};
         tank_list.dequeue(tank);
-        if (tank->get_count_UML() < 10) {
+        //The same here
+        if (tank->get_count_UML() <= 10) {
             tank_UML.enqueue(tank);
         }
         else {
-            killed_list.enqueue(tank);
+            ////????? we should edit Td
+            tank->setTd(curr_time_step);
+            add_to_killed_list(tank);
         }
     }
 }
@@ -251,7 +233,7 @@ void Game::play() {
 
         fight();
         randGen();
-        if (curr_time_step++ > 40 && winner() != "None") {
+        if (curr_time_step++ >= 40 && winner() != "None") {
             break;
         }
     }
@@ -259,24 +241,24 @@ void Game::play() {
 }
 
 void Game::add_unit(ArmyUnit *unit, unit_type type, bool droneFront) {
-    if (type == earth_soldier || type == earth_tank || type == earth_gunnery) {
+    //added saver_unit by Kerolos
+    if (type == earth_soldier || type == earth_tank || type == earth_gunnery || type == saver_unit) {
         Earmy.addUnit(unit, type);
     } else if (type == alien_soldier || type == alien_monster || type == alien_drone) {
         Aarmy.addUnit(unit, type, droneFront);
-    }
-    else {
+    } else {
         add_heal_unit(static_cast<HealUnit*>(unit));
     }
 }
 
-ArmyUnit * Game::pick_unit(unit_type type, bool droneFront, bool pickone) {
-    if (type == earth_soldier || type == earth_gunnery || type == earth_tank) {
+ArmyUnit* Game::pick_unit(unit_type type, bool droneFront, bool pickone) {
+    //Should u add saverUnit here;
+    if (type == earth_soldier || type == earth_gunnery || type == earth_tank || type == saver_unit) {
         return Earmy.pickUnit(type);
     }
     else if (type == alien_soldier || type == alien_monster || type == alien_drone) {
         return Aarmy.pickUnit(type, droneFront, pickone);
-    }
-    else {
+    } else {
         HealUnit* h{};
         heal_list.pop(h);
         return h;
@@ -287,6 +269,9 @@ void Game::fight() {
     if (interactive_mode) {
         cout << "=================== Units Fighting at cuurent time step ==========\n";
     }
+//    if (fightSavers == -1) {
+//        Earmy.destroy_savers();
+//    }
     Earmy.attack();
     if (savers_called_before) {
         Earmy.destroy_savers();
@@ -305,17 +290,16 @@ bool Game::stop_attacking_soldiers() const {
 
 bool Game::check_savers_mode() {
     if (infection_number == 0) {
-        if(saver_mode) {
+        if (saver_mode) {
             savers_called_before = true;
         }
         saver_mode = false;
-    }
-    else if (!savers_called_before) {
-        if (Earmy.soliders_count() && (((infection_number * 100) / Earmy.soliders_count()) > threshold)) {
+    } else if (!savers_called_before) {
+        //added = in the threshold
+        if (Earmy.soliders_count() && (((infection_number * 100) / Earmy.soliders_count()) >= threshold)) {
             saver_mode = true;
         }
     }
-
     return saver_mode;
 }
 
@@ -327,23 +311,17 @@ void Game::add_to_killed_list(ArmyUnit *unit) {
     killed_list.enqueue(unit);
     if (unit->getTypeId() == earth_soldier) {
         killed_earth_soldiers++;
-    }
-    else if (unit->getTypeId() == earth_tank) {
+    } else if (unit->getTypeId() == earth_tank) {
         killed_earth_tanks++;
-    }
-    else if (unit->getTypeId() == earth_gunnery) {
+    } else if (unit->getTypeId() == earth_gunnery) {
         killed_earth_gunneries++;
-    }
-    else if (unit->getTypeId() == alien_soldier) {
+    } else if (unit->getTypeId() == alien_soldier) {
         killed_aliens_soldiers++;
-    }
-    else if (unit->getTypeId() == alien_monster) {
+    } else if (unit->getTypeId() == alien_monster) {
         killed_aliens_monsters++;
-    }
-    else if (unit->getTypeId() == alien_drone) {
+    } else if (unit->getTypeId() == alien_drone) {
         killed_aliens_drones++;
-    }
-    else {
+    } else if (unit->getTypeId() == saver_unit) {
         killed_saver_units++;
     }
 }
@@ -352,7 +330,11 @@ void Game::print() const {
     if (!interactive_mode) {
         return;
     }
-
+   if (Earmy.soliders_count()) {
+       cout << "Infection Percentage % is " << double(infection_number / Earmy.soliders_count()) << endl;
+   } else {
+       cout << "Infection Percentage % is 0" << endl;
+   }
     Earmy.print();
     Aarmy.print();
     cout << "======================== Heal List Alive Units ====================\n" << heal_list;
@@ -393,20 +375,50 @@ int Game::total_killed_earth() const {
 
 void Game::print_stats(ofstream &out_file) const {
     out_file << "====================== Earth Army Stats =====================\n";
-    out_file << "ESd / ESTotal: " << double(killed_earth_soldiers / Generator::get_Ecount()) << "\n";
-    out_file << "ETd / ETTotal: " << double(killed_earth_tanks / Generator::get_Ecount()) << "\n";
-    out_file << "EGd / EGTotal: " << double(killed_earth_gunneries / Generator::get_Ecount()) << "\n";
+    out_file << "ESd / ESTotal: " << (Generator::get_Ecount() != 0 ? static_cast<double>(killed_earth_soldiers) / Generator::get_Ecount() : 0) << "\n";
+    out_file << "ETd / ETTotal: " << (Generator::get_Ecount() != 0 ? static_cast<double>(killed_earth_tanks) / Generator::get_Ecount() : 0) << "\n";
+    out_file << "EGd / EGTotal: " << (Generator::get_Ecount() != 0 ? static_cast<double>(killed_earth_gunneries) / Generator::get_Ecount() : 0) << "\n";
     out_file << "Earth Total Killed: " << total_killed_earth() << "\n";
-    out_file << "Average Df: " << earth_avg_df / total_killed_earth() << "\n";
-    out_file << "Average Dd: " << earth_avg_dd / total_killed_earth() << "\n";
-    out_file << "Average DBb: " << earth_avg_DBb / total_killed_earth() << "\n";
+    out_file << "Average Df : " << (total_killed_earth() != 0 ? double(earth_avg_df / total_killed_earth()) : 0) << "\n";
+    out_file << "Average Dd : " << (total_killed_earth() != 0 ? double(earth_avg_dd / total_killed_earth()) : 0) << "\n";
+    out_file << "Average DBb : " << (total_killed_earth() != 0 ? double(earth_avg_DBb / total_killed_earth()) : 0) << "\n";
 
     out_file << "====================== Alien Army Stats =====================\n";
-    out_file << "ASd / ASTotal: " << double(killed_aliens_soldiers / Generator::get_Acount()) << "\n";
-    out_file << "AMd / AMTotal: " << double(killed_aliens_monsters / Generator::get_Acount()) << "\n";
-    out_file << "ADd / ADTotal: " << double(killed_aliens_drones / Generator::get_Acount()) << "\n";
+    out_file << "ASd / ASTotal: " << (Generator::get_Acount() != 0 ? static_cast<double>(killed_aliens_soldiers) / Generator::get_Acount() : 0) << "\n";
+    out_file << "AMd / AMTotal: " << (Generator::get_Acount() != 0 ? static_cast<double>(killed_aliens_monsters) / Generator::get_Acount() : 0) << "\n";
+    out_file << "ADd / ADTotal: " << (Generator::get_Acount() != 0 ? static_cast<double>(killed_aliens_drones) / Generator::get_Acount() : 0) << "\n";
     out_file << "Alien Total Killed: " << total_killed_aliens() << "\n";
-    out_file << "Average Df: " << alien_avg_df / total_killed_aliens() << "\n";
-    out_file << "Average Dd: " << alien_avg_dd / total_killed_aliens() << "\n";
-    out_file << "Average DBb: " << alien_avg_DBb / total_killed_aliens() << "\n";
+    out_file << "Average Df : " << (total_killed_aliens() != 0 ? double(alien_avg_df / total_killed_aliens()) : 0) << "\n";
+    out_file << "Average Dd : " << (total_killed_aliens() != 0 ? double(alien_avg_dd / total_killed_aliens()) : 0) << "\n";
+    out_file << "Average DBb : " << (total_killed_aliens() != 0 ? double(alien_avg_DBb / total_killed_aliens()) : 0) << "\n";
 }
+
+/**
+ *
+ * @return: fightSavers
+ * return: the condition at which the fight savers should be called 0 is the initial value no fights starts
+ * 1 is the condition at which the fight savers should be called
+ * -1 is the condition at which we should stop the fight savers
+ */
+//int Game::getFightSaversState() {
+//    if (fightSavers == 0) /*initally no fight*/ {
+//        if (Earmy.soliders_count() > 0 &&
+//            double(infection_number / Earmy.soliders_count()) >= double(threshold / 100)) {
+//            fightSavers = 1;
+//            return 1;//first time fight
+//        }
+//        return 0;
+//    } else if (fightSavers == 1) {// contine the fight
+//        if (infection_number == 0) {
+//            fightSavers = -1;
+//            return -1;
+//        }
+//        return 1;
+//    }
+//    return -1;
+//}
+
+
+//bool Game::did_we_save_before() const {
+//    return savers_called_before;
+//}

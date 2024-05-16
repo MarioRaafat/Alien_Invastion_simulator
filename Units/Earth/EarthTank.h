@@ -11,5 +11,6 @@ public:
     void attack() override;
     int get_count_UML() const;
     void set_count_UML(int num);
+    bool is_healed() const;
 };
 #endif //EARTHTANK_H

@@ -21,6 +21,8 @@ public:
     bool get_infection() const;
     void set_immune(bool im);
     bool get_immune() const;
+    bool is_healed() const;
+    bool should_be_healed() const;
 
     static int randomNumber(int min, int max);
     bool operator>(const EarthSoldier &other) const;

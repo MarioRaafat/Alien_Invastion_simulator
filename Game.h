@@ -28,27 +28,25 @@ class Game {
     Generator* generator;
     EarthArmy Earmy;
     AlienArmy Aarmy;
+
     ArrayStack<HealUnit*> heal_list;
     PriorityQueue<EarthSoldier*, CompareEarthSoldier> soldier_UML;
     LinkedQueue<EarthTank*> tank_UML;
+
     LinkedQueue<ArmyUnit *> killed_list;
 
 
     int curr_time_step;
     int threshold;
     int infection_number, immune_number;
-    bool saver_mode;
-    bool savers_called_before;
-    //    std::ofstream out_file;
     bool interactive_mode{};
     int killed_earth_soldiers{}, killed_earth_tanks{}, killed_earth_gunneries{};
     int killed_aliens_drones{}, killed_aliens_soldiers{}, killed_aliens_monsters{}, killed_saver_units{};
     int total_killed_earth() const;
     int total_killed_aliens() const;
-
+    int fightSavers{};
 
     const string& winner() const;
-
 public:
 
     Game();
@@ -77,15 +75,16 @@ public:
     void play();
     void fight();
 
-    // special cases
     bool which_tank_attack() const; // to know if the tanks need to attack alien soldier ir not
     bool stop_attacking_soldiers() const;
     bool check_savers_mode();
+    bool saver_mode;
+    bool  savers_called_before = false;
 
     bool is_interactive() const;
     void print_stats(ofstream& out_file) const;
-
     void print() const;
+//    int getFightSaversState();
 };
 
 #endif //GAME_H

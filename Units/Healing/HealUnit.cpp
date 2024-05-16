@@ -18,25 +18,23 @@ void HealUnit::attack() {
 
         if (damaged_soldier) {
             heal(damaged_soldier);
-            if ((double)damaged_soldier->getHealth() < double(damaged_soldier->getOriginalHealth() * 0.2)) {
+
+            if (!damaged_soldier->is_healed()) {
                 temp_list.enqueue(damaged_soldier);
-            }
-            else {
+            } else {
                 game->add_unit(damaged_soldier, earth_soldier);
             }
-        }
-        else {
+        } else {
             damaged_tank = game->pick_from_tank_UML();
             if (damaged_tank){
                 heal(damaged_tank);
-                if (damaged_tank->getHealth() < double(damaged_tank->getOriginalHealth() * 0.2)) {
+
+                if (!damaged_tank->is_healed()) {
                     temp_list.enqueue(damaged_tank);
-                }
-                else {
+                } else {
                     game->add_unit(damaged_tank, earth_tank);
                 }
-            }
-            else {
+            } else {
                 break;
             }
         }
@@ -48,27 +46,57 @@ void HealUnit::attack() {
 
         if (damaged_unit->getTypeId() == earth_soldier) {
             game->add_to_soldier_UML(static_cast<EarthSoldier*>(damaged_unit));
-        }
-        else {
+        } else {
             game->add_to_tank_UML(static_cast<EarthTank*>(damaged_unit));
         }
     }
 }
 
 void HealUnit::heal(ArmyUnit *damaged_unit) {
+//    int hl = 0;
+//    if (damaged_unit->getTypeId() == earth_soldier) {
+//        if (static_cast<EarthSoldier*>(damaged_unit)->get_infection()) {
+//            hl = (damaged_unit->getHealth() + (( (power * health) / 100) / sqrt(damaged_unit->getHealth()) )) / 2;
+//            if (damaged_unit->getHealth() > double(damaged_unit->getOriginalHealth() * 0.2)) {
+//                static_cast<EarthSoldier*>(damaged_unit)->set_immune(true);
+//                game->increment_immune_number();
+//            }
+//        }
+//    }
+//    if (hl == 0) {
+//        hl = (damaged_unit->getHealth() + (( (power * health) / 100) / sqrt(damaged_unit->getHealth())));
+//    }
+//    damaged_unit->setHealth(hl);
+
+
+    if (!damaged_unit) {
+        return;
+    }
+
     int hl = 0;
     if (damaged_unit->getTypeId() == earth_soldier) {
-        if (static_cast<EarthSoldier*>(damaged_unit)->get_infection()) {
-            hl = (damaged_unit->getHealth() + (( (power * health) / 100) / sqrt(damaged_unit->getHealth()) )) / 2;
-            if (damaged_unit->getHealth() > double(damaged_unit->getOriginalHealth() * 0.2)) {
-                static_cast<EarthSoldier*>(damaged_unit)->set_immune(true);
+        auto soldier = static_cast<EarthSoldier*>(damaged_unit);
+        if (soldier->get_infection()) {
+            //samll change here damaunig_getHealth() should be after this operation
+            hl = (((((power * health) / 100) / sqrt(damaged_unit->getHealth()) ))) / 2;
+            //shouldnot we check for the new health after the healing ????
+            soldier->setHealth(soldier->getHealth() + hl);
+
+            if (soldier->is_healed()) {
+                soldier->set_immune(true);
                 game->increment_immune_number();
+                //Show we now decrease the infection number
+                //and make him not infected
+                //Important
+                soldier->set_infection(false);
+                game->decrement_infection_number();
             }
         }
+        return;
     }
-    if (hl == 0) {
-        hl = (damaged_unit->getHealth() + (( (power * health) / 100) / sqrt(damaged_unit->getHealth()) ));
-    }
+//    if (hl == 0) {
+    hl = (damaged_unit->getHealth() + (( (power * health) / 100) / sqrt(damaged_unit->getHealth())));
+//    }
     damaged_unit->setHealth(hl);
 }
 

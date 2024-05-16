@@ -42,29 +42,35 @@ void AlienMonster::attack() {
         if (!curr->is_attacked()) {
             curr->setTa(time_step);
         }
-        damage(curr);
-        if (random < infection_prob) {
-            if (curr->getTypeId() == earth_soldier) {
-                static_cast<EarthSoldier*>(curr)->set_infection(true);
-                game->increment_infection_number();
-            }
+        //Edit if we will infect it i think we shouldnot infect it
+        if (random < infection_prob && curr->getTypeId() == earth_soldier) {
+                auto earthsoldier = static_cast<EarthSoldier*>(curr);
+
+                if (!earthsoldier->get_immune() && !earthsoldier->get_infection()) {
+                    earthsoldier->set_infection(true);
+                    game->increment_infection_number();
+                    game->add_unit(curr, earth_soldier);
+                    continue;
+                }
+                //return it to its list
         }
+        //EdIT ASK MARIOOOOOOOOOO
+        //Damage the unit after checking if it is infected or not
+        damage(curr);
 
         if (curr->isDead()) {
             curr->setTd(time_step);
             game->add_to_killed_list(curr);
-            if (curr->getTypeId() == earth_soldier) {
+            //if Killed should and infected should we decrement infection num
+            if (curr->getTypeId() == earth_soldier && static_cast<EarthSoldier*>(curr)->get_infection()) {
                 game->decrement_infection_number();
             }
-        }
-        else if ((double)curr->getHealth() >= double(curr->getOriginalHealth() * 0.2)) {
+        } else if ((double)curr->getHealth() >= double(curr->getOriginalHealth() * 0.2)) {
             game->add_unit(curr, curr->getTypeId());
-        }
-        else {
+        } else {
             if (curr->getTypeId() == earth_soldier) {
                 game->add_to_soldier_UML(static_cast<EarthSoldier*>(curr));
-            }
-            else if (curr->getTypeId() == earth_tank) {
+            } else if (curr->getTypeId() == earth_tank) {
                 game->add_to_tank_UML(static_cast<EarthTank*>(curr));
             }
         }

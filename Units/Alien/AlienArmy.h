@@ -28,7 +28,6 @@ class AlienArmy {
     size_t getKilledMonsters() const;
     size_t getKilledDrones() const;
     size_t units_count() const;
-    void print_stats(ofstream &out) const;
 
 private:
     LinkedQueue<AlienSoldier*> Asoldiers;

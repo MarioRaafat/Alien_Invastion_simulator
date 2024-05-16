@@ -35,7 +35,10 @@ void AlienSoldier::attack() {
         if (curr->isDead()) {
             curr->setTd(time_step);
             game->add_to_killed_list(curr);
-            game->decrement_infection_number();
+            //MARIO a quick qesutoin should we make sure that it is infected before we decrement the infection number
+            if (static_cast<EarthSoldier*>(curr)->get_infection()) {
+                game->decrement_infection_number();
+            }
         } else if ((double) curr->getHealth() >= double(curr->getOriginalHealth() * 0.2)){
             game->add_unit(curr, earth_soldier);
         }

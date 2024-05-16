@@ -3,10 +3,7 @@
 #include "LinkedQueue.h"
 
 EarthTank::EarthTank(Game *game, int id, int t, int pw, int hl, int attc) :
-        ArmyUnit(game, id, earth_tank, t, pw, hl, attc)
-{
-    count_UML = 0;
-}
+        ArmyUnit{game, id, earth_tank, t, pw, hl, attc} , count_UML{0} {}
 
 void EarthTank::attack() {
     int time_step = game->get_time();
@@ -79,4 +76,8 @@ int EarthTank::get_count_UML() const {
 
 void EarthTank::set_count_UML(int num) {
     count_UML = num;
+}
+
+bool EarthTank::is_healed() const {
+    return (double(getHealth()) > double(getOriginalHealth() * 0.2));
 }

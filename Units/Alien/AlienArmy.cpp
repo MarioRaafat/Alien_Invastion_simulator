@@ -171,5 +171,5 @@ size_t AlienArmy::getKilledSoldiers() const {
 }
 
 size_t AlienArmy::units_count() const {
-    return killed_drones + killed_monsters + killed_soldiers;
+    return Asoldiers.size() + monsters.size() + drones.size();
 }

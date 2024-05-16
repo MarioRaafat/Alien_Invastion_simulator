@@ -25,7 +25,6 @@ class EarthArmy {
     LinkedQueue<SaverUnit*> savers;
 
     size_t units_count() const;
-
 public:
 
     void addUnit(ArmyUnit *unit, unit_type type);
@@ -39,10 +38,5 @@ public:
     size_t gunneries_count() const;
 
     size_t army_size() const;
-    void print_stats(ofstream &out) const;
 };
-
-
-
-
 #endif //ALIEN_INVASTION_SIMULATOR_EARTHARMY_H

@@ -60,7 +60,7 @@ void EarthArmy::print() const {
     cout << Esoldiers.size() << " ES " << Esoldiers;
     cout << tanks.getTop() << " ET " << tanks;
     cout << gunneries.size() << " EG " << gunneries << "\n";
-
+    cout << savers.size() << " Saver Units " << savers << "\n";
 }
 
 EarthArmy::~EarthArmy() {
@@ -83,10 +83,12 @@ EarthArmy::~EarthArmy() {
         gunnery = nullptr;
     }
 
-    SaverUnit* saver = {};
-    while (savers.dequeue(saver)) {
-        delete saver;
-        saver = nullptr;
+    while (!savers.isEmpty()) {
+        SaverUnit* saver = {};
+        if (savers.dequeue(saver)) {
+            delete saver;
+            saver = nullptr;
+        }
     }
 }
 
