@@ -336,13 +336,12 @@ bool Game::check_savers_mode() {
         }
         saver_mode = false;
     } else if (!Sarmy.is_destroyed()) {//if !distroyed :means not stopiing yet check or stopping condtion
-        if (Earmy.soliders_count() && (((infection_number * 100) / Earmy.soliders_count()) >= threshold)) {
+        if ((Earmy.soliders_count() + soldier_UML.size()) && (((infection_number * 100) / (Earmy.soliders_count() + soldier_UML.size())) >= threshold)) {
             saver_mode = true;
         }
     }
     return saver_mode;
 }
-
 
 /**
  * @param unit the unit to add to the killed list
@@ -407,7 +406,7 @@ const string &Game::winner() const {
     if (Aarmy.army_size() > 0 && Earmy.army_size() == 0) {
         return alien;
     }
-    if (Aarmy.army_size() == Earmy.army_size()) {
+    if (curr_time_step == 3000) {
         return draw;
     }
     return none;
@@ -427,8 +426,8 @@ int Game::total_killed_earth() const {
 
 void Game::print_stats(ofstream &out_file) const {
     out_file << "\nInfecton Ratio: "<< (total_earth_soldiers_count() != 0 ? (double) total_infected / total_earth_soldiers_count() : 0) * 100 << "\n";
-    out_file << "#Earth Units Generated vs #Alien Units Generated vs #Savers Units Generated"
-             << generator->get_Ecount() << " " << generator->get_Acount() << " " << generator->get_Scount() << "\n";
+    out_file << "#Earth Units Generated vs #Alien Units Generated: Vvs #Saver Units Generated:"
+             << generator->get_Ecount() << " " << generator->get_Acount() <<  " " << generator->get_Scount() << "\n";
     print_earth_stats(out_file);
     print_alien_stats(out_file);
     print_saver_satats(out_file);

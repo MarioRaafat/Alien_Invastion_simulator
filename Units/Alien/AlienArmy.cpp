@@ -67,6 +67,8 @@ ArmyUnit *AlienArmy::pickUnit(unit_type type, bool droneFront, bool pickone) {
                 if (pickone) {
                     drones.pop_front(drone);
                     return drone;
+                } else {
+                    return nullptr;
                 }
             }
             if (droneFront) {
